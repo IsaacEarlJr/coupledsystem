@@ -337,6 +337,8 @@
  .catch(error => {
    console.error('Error:', error);
  });
+//  To add a GeoJSON layer to your layer control, you first need to load the GeoJSON data and create a layer from it. Then, you can add this layer to your layer control. Here's how you can do it:
+
 
 
 
@@ -519,7 +521,18 @@ document.getElementById('exit-button').addEventListener('click', function() {
     // Add the GeoJSON layer to the map
     geoJSONLayer.addTo(map);
 
-
+     // Define your overlay maps
+     var overlayMaps = {
+      // Other layers...
+      "GeoJSON Layer": geoJSONLayer
+    };
+    // Add a layer control
+    L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+  
 
 
 
