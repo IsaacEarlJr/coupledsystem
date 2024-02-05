@@ -535,14 +535,27 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 
 
-var map = L.map('map').setView([39.9526, -75.1638], 10);
+require([
+  "esri/Map",
+  "esri/layers/GeoJSONLayer",
+  "esri/views/MapView"
+], function(Map, GeoJSONLayer, MapView) {
+  const layer = new GeoJSONLayer({
+    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer"
+  });
 
-L.esri.basemapLayer('Topographic').addTo(map);
+  const map = new Map({
+    basemap: "topo-vector",
+    layers: [layer]
+  });
 
-L.esri.featureLayer({
-    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer' // 
-}).addTo(map);
-
+  const view = new MapView({
+    container: "map", // Use the id of your existing div
+    map: map,
+    zoom: 10,
+    center: [-75.1638, 39.9526] // This is the longitude and latitude for Philadelphia
+  });
+});
 
 
 
