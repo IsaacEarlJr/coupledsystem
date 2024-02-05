@@ -535,6 +535,16 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 
 
+var map = L.map('map');
+
+L.esri.basemapLayer('Topographic').addTo(map);
+
+L.esri.featureLayer({
+  url: 'https://arcg.is/1nP01G1' // Replace with the correct URL
+}).addTo(map);
+
+
+
 
 
    </script>
