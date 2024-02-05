@@ -329,14 +329,14 @@
 
 
 
-    fetch('map.geojson')
- .then(response => response.json())
- .then(data => {
-   L.geoJSON(data).addTo(map);
-})
- .catch(error => {
-   console.error('Error:', error);
- });
+//     fetch('map.geojson')
+//  .then(response => response.json())
+//  .then(data => {
+//    L.geoJSON(data).addTo(map);
+// })
+//  .catch(error => {
+//    console.error('Error:', error);
+//  });
 
 
 
@@ -363,12 +363,17 @@
     });
 
 
-    var geoJSON = ('map.geojson', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-        
-});
+    var geoJSON;
+
+fetch('map.geojson')
+  .then(response => response.json())
+  .then(data => {
+    geoJSON = L.geoJSON(data);
+    geoJSON.addTo(map);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 
 
 
@@ -385,12 +390,16 @@
     "OpenStreetMap": OpenStreetMap,
     "Esri WorldImagery": Esri_WorldImagery,
     "CartoDB Dark Matter": CartoDB_DarkMatter,
-    "Coastal Cities": geoJSON
 };
   
+var overlayMaps = {
+  "GeoJSON Layer": geoJSON
+  // other overlay layers...
+};
+
 
 // Add the base maps to a layer control, set its position to the top left, and add it to the map
-var control = L.control.layers(baseMaps, null, { position: 'topleft' }).addTo(map);
+var control = L.control.layers(baseMaps, overlayMaps, null, { position: 'topleft' }).addTo(map);
 L.DomUtil.addClass(control.getContainer(), 'custom-position');  //if i did not add this line, the layer control would be on the top right of the map under the search bar
 // i could move this arround by changing 247-249
 
