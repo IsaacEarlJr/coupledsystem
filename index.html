@@ -537,26 +537,26 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 
 require([
-        "esri/Map",
-        "esri/layers/FeatureLayer",
-        "esri/views/MapView"
-    ], function(Map, FeatureLayer, MapView) {
-        const layer = new FeatureLayer({
-            url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson" // Replace with the correct URL
-        });
+  "esri/Map",
+  "esri/layers/GeoJSONLayer", // Use GeoJSONLayer instead of FeatureLayer
+  "esri/views/MapView"
+], function(Map, GeoJSONLayer, MapView) {
+  const layer = new GeoJSONLayer({
+    url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
+  });
 
-        const map = new Map({
-            basemap: "topo-vector",
-            layers: [layer]
-        });
+  const map = new Map({
+    basemap: "topo-vector",
+    layers: [layer]
+  });
 
-        const view = new MapView({
-            container: "viewDiv", // Replace with the id of your container
-            map: map,
-            zoom: 10,
-            center: [-75.1638, 39.9526] // Replace with your preferred longitude and latitude
-        });
-    });
+  const view = new MapView({
+    container: "viewDiv",
+    map: map,
+    zoom: 10,
+    center: [-75.1638, 39.9526] // This is the longitude and latitude for Philadelphia
+  });
+});
 
 
 
