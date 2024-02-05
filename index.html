@@ -328,7 +328,7 @@
             </div>
 
 
-            <div id="viewDiv"></div>        
+            <div id="viewDiv" style="height: 100%; width: 100%;"></div>    
 
     <script>
     /*any variable or code must be inside a script bracket*/
@@ -366,15 +366,13 @@
 
 
 
-    var map = L.map('map'); // Set the initial view of the map
+    var map = L.map('viewDiv'); // Set the initial view of the map
 
-L.esri.basemapLayer('Topographic').addTo(map);
+L.esri.basemapLayer('Cities').addTo(map);
 
 L.esri.featureLayer({
     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
 }).addTo(map); // Add the layer to the map
-
-
 
 
 
