@@ -365,13 +365,13 @@
 
 
 
-    var map = L.map('viewDiv'); // Set the initial view of the map
+    var map2 = L.map('viewDiv'); // Set the initial view of the map
 
-L.esri.basemapLayer('Cities').addTo(map);
+L.esri.basemapLayer('Cities').addTo(map2);
 
 L.esri.featureLayer({
     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
-}).addTo(map); // Add the layer to the map
+}).addTo(map2); // Add the layer to the map
 
 
 
