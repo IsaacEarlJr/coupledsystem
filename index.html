@@ -322,11 +322,33 @@
         
             </div>
 
-
+            <div id="viewDiv"></div> <!--this is the div for the arcgis map ---aka--- is the container for the map-->
             
 
     <script>
     /*any variable or code must be inside a script bracket*/
+
+    require([
+  "esri/Map",
+  "esri/layers/FeatureLayer", //this line is different from what online says
+  "esri/views/MapView"
+], function(Map, FeatureLayer, MapView) {
+  var layer = new FeatureLayer({   //says var instead of const. is this a mistake?
+    url: "https://ufl.maps.arcgis.com/home/item.html?id=704e001647c04e5ab8432da82d1ff2a2"   //this is the url for the feature layer
+  });
+
+  var map = new Map({
+    basemap: "topo-vector",
+    layers: [layer]
+  });
+
+  var view = new MapView({
+    container: "viewDiv",
+    map: map,
+    zoom: 10,
+    center: [-75.1638, 39.9526] // This is the longitude and latitude for Philadelphia
+  });
+});
 
 
 
