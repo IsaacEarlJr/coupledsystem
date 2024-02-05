@@ -499,7 +499,26 @@ function addClickListenerToLayer(layer) {
 
    
 
+fetch ('map.geojson')
+  .then(response => response.json())
+  .then(data => {
+    // Create the GeoJSON layer
+    var geoJSONLayer = L.geoJSON(data);
 
+    // Add the GeoJSON layer to the map
+    geoJSONLayer.addTo(map);
+
+    // Define your overlay maps
+    var overlayMaps = {
+      "GeoJSON Layer": geoJSONLayer
+    };
+
+    // Add a layer control
+    L.control.layers(null, overlayMaps, { position: 'topright', collapsed: true }).addTo(map);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 
    
 
@@ -507,32 +526,7 @@ document.getElementById('exit-button').addEventListener('click', function() {
     document.getElementById('dropdown').style.display = 'none';  // Hide the dropdown button
 });
 
-fetch('map.geojson')
- .then(response => response.json())
- .then(data => {
-   L.geoJSON(data).addTo(map);
-})
- .catch(error => {
-   console.error('Error:', error);
- });
- 
- // creat the GEOJSON layer
- var geoJSONLayer = L.geoJSON(data);
 
-    // Add the GeoJSON layer to the map
-    geoJSONLayer.addTo(map);
-
-     // Define your overlay maps
-     var overlayMaps = {
-      // Other layers...
-      "GeoJSON Layer": geoJSONLayer
-    };
-    // Add a layer control
-    L.control.layers(null, overlayMaps, { position: 'topright', collapsed: true }).addTo(map);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
 
 
 
