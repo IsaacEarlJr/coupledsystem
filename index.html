@@ -330,19 +330,19 @@
 
     require([
   "esri/Map",
-  "esri/layers/FeatureLayer", //this line is different from what online says
+  "esri/layers/FeatureLayer",
   "esri/views/MapView"
 ], function(Map, FeatureLayer, MapView) {
-  var layer = new FeatureLayer({   //says var instead of const. is this a mistake?
-    url: "https://ufl.maps.arcgis.com/home/item.html?id=704e001647c04e5ab8432da82d1ff2a2"   //this is the url for the feature layer
+  const layer = new FeatureLayer({
+    url: "https://services.arcgis.com/8lRhdTsQyJtbNzUB/arcgis/rest/services/FL_Elevation_Contours/FeatureServer/0"  //this is the url for the layer. different from what i copied from the arcgis website. ask why
   });
 
-  var map = new Map({
+  const map = new Map({
     basemap: "topo-vector",
     layers: [layer]
   });
 
-  var view = new MapView({
+  const view = new MapView({
     container: "viewDiv",
     map: map,
     zoom: 10,
