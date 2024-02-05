@@ -337,6 +337,18 @@
     /*any variable or code must be inside a script bracket*/
 
 
+
+    fetch('map.geojson')
+ .then(response => response.json())
+ .then(data => {
+   L.geoJSON(data).addTo(map);
+})
+ .catch(error => {
+   console.error('Error:', error);
+ });
+
+
+
  // VARIABLES ARE NOT LIKE DIVS. THEY  ARE "CONTAINERS" THAT SORT VALUES THAT WE HAVE MADE UP. THIS IS THE MATH PART WHICH GIVES ORDER TO THE PAGE.
  // THIS VAR THAT WE MADE UP IS CALLED OPENSTREETMAP. IT EQUALS L.TLELAYER WHICH IS A FUNCTION (REMEBER MATH) THAT TAKES IN A STRING(ELEMENT). THE STRING IS THE URL OF THE MAP.
 
@@ -496,14 +508,6 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 
 
-fetch('map.geojson')
- .then(response => response.json())
- .then(data => {
-   L.geoJSON(data).addTo(map);
-})
- .catch(error => {
-   console.error('Error:', error);
- });
 
 
 
