@@ -333,16 +333,26 @@
     /*any variable or code must be inside a script bracket*/
 
     require([
-  "esri/Map",
-  "esri/layers/FeatureLayer",
-  "esri/views/MapView"
-], function(Map, FeatureLayer, MapView) {
-  const layer = new FeatureLayer({
-    url: "https://arcg.is/1nP01G1"  //this is the url for the layer. different from what i copied from the arcgis website. ask why
-  });
+        "esri/Map",
+        "esri/layers/FeatureLayer",
+        "esri/views/MapView"
+    ], function(Map, FeatureLayer, MapView) {
+        const layer = new FeatureLayer({
+            url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson" // Replace with the correct URL
+        });
 
+        const map = new Map({
+            basemap: "topo-vector",
+            layers: [layer]
+        });
 
-});
+        const view = new MapView({
+            container: "viewDiv", // Replace with the id of your container
+            map: map,
+            zoom: 10,
+            center: [-75.1638, 39.9526] // Replace with your preferred longitude and latitude
+        });
+    });
 
 
 
