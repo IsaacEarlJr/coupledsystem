@@ -39,11 +39,6 @@
 <script src="https://unpkg.com/esri-leaflet"></script> <!--this is ArcGISpacakge-->
 
 
-<link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css" /> <!--this is ArcGISpacakge-->
-<script src="https://js.arcgis.com/4.28/"></script> <!--this is ArcGISpacakge-->
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.12.0/leaflet-providers.min.js"></script>
 
 
@@ -326,13 +321,12 @@
         
             </div>
 
-            <div id="viewDiv"></div> <!--this is the div for the arcgis map ---aka--- is the container for the map-->
+
             
 
     <script>
     /*any variable or code must be inside a script bracket*/
 
-    
 
 
 
@@ -532,31 +526,6 @@ document.getElementById('exit-button').addEventListener('click', function() {
     document.getElementById('dropdown').style.display = 'none';  // Hide the dropdown button
 });
 
-
-
-
-
-require([
-  "esri/Map",
-  "esri/layers/GeoJSONLayer", // Use GeoJSONLayer instead of FeatureLayer
-  "esri/views/MapView"
-], function(Map, GeoJSONLayer, MapView) {
-  const layer = new GeoJSONLayer({
-    url: "https://services.arcgis.com/8lRhdTsQyJtbNzUB/arcgis/rest/services/FL_Elevation_Contours/FeatureServer/0" // Replace with the correct URL
-  });
-
-  const map = new Map({
-    basemap: "topo-vector",
-    layers: [layer]
-  });
-
-  const view = new MapView({
-    container: "map",
-    map: map,
-    zoom: 10,
-    center: [-75.1638, 39.9526] // This is the longitude and latitude for Philadelphia
-  });
-});
 
 
 
