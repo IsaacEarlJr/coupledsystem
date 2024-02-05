@@ -356,29 +356,9 @@
 
 
 
-// Create multiple tile layers
-var tileLayer1 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-});
-
-var tileLayer2 = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-});
-
-// Add the first tile layer to the map
-tileLayer1.addTo(map);
-
-// Create a layers control and add it to the map
-var baseMaps = {
-  "Layer 1": tileLayer1,
-  "Layer 2": tileLayer2
-};
-
-L.control.layers(baseMaps).addTo(map);
 
 
+    
     // Initialize the map with OpenStreetMap as the base map
     var map = L.map('map', {
         center: [28.5000, -90.6000],
@@ -391,6 +371,7 @@ L.control.layers(baseMaps).addTo(map);
     var baseMaps = {
         "OpenStreetMap": OpenStreetMap,
         "Esri WorldImagery": Esri_WorldImagery,
+        "xyz": map.geojson,
     };
 
 // Add the base maps to a layer control, set its position to the top left, and add it to the map
