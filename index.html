@@ -327,6 +327,18 @@
     <script>
     /*any variable or code must be inside a script bracket*/
 
+    var geoJSON;
+
+fetch('map.geojson')
+  .then(response => response.json())
+  .then(data => {
+    geoJSON = L.geoJSON(data);
+    geoJSON.addTo(map);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
 
 
 //     fetch('map.geojson')
@@ -363,18 +375,6 @@
     });
 
 
-    var geoJSON;
-
-fetch('map.geojson')
-  .then(response => response.json())
-  .then(data => {
-    geoJSON = L.geoJSON(data);
-    geoJSON.addTo(map);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-
 
 
     // Initialize the map with OpenStreetMap as the base map
@@ -398,12 +398,10 @@ var overlayMaps = {
 };
 
 
-L.control.layers(baseMaps, overlayMaps).addTo(map);
-
 // Add the base maps to a layer control, set its position to the top left, and add it to the map
-// var control = L.control.layers(baseMaps, overlayMaps, null, { position: 'topleft' }).addTo(map);
-// L.DomUtil.addClass(control.getContainer(), 'custom-position');  //if i did not add this line, the layer control would be on the top right of the map under the search bar
-// // i could move this arround by changing 247-249
+var control = L.control.layers(baseMaps, overlayMaps, null, { position: 'topleft' }).addTo(map);
+L.DomUtil.addClass(control.getContainer(), 'custom-position');  //if i did not add this line, the layer control would be on the top right of the map under the search bar
+// i could move this arround by changing 247-249
 
 
     L.control.zoom({
