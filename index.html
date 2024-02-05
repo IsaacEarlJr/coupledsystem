@@ -542,7 +542,7 @@ require([
   "esri/views/MapView"
 ], function(Map, GeoJSONLayer, MapView) {
   const layer = new GeoJSONLayer({
-    url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
+    url: "https://services.arcgis.com/8lRhdTsQyJtbNzUB/arcgis/rest/services/FL_Elevation_Contours/FeatureServer/0" // Replace with the correct URL
   });
 
   const map = new Map({
