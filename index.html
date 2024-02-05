@@ -535,27 +535,15 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 
 
-require([
-        "esri/Map",
-        "esri/layers/FeatureLayer", // Use FeatureLayer instead of GeoJSONLayer
-        "esri/views/MapView"
-    ], function(Map, FeatureLayer, MapView) {
-        const layer = new FeatureLayer({
-            url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer"
-        });
+var map = L.map('viewDiv').setView([39.9526, -75.1638], 10); // Set the initial view of the map
 
-        const map = new Map({
-            basemap: "topo-vector",
-            layers: [layer]
-        });
+L.esri.basemapLayer('Topographic').addTo(map);
 
-        const view = new MapView({
-            container: "viewDiv", // Use the id of your existing div
-            map: map,
-            zoom: 10,
-            center: [-75.1638, 39.9526] // This is the longitude and latitude for Philadelphia
-        });
-    });
+L.esri.featureLayer({
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
+}).addTo(map); // Add the layer to the map
+
+
 
 
    </script>
