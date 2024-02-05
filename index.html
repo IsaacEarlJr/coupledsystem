@@ -502,7 +502,13 @@ function addClickListenerToLayer(layer) {
 // addClickListenerToLayer(polygonLayer3);
 // addClickListenerToLayer(polygonLayer4);
 
+var map = L.map('map').setView([39.9526, -75.1638], 10);
 
+L.esri.basemapLayer('Topographic').addTo(map);
+
+L.esri.featureLayer({
+    url: 'https://arcg.is/1nP01G1' // 
+}).addTo(map);
    
 
 fetch ('map.geojson')
@@ -535,13 +541,7 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 
 
-var map = L.map('map').setView([39.9526, -75.1638], 10);
 
-L.esri.basemapLayer('Topographic').addTo(map);
-
-L.esri.featureLayer({
-    url: 'https://arcg.is/1nP01G1' // 
-}).addTo(map);
 
 
 
