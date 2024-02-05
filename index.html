@@ -245,7 +245,7 @@
 }
 
 .custom-position {
-    margin-top: 65px !important;
+    margin-top: 40px !important;
     left: 5px;
 }
 
@@ -327,28 +327,16 @@
     <script>
     /*any variable or code must be inside a script bracket*/
 
-    var geoJSON;
-
-fetch('map.geojson')
-  .then(response => response.json())
-  .then(data => {
-    geoJSON = L.geoJSON(data);
-    geoJSON.addTo(map);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
 
 
-
-//     fetch('map.geojson')
-//  .then(response => response.json())
-//  .then(data => {
-//    L.geoJSON(data).addTo(map);
-// })
-//  .catch(error => {
-//    console.error('Error:', error);
-//  });
+    fetch('map.geojson')
+ .then(response => response.json())
+ .then(data => {
+   L.geoJSON(data).addTo(map);
+})
+ .catch(error => {
+   console.error('Error:', error);
+ });
 
 
 
@@ -377,6 +365,7 @@ fetch('map.geojson')
 
 
 
+
     // Initialize the map with OpenStreetMap as the base map
     var map = L.map('map', {
         center: [28.5000, -90.6000],
@@ -392,10 +381,7 @@ fetch('map.geojson')
     "CartoDB Dark Matter": CartoDB_DarkMatter,
 };
   
-var overlayMaps = {
-  "GeoJSON Layer": geoJSON
-  // other overlay layers...
-};
+
 
 
 // Add the base maps to a layer control, set its position to the top left, and add it to the map
