@@ -338,6 +338,12 @@
    console.error('Error:', error);
  });
 
+ // creat the GEOJSON layer
+ var geoJSONLayer = L.geoJSON(data);
+
+    // Add the GeoJSON layer to the map
+    geoJSONLayer.addTo(map);
+
 
 
  // VARIABLES ARE NOT LIKE DIVS. THEY  ARE "CONTAINERS" THAT SORT VALUES THAT WE HAVE MADE UP. THIS IS THE MATH PART WHICH GIVES ORDER TO THE PAGE.
