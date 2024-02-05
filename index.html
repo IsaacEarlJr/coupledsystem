@@ -527,12 +527,12 @@ document.getElementById('exit-button').addEventListener('click', function() {
       "GeoJSON Layer": geoJSONLayer
     };
     // Add a layer control
-    L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
+    L.control.layers(null, overlayMaps, { position: 'topright', collapsed: true }).addTo(map);
   })
   .catch(error => {
     console.error('Error:', error);
   });
-  
+
 
 
 
