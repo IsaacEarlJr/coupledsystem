@@ -366,6 +366,17 @@
 
 
 
+    var map = L.map('map'); // Set the initial view of the map
+
+L.esri.basemapLayer('Topographic').addTo(map);
+
+L.esri.featureLayer({
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
+}).addTo(map); // Add the layer to the map
+
+
+
+
 
     // Initialize the map with OpenStreetMap as the base map
     var map = L.map('map', {
@@ -535,13 +546,6 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 
 
-var map = L.map('map'); // Set the initial view of the map
-
-L.esri.basemapLayer('Topographic').addTo(map);
-
-L.esri.featureLayer({
-    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
-}).addTo(map); // Add the layer to the map
 
 
 
