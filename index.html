@@ -406,21 +406,6 @@ document.getElementById('info-button').addEventListener('click', function() {   
 
 
 
-var ArcGIS_FeatureLayer = L.esri.featureLayer({
-    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer/0',
-    token: 'AAPK220ba579086140dea4e25f522bf00c8bG3Mb_Pd1g_KKKi94wj2H2lL_ceoaHcU25yTWEgLu20jkuceWo9_tPekrNz5Yr-nu',
-    style: function (feature) {
-        // You can customize the style of the features here
-        return {
-            color: 'blue',
-            weight: 2,
-            fillOpacity: 0.5
-        };
-    }
-});
-
-// Add ArcGIS FeatureLayer to the map
-ArcGIS_FeatureLayer.addTo(map);
 
 
    </script>
