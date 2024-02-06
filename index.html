@@ -561,14 +561,20 @@ fetch ('map.geojson')
 
 require([
   "esri/Map",
-  "esri/layers/FeatureLayer", // Use FeatureLayer instead of GeoJSONLayer
-  "esri/views/MapView"
-], function(Map, FeatureLayer, MapView) {
+  "esri/layers/FeatureLayer",
+  "esri/views/MapView",
+  "esri/identity/IdentityManager"
+], function(Map, FeatureLayer, MapView, IdentityManager) {
+  IdentityManager.registerToken({
+    server: "https://services.arcgis.com/",
+    token: "<AAPK220ba579086140dea4e25f522bf00c8bG3Mb_Pd1g_KKKi94wj2H2lL_ceoaHcU25yTWEgLu20jkuceWo9_tPekrNz5Yr-nu>"
+  });
+
   const layer = new FeatureLayer({
     url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer"
   });
 
-
+  // rest of your code...
 });
 
 
