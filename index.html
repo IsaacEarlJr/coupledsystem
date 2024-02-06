@@ -411,11 +411,6 @@ var popup = L.popup() //this is the popup window that appears when you load the 
 
 
 
-    var featureLayer = L.esri.featureLayer({
-  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer",
-}).addTo(viewDiv);
-
-
 
 
     //code for panel toggling
@@ -506,6 +501,15 @@ function addClickListenerToLayer(layer) {
    
     });
 }
+
+
+
+
+var featureLayer = L.esri.featureLayer({
+  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer",
+}).addTo(map);
+
+
 
 // Add the click listener to polygonLayers
 // addClickListenerToLayer(polygonLayer0);
