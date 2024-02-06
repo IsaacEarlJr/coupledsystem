@@ -436,20 +436,14 @@ require([
         esriConfig.apiKey = "AAPK220ba579086140dea4e25f522bf00c8bG3Mb_Pd1g_KKKi94wj2H2lL_ceoaHcU25yTWEgLu20jkuceWo9_tPekrNz5Yr-nu";
 
 
-        const urls = [
-      "https://arcg.is/OLLG5",
- 
+        const layer = new GeoJSONLayer({
+      "https://arcg.is/OLLG5"
       // Add more URLs here
-    ];
-
-    urls.forEach(function(url) {
-      var layer = new FeatureLayer({
-        url: url
-      });
+    });
 
       map.add(layer);
     });
-  });
+  
 
 
    </script>
