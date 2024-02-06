@@ -438,6 +438,18 @@ require([
 
     esriConfig.apiKey = "AAPK220ba579086140dea4e25f522bf00c8bG3Mb_Pd1g_KKKi94wj2H2lL_ceoaHcU25yTWEgLu20jkuceWo9_tPekrNz5Yr-nu";
 
+    // Create a Map object
+    var map = new Map({
+        basemap: 'streets' // Change 'streets' to your preferred basemap
+    });
+
+    // Create a MapView
+    var view = new MapView({
+        map: map,
+        container: 'map', // Change 'map' to your map container ID
+        center: [28.5000, -90.6000],
+        zoom: 6.5
+    });
 
     // GeoJSONLayer
     const layer = new GeoJSONLayer({
