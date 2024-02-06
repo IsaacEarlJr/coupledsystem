@@ -413,21 +413,21 @@ var popup = L.popup() //this is the popup window that appears when you load the 
 
 
 
-    //code for panel toggling
-    window.onload = function() {
-    var contentPanel = document.getElementById('content-panel');
-    contentPanel.classList.add('closed');
+//     //code for panel toggling
+//     window.onload = function() {
+//     var contentPanel = document.getElementById('content-panel');
+//     contentPanel.classList.add('closed');
 
-    document.getElementById('collapse-button').addEventListener('click', function() {
-        if (contentPanel.classList.contains('closed')) {
-            contentPanel.classList.remove('closed');
-            this.innerHTML = '◄'; // Change the button text to '◄'
-        } else {
-            contentPanel.classList.add('closed');
-            this.innerHTML = '►'; // Change the button text to '►'
-        }
-    });
-};
+//     document.getElementById('collapse-button').addEventListener('click', function() {
+//         if (contentPanel.classList.contains('closed')) {
+//             contentPanel.classList.remove('closed');
+//             this.innerHTML = '◄'; // Change the button text to '◄'
+//         } else {
+//             contentPanel.classList.add('closed');
+//             this.innerHTML = '►'; // Change the button text to '►'
+//         }
+//     });
+// };
 
 
 
@@ -461,26 +461,26 @@ document.getElementById('info-button').addEventListener('click', function() {   
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////// this is the code for the polygons (OG script)
-document.getElementById('clear-data-button').addEventListener('click', function() {
-    document.getElementById('data-display').innerHTML = '';
-});
+// document.getElementById('clear-data-button').addEventListener('click', function() {
+//     document.getElementById('data-display').innerHTML = '';
+// });
 
-function addClickListenerToLayer(layer) {
-    layer.on('click', function(e) {
+// function addClickListenerToLayer(layer) {
+//     layer.on('click', function(e) {
         
        
-        // Get the properties of the clicked polygon
-        var properties = e.layer.feature.properties;
+//         // Get the properties of the clicked polygon
+//         var properties = e.layer.feature.properties;
 
-        // Start the propertiesString with an empty string
-        var propertiesString = '';
+//         // Start the propertiesString with an empty string
+//         var propertiesString = '';
 
-        // Loop through each property and add it to propertiesString with HTML formatting
-        for (var key in properties) {
-    propertiesString += '<div class="property-box"><p><strong>' + key + ':</strong> ' + properties[key] + '</p>';
-    propertiesString += '<div class="box-container"><div class="box box1"></div><div class="box box2"></div><div class="box box3"></div></div></div>';
-   //this line alone adds 3 property boxes. I can always add more. starting from the right, going left
-}
+//         // Loop through each property and add it to propertiesString with HTML formatting
+//         for (var key in properties) {
+//     propertiesString += '<div class="property-box"><p><strong>' + key + ':</strong> ' + properties[key] + '</p>';
+//     propertiesString += '<div class="box-container"><div class="box box1"></div><div class="box box2"></div><div class="box box3"></div></div></div>';
+//    //this line alone adds 3 property boxes. I can always add more. starting from the right, going left
+// }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -489,18 +489,18 @@ function addClickListenerToLayer(layer) {
 
 
 
-        // Display the properties in the data-display
-        document.getElementById('data-display').innerHTML = propertiesString;
+//         // Display the properties in the data-display
+//         document.getElementById('data-display').innerHTML = propertiesString;
    
- // Open the content-panel when a polygon is clicked
- var contentPanel = document.getElementById('content-panel');
-        if (contentPanel.classList.contains('closed')) {
-            contentPanel.classList.remove('closed');
-            document.getElementById('collapse-button').innerHTML = '◄'; // Change the button text to '◄'
-        }
+//  // Open the content-panel when a polygon is clicked
+//  var contentPanel = document.getElementById('content-panel');
+//         if (contentPanel.classList.contains('closed')) {
+//             contentPanel.classList.remove('closed');
+//             document.getElementById('collapse-button').innerHTML = '◄'; // Change the button text to '◄'
+//         }
    
-    });
-}
+//     });
+// }
 
 
 
