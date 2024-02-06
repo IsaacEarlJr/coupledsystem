@@ -358,8 +358,7 @@
     "OpenStreetMap": OpenStreetMap,
     "Esri WorldImagery": Esri_WorldImagery,
     "CartoDB Dark Matter": CartoDB_DarkMatter,
-    "ArcGIS MapServer": ArcGIS_MapServer
-    };
+    
     
 };
   
@@ -383,13 +382,8 @@ var ArcGIS_FeatureLayer = L.esri.featureLayer({
 
 // Add ArcGIS FeatureLayer to the map
 ArcGIS_FeatureLayer.addTo(map);
+ArcGIS_MapServer.addTo(map);
 
-// Update the baseMaps variable
-// var baseMaps = {
-//     "OpenStreetMap": OpenStreetMap,
-//     "Esri WorldImagery": Esri_WorldImagery,
-//     "CartoDB Dark Matter": CartoDB_DarkMatter,
-// };
 
 
 
