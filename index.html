@@ -33,9 +33,6 @@
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
 
-     <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
-
-
 <!--this above "set" is the external leaflet javascript library file-->
 
 
@@ -43,7 +40,7 @@
 
 
 <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css" /> <!--this is ArcGISpacakge-->
-<script src="https://js.arcgis.com/4.28/"></script> <!--this is ArcGISpacakge-->
+<script src="https://js.arcgis.com/4.28/"></script> 
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.12.0/leaflet-providers.min.js"></script>
@@ -331,7 +328,7 @@
             </div>
 
 
-              
+            
 
     <script>
     /*any variable or code must be inside a script bracket*/
@@ -370,8 +367,6 @@
 
 
 
-
-
     // Initialize the map with OpenStreetMap as the base map
     var map = L.map('map', {
         center: [28.5000, -90.6000],
@@ -380,8 +375,6 @@
         layers: [OpenStreetMap]
     });
 
-polygonLayer0.addTo(map);
-
     // Add a layer switcher control
     var baseMaps = {
     "OpenStreetMap": OpenStreetMap,
@@ -389,8 +382,6 @@ polygonLayer0.addTo(map);
     "CartoDB Dark Matter": CartoDB_DarkMatter,
 };
   
-
-
 
 
 
@@ -455,7 +446,7 @@ document.getElementById('info-button').addEventListener('click', function() {   
 
 
 
-//  var layerControl = L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map); // this is my layer contol to polygons and other layers
+// var layerControl = L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map); // this is my layer contol to polygons and other layers
 
 
 
@@ -537,87 +528,12 @@ fetch ('map.geojson')
 
    
 
+document.getElementById('exit-button').addEventListener('click', function() {
+    document.getElementById('dropdown').style.display = 'none';  // Hide the dropdown button
+});
 
 
 
-
-require(["esri/Map", "esri/layers/GeoJSONLayer", "esri/views/MapView"], (
-      Map,
-      GeoJSONLayer,
-      MapView
-    ) => {
-      // If GeoJSON files are not on the same domain as your website, a CORS enabled server
-      // or a proxy is required.
-      const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
-
-      // Paste the url into a browser's address bar to download and view the attributes
-      // in the GeoJSON file. These attributes include:
-      // * mag - magnitude
-      // * type - earthquake or other event such as nuclear test
-      // * place - location of the event
-      // * time - the time of the event
-      // Use the Arcade Date() function to format time field into a human-readable format
-
-      const template = {
-        title: "Earthquake Info",
-        content: "Magnitude {mag} {type} hit {place} on {time}",
-        fieldInfos: [
-          {
-            fieldName: 'time',
-            format: {
-              dateFormat: 'short-date-short-time'
-            }
-          }
-        ]
-      };
-
-      const renderer = {
-        type: "simple",
-        field: "mag",
-        symbol: {
-          type: "simple-marker",
-          color: "orange",
-          outline: {
-            color: "white"
-          }
-        },
-        visualVariables: [{
-          type: "size",
-          field: "mag",
-          stops: [{
-              value: 2.5,
-              size: "4px"
-            },
-            {
-              value: 8,
-              size: "40px"
-            }
-          ]
-        }]
-      };
-
-      const geojsonLayer = new GeoJSONLayer({
-        url: url,
-        copyright: "USGS Earthquakes",
-        popupTemplate: template,
-        renderer: renderer,
-        orderBy: {
-          field: "mag"
-        }
-      });
-
-      const map = new Map({
-        basemap: "gray-vector",
-        layers: [geojsonLayer]
-      });
-
-      const view = new MapView({
-        container: "viewDiv",
-        center: [-168, 46],
-        zoom: 2,
-        map: map
-      });
-    });
 
 
 
