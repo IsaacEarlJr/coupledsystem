@@ -528,25 +528,10 @@ function addClickListenerToLayer(layer) {
 
    
 
-// Fetch the GeoJSON data
-fetch("https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer")
-  .then(response => response.json())
-  .then(data => {
-    // Create a GeoJSON layer and add it to the map
-    var geoJSONLayer = L.geoJSON(data).addTo(map);
-
-    // Define your overlay maps
-    var overlayMaps = {
-      "GeoJSON Layer": geoJSONLayer
-    };
-
-    // Add a layer control
-    L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-
+// get data from GISonline
+var featureLayer = L.esri.featureLayer({
+  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer",
+}).addTo(map);
 
 
 
