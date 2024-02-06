@@ -375,6 +375,11 @@
         layers: [OpenStreetMap]
     });
 
+
+    var featureLayer = L.esri.featureLayer({
+  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer",
+}).addTo(map);
+
     // Add a layer switcher control
     var baseMaps = {
     "OpenStreetMap": OpenStreetMap,
