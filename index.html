@@ -1,37 +1,71 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
+
+
 
 <head>
 
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOM.Coupled</title>
+
+ 
+    
+    
+ <meta charset="UTF-8">
+
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ <title>Hello Leaflet</title>
 
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
 
-<!-- Add font library to html... -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <!--this above "set" is the external leaflet stylesheet-->
 
-<!-- External leaflet JavaScript library file -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- esri-leaflet and leaflet-providers libraries -->
-<script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwasil/Leaflet.Rainviewer/leaflet.rainviewer.css"/>
+<!--this is leafletweather from mwasil-->
+
+
+ <!-- Add font library to html... -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+<!--this above "set" is the external leaflet javascript library file-->
+
+
+<script src="https://unpkg.com/esri-leaflet"></script> <!--this is ArcGISpacakge-->
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.12.0/leaflet-providers.min.js"></script>
 
 
 
+<script src="https://cdn.jsdelivr.net/gh/mwasil/Leaflet.Rainviewer/leaflet.rainviewer.js"></script>  <!--this is leafletweather from mwasil-->
 
-<!-- this is ArcGISpacakge-->
+
+
+ <!-- this is ArcGISpacakge-->
+
 <!-- above; i had to add this library in order to add a satelittle layer-->
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!--this is the sweetalert2 library/ for my popup to say we have moved-->
+
 
 <style>
+
+
 
 
 
@@ -45,6 +79,8 @@
 }
 
 /*this above is the media query for the map*/
+
+
 
 
 /*adding style to a search bar*/
@@ -175,6 +211,11 @@
     left: 0px; /* Adjust this value as needed */
 }
 
+.custom-rainviewer-control {
+    position: absolute;
+    top: 170px; /* Adjust this value as needed */
+    left: 0px; /* Adjust this value as needed */
+}
 
 
 .leaflet-control-layers-base label,
@@ -227,12 +268,6 @@
     margin-left: 1px;
 }
 
-.custom-position {
-    margin-top: 65px !important;
-    left: 0px;
-}
-
-
 /*.custom-base-control::before {
     content: "";
     display: inline-block;
@@ -244,11 +279,13 @@
     margin-right: 5px;
 }  */  /*this is the code for adding an icon to the base map control*/
 
+
 </style>         <!--this action closes the stylesheet editior options-->
 
 
+</head>
 
-</head>    <!--important!!! DIVS ARE SHOWABLE ELEMENTS AND STACKED (ON SCREEN) IN ORDER OF WHERE THEY ARE WRITTEN HERE; 1ST ONE IS THE MOST BOTTOM "BUCKET" ON A PAGE (layer wise) meaninng the 1st one will show up last. OVERALL, THESE ARE A MINI PAGE within our page WITH INFO"-->
+
 
 
 <body>
@@ -259,7 +296,21 @@
   
 
 
+</div>
 
+
+ <!--adding conents panel-->
+   <!-- Collapse button -->
+   
+   <button id="collapse-button">►</button>
+
+   <!-- Content panel -->
+   <div id="content-panel">
+    <!-- content panel contel to follow -->
+    <button id="clear-data-button">Clear Data</button>
+    <div id="data-display"></div>
+
+</div>
 
 
 
@@ -280,33 +331,38 @@
 
 
 
+
             <div id="settings-container" style="position: relative;">
                 <button id="settings-button" title="Settings">
                     <i class="fas fa-cog"></i> <!-- common icon for settings, can replace -->
                 </button>
+            <!-- Dropdown content -->
+                <div id="dropdown" style="display: none; position: absolute; top: 150%; left: -96px;">
+                    <button id="exit-button" style="position: absolute; right: -24px;">X</button>
+                    <select id="settings-options">
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
         
         
         
             </div>
 
-        </div>
+
+    
+
+
+
 
     <script>
     /*any variable or code must be inside a script bracket*/
 
 
+ 
 
 
-
-
-
-
-//  To add a GeoJSON layer to your layer control, you first need to load the GeoJSON data and create a layer from it. Then, you can add this layer to your layer control. Here's how you can do it:
-
-
-
- // VARIABLES ARE NOT LIKE DIVS. THEY  ARE "CONTAINERS" THAT SORT VALUES THAT WE HAVE MADE UP. THIS IS THE MATH PART WHICH GIVES ORDER TO THE PAGE.
- // THIS VAR THAT WE MADE UP IS CALLED OPENSTREETMAP. IT EQUALS L.TLELAYER WHICH IS A FUNCTION (REMEBER MATH) THAT TAKES IN A STRING(ELEMENT). THE STRING IS THE URL OF THE MAP.
 
     // Define OpenStreetMap base map
     var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -320,27 +376,6 @@
     });
 
 
-    var ArcGIS_MapServer = L.esri.dynamicMapLayer({
-    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',
-    layers: [0], // You can adjust the layer index if needed
-    transparent: true,
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    });
-
-   
-
-
-    var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-        
-    });
-
-
-
-
-
     // Initialize the map with OpenStreetMap as the base map
     var map = L.map('map', {
         center: [28.5000, -90.6000],
@@ -349,71 +384,203 @@
         layers: [OpenStreetMap]
     });
 
-
-
     // Add a layer switcher control
     var baseMaps = {
-    "OpenStreetMap": OpenStreetMap,
-    "Esri WorldImagery": Esri_WorldImagery,
-    "CartoDB Dark Matter": CartoDB_DarkMatter,
+        "OpenStreetMap": OpenStreetMap,
+        "Esri WorldImagery": Esri_WorldImagery,
+    };
+
+
+
+
+
+
+//i should be able to erase whats below this line to get back the map i had before
+
+
+
+
+
+
+
+//and anything above this line to get back what i had before
+
+
+  //  L.control.layers(baseMaps).addTo(map);
+//removed extra basemap control from above line of code
+    // Add a marker to the map
+
+
+
     
-    
-};
-  
-
-
-// var polygonLayer0 = L.esri.featureLayer({
-//         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer",
-//         style: function() {
-//             return { color: "#ffff00" }; // Yellow
-//         }
-//     });
-// var ArcGIS_FeatureLayer = L.esri.featureLayer({
-//     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer',
-//     style: function (feature) {
-//         // You can customize the style of the features here
-//         return {
-//             color: 'blue',
-//             weight: 2,
-//             fillOpacity: 0.5
-//         };
-//     }
-// });
-
-// Add ArcGIS FeatureLayer to the map
-ArcGIS_FeatureLayer.addTo(map);
-// polygonLayer0.addTo(map);
-
-
-// Add the ArcGIS FeatureLayer to the overlay control
-var overlayMaps = {
-    "ArcGIS FeatureLayer": ArcGIS_FeatureLayer
-};
-
-
-
-// Add the base maps to a layer control, set its position to the top left, and add it to the map
-var control = L.control.layers(baseMaps, overlayMaps, { position: 'topleft' }).addTo(map);
-L.DomUtil.addClass(control.getContainer(), 'custom-position');
-// i could move this arround by changing 247-249
-
-
 
     L.control.zoom({
      position: 'bottomleft'
 }).addTo(map);
    
+    // Create the feature layer
+   
 
 
-var popup = L.popup() //this is the popup window that appears when you load the map (page)
+
+
+    var marker = L.marker([29.6516, -82.3248]).addTo(map);
+
+    // Add a circle marker to the map
+
+    var circle = L.circle([25.5, -93.3248], {
+    color: 'green',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 400000
+})
+//removed to add the circle from the map
+//removed.addTo(map) from end of }) may need to add back 
+
+
+
+//This code will add an oval to the map. The scale transformation scales the circle horizontally by 60% to create an oval-like shape. The coordinates and radius are arbitrary and you may need to adjust them to fit your specific needs. Note that this is a workaround and may not work perfectly in all situations.
+
+
+
+
+
+
+// Add a polygon to the map
+
+var polygon = L.polygon([
+    [28.3516, -93.1548],
+    [28.3516, -93.2548],
+    [28.4516, -93.2548],
+    [28.4516, -93.3548],
+    [28.5516, -93.3548],
+    [28.5516, -93.1548]
+]);
+//removed comment to add the polygon to the map. may need to ad back, but was interrupting my code
+
+marker.bindPopup("<b>Hello User!</b><br>I am here.. Currently here collecting data.").openPopup();
+circle.bindPopup("This is the study area.");
+polygon.bindPopup("I am WEA Phase 2 Option J");
+
+
+var popup = L.popup()
     .setLatLng([25, -90.6])
     .setContent("Gulf of Mexico as a Coupled System.")
     .openOn(map);
 
 
 
+// Change the position of the marker
+var myPositionMarker = L.marker([29.6516, -93.3248]).addTo(map); // Coordinates for Gulf of Mexico
+
+myPositionMarker.on("click", function() {
+    var pos = map.latLngToLayerPoint(myPositionMarker.getLatLng());
+    pos.y -= 25;
+    var fx = new L.PosAnimation();
+
+    fx.once('end',function() {
+        pos.y += 25;
+        fx.run(myPositionMarker._icon, pos, 0.8);
+    });
+
+    fx.run(myPositionMarker._icon, pos, 0.3);
+});
+
+// Your existing code...]).addTo(map);
+
+myPositionMarker.on("click", function() {
+    var pos = map.latLngToLayerPoint(myPositionMarker.getLatLng());
+    pos.y -= 25;
+    var fx = new L.PosAnimation();
+
+    fx.once('end',function() {
+        pos.y += 25;
+        fx.run(myPositionMarker._icon, pos, 0.8);
+    });
+
+    fx.run(myPositionMarker._icon, pos, 0.3);
+});
+
+var polygonLayer0 = L.esri.featureLayer({
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/0",
+        style: function() {
+            return { color: "#ffff00" }; // Yellow
+        }
+    });
+
+
+    var polygonLayer1 = L.esri.featureLayer({
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/1",
+        style: function() {
+            return { color: "#000000" }; // Black
+        }
+    });
+    var polygonLayer2 = L.esri.featureLayer({
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/2",
+        style: function() {
+            return { color: "#ff0000" }; // Red
+        }
+    });
+    var polygonLayer3 = L.esri.featureLayer({
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/3",
+        style: function() {
+            return { color: "#0000FF" }; // Blue
+        }
+    });
+    var polygonLayer4 = L.esri.featureLayer({
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/4",
+        style: function() {
+            return { color: "#ff00ff" }; // Magenta
+        }
+    });
+
+    // Add the layers to the map
+    polygonLayer0.addTo(map);
+    polygonLayer1.addTo(map);
+    polygonLayer2.addTo(map);
+    
+    polygonLayer4.addTo(map);
+    // Add the layer to the map
+    
+
+// Add layer control
+var overlayMaps = {
+        "Recommended WEAs Likely Clear of Flight Paths": polygonLayer0,
+        "Most Likely Flight Paths": polygonLayer1,
+        "Recommended WEAs in Most Likely Flight Paths": polygonLayer2,
+        "Total WEAs as of 12/31/2023": polygonLayer3,
+        "Bird Sighting Hot Spots": polygonLayer4
+    };
+
+//    L.control.layers(null, overlayMaps, { position: 'bottomleft', collapsed: true }).addTo(map);
+
+
+
+
+
+    //code for panel toggling
+    window.onload = function() {
+    var contentPanel = document.getElementById('content-panel');
+    contentPanel.classList.add('closed');
+
+    document.getElementById('collapse-button').addEventListener('click', function() {
+        if (contentPanel.classList.contains('closed')) {
+            contentPanel.classList.remove('closed');
+            this.innerHTML = '◄'; // Change the button text to '◄'
+        } else {
+            contentPanel.classList.add('closed');
+            this.innerHTML = '►'; // Change the button text to '►'
+        }
+    });
+};
+
+
+
+
+
+
 //popup window code, with text and formamting
-document.getElementById('info-button').addEventListener('click', function() {    //definttion: when the info button is clicked, do the following document "variable" runs
+document.getElementById('info-button').addEventListener('click', function() {
     var width = 600;
     var height = 360;
     var left = (screen.width - width) / 2;
@@ -422,8 +589,119 @@ document.getElementById('info-button').addEventListener('click', function() {   
     popupWindow.document.write("<style>body { font-family: sans-serif; }</style><p>-Hello! Welcome to the Relative Mapping System. We are here to connect Earth’s natural and synthetic systems through quantifiable data so that you, the user, can achieve efficient progress toward whatever your heart desires during your time here on this Rock.</p><p> <strong>-If a tree falls in a forest and no one is around to hear it, does it make a sound?</strong> Of course, it does. An abundance of nutrients begin their journey into the surrounding soils as the tree begins to decompose. Eventually, some of these microelements are cycled throughout the environment to distant places through several biogeochemical processes which may lead to some kind of personal contact event, albeit a very low-level interaction. Think of the Butterly effect; A flap of a wing may create distant spillover effects.</p><p>-With an ecological theoretic backbone, and with ideas to encourage best management practices for agencies, companies, and individual people, our project is truly an interdisciplinary one.</p><p><strong>-Have fun with it! Now go explore the world through a new dimension.<strong></p>");
 });
 
+// Define base maps
+var baseMaps = {
+    "OpenStreetMap": OpenStreetMap,
+    "Esri WorldImagery": Esri_WorldImagery,
+};
+
+var baseControl = L.control.layers(baseMaps, null, { position: 'topleft', collapsed: true }).addTo(map);
+
+// Add a custom CSS class to the base map control
+L.DomUtil.addClass(baseControl.getContainer(), 'custom-base-control');
+
+// Add layer control
+var overlayMaps = {
+    "Recommended WEAs Likely Clear of Flight Paths": polygonLayer0,
+    "Most Likely Flight Paths": polygonLayer1,
+    "Recommended WEAs in Most Likely Flight Paths": polygonLayer2,
+    "Total WEAs as of 12/31/2023": polygonLayer3,
+    "Bird Sighting Hot Spots": polygonLayer4
+};
+
+var layerControl = L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
+
+// Add a custom CSS class to the layer control
+L.DomUtil.addClass(layerControl.getContainer(), 'custom-layer-control');
+
+// Create the rainviewer control
+var rainviewerControl = L.control.rainviewer({ 
+    position: 'topleft',
+    nextButtonText: '>',
+    playStopButtonText: 'Play/Stop',
+    prevButtonText: '<',
+    positionSliderLabelText: "Hour:",
+    opacitySliderLabelText: "Opacity:",
+    animationInterval: 500,
+    opacity: 0.5
+}).addTo(map);
+
+// Add a custom CSS class to the rainviewer control
+L.DomUtil.addClass(rainviewerControl.getContainer(), 'custom-rainviewer-control');
+
+   
+document.getElementById('clear-data-button').addEventListener('click', function() {
+    document.getElementById('data-display').innerHTML = '';
+});
+
+function addClickListenerToLayer(layer) {
+    layer.on('click', function(e) {
+        
+       
+        // Get the properties of the clicked polygon
+        var properties = e.layer.feature.properties;
+
+        // Start the propertiesString with an empty string
+        var propertiesString = '';
+
+        // Loop through each property and add it to propertiesString with HTML formatting
+        for (var key in properties) {
+    propertiesString += '<div class="property-box"><p><strong>' + key + ':</strong> ' + properties[key] + '</p>';
+    propertiesString += '<div class="box-container"><div class="box box1"></div><div class="box box2"></div><div class="box box3"></div></div></div>';
+   //this line alone adds 3 property boxes. I can always add more. starting from the right, going left
+}
+
+        // Display the properties in the data-display
+        document.getElementById('data-display').innerHTML = propertiesString;
+   
+ // Open the content-panel when a polygon is clicked
+ var contentPanel = document.getElementById('content-panel');
+        if (contentPanel.classList.contains('closed')) {
+            contentPanel.classList.remove('closed');
+            document.getElementById('collapse-button').innerHTML = '◄'; // Change the button text to '◄'
+        }
+   
+    });
+}
+
+// Add the click listener to polygonLayer0
+addClickListenerToLayer(polygonLayer0);
+addClickListenerToLayer(polygonLayer1);
+addClickListenerToLayer(polygonLayer2);
+addClickListenerToLayer(polygonLayer3);
+addClickListenerToLayer(polygonLayer4);
+
+// Add the click listener to other polygon layers
+// addClickListenerToLayer(polygonLayer1);
+// addClickListenerToLayer(polygonLayer2);
+// etc.
+   
 
 
+
+document.getElementById('settings-button').addEventListener('click', function() {
+    var dropdown = document.getElementById('dropdown');
+    if (dropdown.style.display === 'none') { // dropdown info
+        dropdown.style.display = 'block';
+    } else {
+        dropdown.style.display = 'none';
+    }
+});
+   
+
+document.getElementById('exit-button').addEventListener('click', function() {
+    document.getElementById('dropdown').style.display = 'none';  // Hide the dropdown button
+});
+
+
+window.onload = function() {
+    Swal.fire({
+        title: 'CONGRATS!',
+        text: 'You were one of the first to experience this site. We want to make this the best experience ever, so we have moved this site to another link. If you know Isaac, ask him for the new link. All others have found this by happenstance and possibly know of the new link. COOL BEANS, YEAH!!',
+        confirmButtonText: 'Close'
+    });
+    // Other code...
+}
 
    </script>
 
