@@ -1,118 +1,437 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>GeoJSONLayer | Sample | ArcGIS Maps SDK for JavaScript 4.28</title>
 
-  <style>
-    html,
-    body,
-    #viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOM.Coupled</title>
 
-  </style>
 
-  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css" />
-  <script src="https://js.arcgis.com/4.28/"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
 
-  <script>
-    require(["esri/Map", "esri/layers/GeoJSONLayer", "esri/views/MapView"], (
-      Map,
-      GeoJSONLayer,
-      MapView
-    ) => {
-      // If GeoJSON files are not on the same domain as your website, a CORS enabled server
-      // or a proxy is required.
-      fetch('https://cors-anywhere.herokuapp.com/https://arcg.is/OLLG5')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
+     <!--this above "set" is the external leaflet stylesheet-->
 
-      // Paste the url into a browser's address bar to download and view the attributes
-      // in the GeoJSON file. These attributes include:
-      // * mag - magnitude
-      // * type - earthquake or other event such as nuclear test
-      // * place - location of the event
-      // * time - the time of the event
-      // Use the Arcade Date() function to format time field into a human-readable format
+    <!-- Add font library to html... -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-      const template = {
-        title: "Earthquake Info",
-        content: "Magnitude {mag} {type} hit {place} on {time}",
-        fieldInfos: [
-          {
-            fieldName: 'time',
-            format: {
-              dateFormat: 'short-date-short-time'
-            }
-          }
-        ]
-      };
 
-      const renderer = {
-        type: "simple",
-        field: "mag",
-        symbol: {
-          type: "simple-marker",
-          color: "orange",
-          outline: {
-            color: "white"
-          }
-        },
-        visualVariables: [{
-          type: "size",
-          field: "mag",
-          stops: [{
-              value: 2.5,
-              size: "4px"
-            },
-            {
-              value: 8,
-              size: "40px"
-            }
-          ]
-        }]
-      };
+    <!--this above "set" is the external leaflet javascript library file-->
 
-      const geojsonLayer = new GeoJSONLayer({
-        url: url,
-        copyright: "USGS Earthquakes",
-        popupTemplate: template,
-        renderer: renderer,
-        orderBy: {
-          field: "mag"
+    <!-- <script src="https://unpkg.com/esri-leaflet"></script> this is ArcGISpacakge -->
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.12.0/leaflet-providers.min.js"></script>
+
+
+
+
+<!-- this is ArcGISpacakge-->
+<!-- above; i had to add this library in order to add a satelittle layer-->
+
+
+
+
+<style>
+
+
+
+#map { height: 100vh; }
+
+/*this above is the height of the map*/
+@media (max-width: 900px) { 
+   body {
+      flex-direction: column;
+   }
+}
+
+/*this above is the media query for the map*/
+
+
+/*adding style to a search bar*/
+#search-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #0b025e;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
         }
-      });
 
-      const map = new Map({
-        basemap: "gray-vector",
-        layers: [geojsonLayer]
-      });
+#search-input {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+/*adding style to the add data button*/
 
-      const view = new MapView({
-        container: "viewDiv",
-        center: [-168, 46],
-        zoom: 2,
-        map: map
-      });
+#add-data-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff; /* White */
+    font-size: 1.2em;
+    margin-right: 0.2in;
+}
+
+/*adding style to the uf-hull button*/
+#uf-hull {
+    color: #fff; /* White */
+    margin-right: 10px;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+.box1 {
+    background-color: red;  /* box colors for ranges of exchanges; these are boxes inside content panel*/
+}
+.box2 {
+    background-color: yellow;  
+}
+.box3 {
+    background-color: green;  
+}
+
+/*adding colord dots to the layer control*/
+
+        .layer-control-dot {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+/*adding style to the settings button*/
+        #settings-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff; /* White */
+    font-size: 1.2em;
+    margin-right: 50px; /* Add some space between the "Add Data" button and the "Settings" button */
+}
+
+#info-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff; /* White */
+    font-size: 1.2em;
+    margin-right: 20px;
+    
+}
+
+
+/*adding style to the content panel*/
+
+#content-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 250px; /* Adjust as needed */
+    height: 100%;
+    overflow: auto;
+    background-color: #00000079; /* Adjust as needed */
+    z-index: 1002; /* Add this line */
+    margin-top: 47px;
+}
+
+
+#collapse-button {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    z-index: 1004; 
+    /* other styles... */
+}
+
+#content-panel.closed {
+    width: 20px;
+    overflow: hidden;
+}
+
+
+.custom-base-control {
+    position: absolute;
+    top: 50px; /* Adjust this value as needed */
+    left: 0;
+}
+
+.custom-layer-control {
+    position: absolute;
+    top: 110px; /* Adjust this value as needed */
+    left: 0px; /* Adjust this value as needed */
+}
+
+
+
+.leaflet-control-layers-base label,
+.leaflet-control-layers-overlays label {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.leaflet-control-layers:hover {
+    z-index: 1000;   /* Changing the location of toggles to fit below search bar */
+}
+
+/* this is the outline of text that appears in content panel */
+.property-box {
+    border: 1px solid #110672;   
+    padding: 0px;  /* Reduced padding from 10px to 0px */
+    margin: 0px 0;
+    border-radius: 2px;
+    background-color: #00000088;
+}
+
+
+
+#content-panel {
+    font-family: Arial, sans-serif; /*  */
+    font-size: 10px; /* content panel font!!!!! */  
+    color: #fff;
+}
+
+
+
+
+/* lines 243-254 are the boxes that show up next to the words inside the contents paine */  
+.property-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.box {
+    width: 10px;  /* Adjust to your desired width */
+    height: 15px;  /* Adjust to your desired height */
+    border: 1px solid #ccc;
+    margin-left: 1px;
+}
+
+.custom-position {
+    margin-top: 65px !important;
+    left: 0px;
+}
+
+
+/*.custom-base-control::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('path/to/your/icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}  */  /*this is the code for adding an icon to the base map control*/
+
+</style>         <!--this action closes the stylesheet editior options-->
+
+
+
+</head>    <!--important!!! DIVS ARE SHOWABLE ELEMENTS AND STACKED (ON SCREEN) IN ORDER OF WHERE THEY ARE WRITTEN HERE; 1ST ONE IS THE MOST BOTTOM "BUCKET" ON A PAGE (layer wise) meaninng the 1st one will show up last. OVERALL, THESE ARE A MINI PAGE within our page WITH INFO"-->
+
+
+<body>
+
+    <div id="map"></div> <!--div means "this is where the map is supposed to go"-->
+    
+
+  
+</div>
+
+
+
+</div>
+
+
+
+        <!--adding a button to "add data"-->
+        <div id="search-bar">
+            <a id="uf-hull" href="http://www.globalhumanwildlifelab.com/">HULL LAB</a>
+            <input type="text" id="search-input" placeholder="Enter Location...">
+           
+            <button id="add-data-button" title="Add Data">
+                <i class="fas fa-plus"></i>
+            </button>
+
+            <button id="info-button" title="About">
+            <i class="fas fa-info-circle"></i>
+            </button>
+
+
+
+
+            <div id="settings-container" style="position: relative;">
+                <button id="settings-button" title="Settings">
+                    <i class="fas fa-cog"></i> <!-- common icon for settings, can replace -->
+                </button>
+        
+        
+        
+            </div>
+
+
+      <div id="viewDiv"></div></div>      
+
+    <script>
+    /*any variable or code must be inside a script bracket*/
+
+
+
+
+//  To add a GeoJSON layer to your layer control, you first need to load the GeoJSON data and create a layer from it. Then, you can add this layer to your layer control. Here's how you can do it:
+
+
+
+ // VARIABLES ARE NOT LIKE DIVS. THEY  ARE "CONTAINERS" THAT SORT VALUES THAT WE HAVE MADE UP. THIS IS THE MATH PART WHICH GIVES ORDER TO THE PAGE.
+ // THIS VAR THAT WE MADE UP IS CALLED OPENSTREETMAP. IT EQUALS L.TLELAYER WHICH IS A FUNCTION (REMEBER MATH) THAT TAKES IN A STRING(ELEMENT). THE STRING IS THE URL OF THE MAP.
+
+    // Define OpenStreetMap base map
+    var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    // Define Esri WorldImagery base map
+    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
 
 
-    fetch('https://cors-anywhere.herokuapp.com/https://arcg.is/OLLG5')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
+    var ArcGIS_MapServer = L.esri.dynamicMapLayer({
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',
+    layers: [0], // You can adjust the layer index if needed
+    transparent: true,
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
 
-  </script>
-</head>
+   
 
-<body>
-  <div id="viewDiv"></div>
-</body>
 
-</html>
+    var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+        
+    });
+
+
+
+
+
+    // Initialize the map with OpenStreetMap as the base map
+    var map = L.map('map', {
+        center: [28.5000, -90.6000],
+        zoom: 6.5,
+        zoomControl: false, 
+        layers: [OpenStreetMap]
+    });
+
+
+
+    // Add a layer switcher control
+    var baseMaps = {
+    "OpenStreetMap": OpenStreetMap,
+    "Esri WorldImagery": Esri_WorldImagery,
+    "CartoDB Dark Matter": CartoDB_DarkMatter,
+    
+    
+};
+  
+
+
+var polygonLayer0 = L.esri.featureLayer({
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/0",
+        style: function() {
+            return { color: "#ffff00" }; // Yellow
+        }
+    });
+var ArcGIS_FeatureLayer = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer',
+    style: function (feature) {
+        // You can customize the style of the features here
+        return {
+            color: 'blue',
+            weight: 2,
+            fillOpacity: 0.5
+        };
+    }
+});
+
+// Add ArcGIS FeatureLayer to the map
+ArcGIS_FeatureLayer.addTo(map);
+
+
+
+// Add the ArcGIS FeatureLayer to the overlay control
+var overlayMaps = {
+    "ArcGIS FeatureLayer": ArcGIS_FeatureLayer
+};
+
+
+
+// Add the base maps to a layer control, set its position to the top left, and add it to the map
+var control = L.control.layers(baseMaps, overlayMaps, { position: 'topleft' }).addTo(map);
+L.DomUtil.addClass(control.getContainer(), 'custom-position');
+// i could move this arround by changing 247-249
+
+
+
+    L.control.zoom({
+     position: 'bottomleft'
+}).addTo(map);
+   
+
+
+var popup = L.popup() //this is the popup window that appears when you load the map (page)
+    .setLatLng([25, -90.6])
+    .setContent("Gulf of Mexico as a Coupled System.")
+    .openOn(map);
+
+
+
+//popup window code, with text and formamting
+document.getElementById('info-button').addEventListener('click', function() {    //definttion: when the info button is clicked, do the following document "variable" runs
+    var width = 600;
+    var height = 360;
+    var left = (screen.width - width) / 2;
+    var top = (screen.height - height) / 2;
+    var popupWindow = window.open("", "Popup Window", "width=" + width + ",height=" + height + ",top=" + top + ",left=" + left);
+    popupWindow.document.write("<style>body { font-family: sans-serif; }</style><p>-Hello! Welcome to the Relative Mapping System. We are here to connect Earth’s natural and synthetic systems through quantifiable data so that you, the user, can achieve efficient progress toward whatever your heart desires during your time here on this Rock.</p><p> <strong>-If a tree falls in a forest and no one is around to hear it, does it make a sound?</strong> Of course, it does. An abundance of nutrients begin their journey into the surrounding soils as the tree begins to decompose. Eventually, some of these microelements are cycled throughout the environment to distant places through several biogeochemical processes which may lead to some kind of personal contact event, albeit a very low-level interaction. Think of the Butterly effect; A flap of a wing may create distant spillover effects.</p><p>-With an ecological theoretic backbone, and with ideas to encourage best management practices for agencies, companies, and individual people, our project is truly an interdisciplinary one.</p><p><strong>-Have fun with it! Now go explore the world through a new dimension.<strong></p>");
+});
+
+
+
+
+
+   </script>
+
+    </body>
+
+    </html>
+
+    
