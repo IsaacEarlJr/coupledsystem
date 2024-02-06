@@ -380,16 +380,16 @@
         layers: [OpenStreetMap]
     });
 
-//     var auth = L.esri.authentication({
-//   token: '<your_token_here>'
+// //     var auth = L.esri.authentication({
+// //   token: '<your_token_here>'
+// // });
+
+//     var polygonLayer0 = L.esri.featureLayer({
+//     url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer", 
 // });
 
-    var polygonLayer0 = L.esri.featureLayer({
-    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer", 
-});
-
-// Add the layers to the map
-polygonLayer0.addTo(map);
+// // Add the layers to the map
+// polygonLayer0.addTo(map);
 
     // Add a layer switcher control
     var baseMaps = {
@@ -559,27 +559,27 @@ fetch ('map.geojson')
 
 
 
-// require([
-//   "esri/Map",
-//   "esri/layers/FeatureLayer", // Use FeatureLayer instead of GeoJSONLayer
-//   "esri/views/MapView"
-// ], function(Map, FeatureLayer, MapView) {
-//   const layer = new FeatureLayer({
-//     url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer"
-//   });
+require([
+  "esri/Map",
+  "esri/layers/FeatureLayer", // Use FeatureLayer instead of GeoJSONLayer
+  "esri/views/MapView"
+], function(Map, FeatureLayer, MapView) {
+  const layer = new FeatureLayer({
+    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer"
+  });
 
-//   const map = new Map({
-//     basemap: "topo-vector",
-//     layers: [layer]
-//   });
+  const map = new Map({
+    basemap: "topo-vector",
+    layers: [layer]
+  });
 
-//   const view = new MapView({
-//     container: "viewDiv", // Use the id of your existing div
-//     map: map,
-//     zoom: 10,
-//     center: [-75.1638, 39.9526] // This is the longitude and latitude for Philadelphia
-//   });
-// });
+  const view = new MapView({
+    container: "viewDiv", // Use the id of your existing div
+    map: map,
+    zoom: 10,
+    center: [-75.1638, 39.9526] // This is the longitude and latitude for Philadelphia
+  });
+});
 
 
 
