@@ -529,7 +529,7 @@ function addClickListenerToLayer(layer) {
    
 
 // Fetch the GeoJSON data
-fetch("https://arcg.is/OLLG5")
+fetch("https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer")
   .then(response => response.json())
   .then(data => {
     // Create a GeoJSON layer and add it to the map
