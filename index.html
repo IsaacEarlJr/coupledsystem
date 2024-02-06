@@ -3,44 +3,28 @@
 
 <head>
 
-
- 
-    
-    
- <meta charset="UTF-8">
-
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
- <title>GOM.Coupled</title>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOM.Coupled</title>
 
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
 
      <!--this above "set" is the external leaflet stylesheet-->
 
+    <!-- Add font library to html... -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 
- <!-- Add font library to html... -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!--this above "set" is the external leaflet javascript library file-->
 
+    <!-- <script src="https://unpkg.com/esri-leaflet"></script> this is ArcGISpacakge -->
 
-
-
-
-<!--this above "set" is the external leaflet javascript library file-->
-
-
-<!-- <script src="https://unpkg.com/esri-leaflet"></script> this is ArcGISpacakge -->
-
-
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.12.0/leaflet-providers.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.12.0/leaflet-providers.min.js"></script>
 
 
 
@@ -345,7 +329,7 @@
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
 
-    ArcGIS_MapServer.addTo(map);
+   
 
 
     var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -399,11 +383,11 @@ var ArcGIS_FeatureLayer = L.esri.featureLayer({
 ArcGIS_FeatureLayer.addTo(map);
 
 // Update the baseMaps variable
-var baseMaps = {
-    "OpenStreetMap": OpenStreetMap,
-    "Esri WorldImagery": Esri_WorldImagery,
-    "CartoDB Dark Matter": CartoDB_DarkMatter,
-};
+// var baseMaps = {
+//     "OpenStreetMap": OpenStreetMap,
+//     "Esri WorldImagery": Esri_WorldImagery,
+//     "CartoDB Dark Matter": CartoDB_DarkMatter,
+// };
 
 
 
