@@ -351,9 +351,18 @@
 
 
 
+    // Add a layer switcher control
+    var baseMaps = {
+    "OpenStreetMap": OpenStreetMap,
+    "Esri WorldImagery": Esri_WorldImagery,
+    "CartoDB Dark Matter": CartoDB_DarkMatter,
+    
+    
+};
+  
 
 
-    require([
+require([
     "esri/config",
     "esri/Map",
     "esri/views/MapView",
@@ -384,18 +393,6 @@
 
     map.add(layer);
 });
-
-
-
-    // Add a layer switcher control
-    var baseMaps = {
-    "OpenStreetMap": OpenStreetMap,
-    "Esri WorldImagery": Esri_WorldImagery,
-    "CartoDB Dark Matter": CartoDB_DarkMatter,
-    
-    
-};
-  
 
 
 // var polygonLayer0 = L.esri.featureLayer({
