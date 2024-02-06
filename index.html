@@ -8,23 +8,19 @@
     <title>GOM.Coupled</title>
 
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
 
-     <!--this above "set" is the external leaflet stylesheet-->
+<!-- Add font library to html... -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <!-- Add font library to html... -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<!-- External leaflet JavaScript library file -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-
-    <!--this above "set" is the external leaflet javascript library file-->
-
-    <!-- <script src="https://unpkg.com/esri-leaflet"></script> this is ArcGISpacakge -->
-
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.12.0/leaflet-providers.min.js"></script>
+<!-- esri-leaflet and leaflet-providers libraries -->
+<script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.12.0/leaflet-providers.min.js"></script>
 
 
 
@@ -299,6 +295,43 @@
 
     <script>
     /*any variable or code must be inside a script bracket*/
+
+    require([
+        "esri/config", 
+        "esri/Map", 
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer"  // Include FeatureLayer here
+      ], function(esriConfig, Map, MapView, FeatureLayer) {  // Include FeatureLayer here
+
+        esriConfig.apiKey = "AAPK220ba579086140dea4e25f522bf00c8bG3Mb_Pd1g_KKKi94wj2H2lL_ceoaHcU25yTWEgLu20jkuceWo9_tPekrNz5Yr-nu";
+
+        var map = new Map({
+          basemap: "topo-vector"
+        });
+
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-89.5, 29.0],
+          zoom: 7
+        });
+
+        var urls = [
+      "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/0",
+      ,
+      // Add more URLs here
+    ];
+
+    urls.forEach(function(url) {
+      var layer = new FeatureLayer({
+        url: url
+      });
+
+      map.add(layer);
+    });
+  });
+
+
 
 
 
