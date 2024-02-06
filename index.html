@@ -39,8 +39,8 @@
 <script src="https://unpkg.com/esri-leaflet"></script> <!--this is ArcGISpacakge-->
 
 
-  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css" />
-  <script src="https://js.arcgis.com/4.28/"></script>
+<link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css">
+<script src="https://js.arcgis.com/4.15/"></script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-providers/1.12.0/leaflet-providers.min.js"></script>
@@ -328,7 +328,7 @@
             </div>
 
 
-            
+      <div id="viewDiv"></div></div>      
 
     <script>
     /*any variable or code must be inside a script bracket*/
@@ -528,7 +528,24 @@ fetch ('map.geojson')
 
    
 
+// Fetch the GeoJSON data
+fetch("https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer")
+  .then(response => response.json())
+  .then(data => {
+    // Create a GeoJSON layer and add it to the map
+    var geoJSONLayer = L.geoJSON(data).addTo(map);
 
+    // Define your overlay maps
+    var overlayMaps = {
+      "GeoJSON Layer": geoJSONLayer
+    };
+
+    // Add a layer control
+    L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 
 
 
