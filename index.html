@@ -537,14 +537,13 @@ document.getElementById('exit-button').addEventListener('click', function() {
 });
 
 
-var map2 = L.map('viewDiv'); // Set the initial view of the map
+// Add a layer control
+L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
 
-L.esri.basemapLayer('Cities').addTo(map2);
-
+// Add the feature layer
 L.esri.featureLayer({
-    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
-}).addTo(map2); // Add the layer to the map
-
+  url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
+}).addTo(map);
 
 
    </script>
