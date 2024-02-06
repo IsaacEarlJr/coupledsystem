@@ -338,12 +338,24 @@
     });
 
 
+    var ArcGIS_MapServer = L.esri.dynamicMapLayer({
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',
+    layers: [0], // You can adjust the layer index if needed
+    transparent: true,
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    ArcGIS_MapServer.addTo(map);
+
+
     var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 19
         
     });
+
+
 
 
 
@@ -362,14 +374,51 @@
     "OpenStreetMap": OpenStreetMap,
     "Esri WorldImagery": Esri_WorldImagery,
     "CartoDB Dark Matter": CartoDB_DarkMatter,
+    
 };
   
 
+No problem! To add the specified ArcGIS MapServer layer to your Leaflet map, you can use the L.esri.featureLayer function. Here's how you can modify your existing code:
+
+javascript
+Copy code
+// Define the ArcGIS MapServer feature layer
+var ArcGIS_FeatureLayer = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer/0',
+    style: function (feature) {
+        // You can customize the style of the features here
+        return {
+            color: 'blue',
+            weight: 2,
+            fillOpacity: 0.5
+        };
+    }
+});
+
+// Add ArcGIS FeatureLayer to the map
+ArcGIS_FeatureLayer.addTo(map);
+
+// Update the baseMaps variable
+var baseMaps = {
+    "OpenStreetMap": OpenStreetMap,
+    "Esri WorldImagery": Esri_WorldImagery,
+    "CartoDB Dark Matter": CartoDB_DarkMatter,
+};
+
+
+
+// Add the ArcGIS FeatureLayer to the overlay control
+var overlayMaps = {
+    "ArcGIS FeatureLayer": ArcGIS_FeatureLayer
+};
+
+
 
 // Add the base maps to a layer control, set its position to the top left, and add it to the map
-var control = L.control.layers(baseMaps, null, { position: 'topleft' }).addTo(map);
-L.DomUtil.addClass(control.getContainer(), 'custom-position');  //if i did not add this line, the layer control would be on the top right of the map under the search bar
+var control = L.control.layers(baseMaps, overlayMaps, { position: 'topleft' }).addTo(map);
+L.DomUtil.addClass(control.getContainer(), 'custom-position');
 // i could move this arround by changing 247-249
+
 
 
     L.control.zoom({
