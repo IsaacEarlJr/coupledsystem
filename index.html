@@ -1,114 +1,23 @@
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>GeoJSONLayer | Sample | ArcGIS Maps SDK for JavaScript 4.28</title>
-
-  <style>
-    html,
-    body,
-    #viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
-
-  </style>
-
-  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css" />
-  <script src="https://js.arcgis.com/4.28/"></script>
-
-  <script>
-    require(["esri/Map", "esri/layers/GeoJSONLayer", "esri/views/MapView"], (
-      Map,
-      GeoJSONLayer,
-      MapView
-    ) => {
-      // If GeoJSON files are not on the same domain as your website, a CORS enabled server
-      // or a proxy is required.
-      const url = "https://arcg.is/OLLG5";
-
-      // Paste the url into a browser's address bar to download and view the attributes
-      // in the GeoJSON file. These attributes include:
-      // * mag - magnitude
-      // * type - earthquake or other event such as nuclear test
-      // * place - location of the event
-      // * time - the time of the event
-      // Use the Arcade Date() function to format time field into a human-readable format
-
-      const template = {
-        title: "Earthquake Info",
-        content: "Magnitude {mag} {type} hit {place} on {time}",
-        fieldInfos: [
-          {
-            fieldName: 'time',
-            format: {
-              dateFormat: 'short-date-short-time'
-            }
-          }
-        ]
-      };
-
-      const renderer = {
-        type: "simple",
-        field: "mag",
-        symbol: {
-          type: "simple-marker",
-          color: "orange",
-          outline: {
-            color: "white"
-          }
-        },
-        visualVariables: [{
-          type: "size",
-          field: "mag",
-          stops: [{
-              value: 2.5,
-              size: "4px"
-            },
-            {
-              value: 8,
-              size: "40px"
-            }
-          ]
-        }]
-      };
-
-      const geojsonLayer = new GeoJSONLayer({
-        url: url,
-        copyright: "USGS Earthquakes",
-        popupTemplate: template,
-        renderer: renderer,
-        orderBy: {
-          field: "mag"
-        }
-      });
-
-      const map = new Map({
-        basemap: "gray-vector",
-        layers: [geojsonLayer]
-      });
-
-      const view = new MapView({
-        container: "viewDiv",
-        center: [-168, 46],
-        zoom: 2,
-        map: map
-      });
-    });
-
-
-    fetch('https://cors-anywhere.herokuapp.com/https://arcg.is/OLLG5')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
-  </script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
-
 <body>
-  <div id="viewDiv"></div>
-</body>
+<div id="map" style="width: 100%; height: 600px;"></div>
 
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 13); // Set initial map view
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
+
+    fetch('https://path/to/your/geojson/file.geojson') // Replace with your GeoJSON URL
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(data){
+            L.geoJSON(data).addTo(map);
+        });
+</script>
+</body>
 </html>
