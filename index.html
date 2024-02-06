@@ -509,41 +509,32 @@ function addClickListenerToLayer(layer) {
 
    
 
-// fetch ('map.geojson')
-//   .then(response => response.json())
-//   .then(data => {
-//     // Create the GeoJSON layer
-//     var geoJSONLayer = L.geoJSON(data);
+fetch ('map.geojson')
+  .then(response => response.json())
+  .then(data => {
+    // Create the GeoJSON layer
+    var geoJSONLayer = L.geoJSON(data);
 
-//     // Add the GeoJSON layer to the map
-//     geoJSONLayer.addTo(map);
+    // Add the GeoJSON layer to the map
+    geoJSONLayer.addTo(map);
 
-//     // Define your overlay maps
-//     var overlayMaps = {
-//       "GeoJSON Layer": geoJSONLayer
-//     };
+    // Define your overlay maps
+    var overlayMaps = {
+      "GeoJSON Layer": geoJSONLayer
+    };
 
-//     // Add a layer control
-//     L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
-//   })
-//   .catch(error => {
-//     console.error('Error:', error);
-//   });
+    // Add a layer control
+    L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 
    
 
 document.getElementById('exit-button').addEventListener('click', function() {
     document.getElementById('dropdown').style.display = 'none';  // Hide the dropdown button
 });
-
-
-var map2 = L.map('viewDiv'); // Set the initial view of the map
-
-L.esri.basemapLayer('Cities').addTo(map2);
-
-L.esri.featureLayer({
-    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
-}).addTo(map2); // Add the layer to the map
 
 
 
