@@ -523,6 +523,12 @@ fetch ('map.geojson')
       "GeoJSON Layer": geoJSONLayer
     };
 
+// Add the feature layer
+L.esri.featureLayer({
+  url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
+}).addTo(map);
+
+
     // Add a layer control
     L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
   })
@@ -537,13 +543,9 @@ document.getElementById('exit-button').addEventListener('click', function() {
 });
 
 
-// Add a layer control
-L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
+// // Add a layer control
+// L.control.layers(null, overlayMaps, { position: 'topleft', collapsed: true }).addTo(map);
 
-// Add the feature layer
-L.esri.featureLayer({
-  url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer'
-}).addTo(map);
 
 
    </script>
