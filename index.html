@@ -432,20 +432,10 @@ require([
         "esri/Map", 
         "esri/views/MapView",
         "esri/layers/FeatureLayer"  // Include FeatureLayer here
-      ], function(esriConfig, Map, MapView, FeatureLayer) {  // Include FeatureLayer here
+      ], function(esriConfig, FeatureLayer) {  // Include FeatureLayer here
 
         esriConfig.apiKey = "AAPK220ba579086140dea4e25f522bf00c8bG3Mb_Pd1g_KKKi94wj2H2lL_ceoaHcU25yTWEgLu20jkuceWo9_tPekrNz5Yr-nu";
 
-        var map = new Map({
-          basemap: "topo-vector"
-        });
-
-        var view = new MapView({
-          container: "viewDiv",
-          map: map,
-          center: [-89.5, 29.0],
-          zoom: 7
-        });
 
         var urls = [
       "https://www.arcgis.com/apps/mapviewer/index.html?url=https://services.arcgis.com/LBbVDC0hKPAnLRpO/ArcGIS/rest/services/LargestGulfCities/FeatureServer&source=sd",
