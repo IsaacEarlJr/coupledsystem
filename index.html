@@ -351,31 +351,6 @@
 
 
 
-
-    require([
-    "esri/config",
-    "esri/Map",
-    "esri/views/MapView",
-    "esri/layers/FeatureLayer",
-    "esri/layers/GeoJSONLayer"
-], function (esriConfig, Map, MapView, FeatureLayer, GeoJSONLayer) {
-
-    esriConfig.apiKey = "AAPK220ba579086140dea4e25f522bf00c8bG3Mb_Pd1g_KKKi94wj2H2lL_ceoaHcU25yTWEgLu20jkuceWo9_tPekrNz5Yr-nu";
-
-
-
-
-    // GeoJSONLayer
-    const layer = new GeoJSONLayer({
-        url: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson'
-        // Add more URLs here
-    });
-
-    map.add(layer);
-});
-
-
-
     // Add a layer switcher control
     var baseMaps = {
     "OpenStreetMap": OpenStreetMap,
@@ -385,9 +360,6 @@
     
 };
   
-
-
-
 
 
 // var polygonLayer0 = L.esri.featureLayer({
@@ -456,7 +428,25 @@ document.getElementById('info-button').addEventListener('click', function() {   
 
 
 
+require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/layers/FeatureLayer",
+    "esri/layers/GeoJSONLayer"
+], function (esriConfig, Map, MapView, FeatureLayer, GeoJSONLayer) {
 
+    esriConfig.apiKey = "AAPK220ba579086140dea4e25f522bf00c8bG3Mb_Pd1g_KKKi94wj2H2lL_ceoaHcU25yTWEgLu20jkuceWo9_tPekrNz5Yr-nu";
+
+
+    // GeoJSONLayer
+    const layer = new GeoJSONLayer({
+        url: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson'
+        // Add more URLs here
+    });
+
+    map.add(layer);
+});
 
 
    </script>
