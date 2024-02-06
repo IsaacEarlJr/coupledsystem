@@ -380,9 +380,12 @@
         layers: [OpenStreetMap]
     });
 
+    var auth = L.esri.authentication({
+  token: '<your_token_here>'
+});
 
     var polygonLayer0 = L.esri.featureLayer({
-    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer", 
+    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer", 
 });
 
 // Add the layers to the map
