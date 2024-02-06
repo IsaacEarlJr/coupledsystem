@@ -399,9 +399,7 @@ L.DomUtil.addClass(control.getContainer(), 'custom-position');  //if i did not a
    
  
 
-var featureLayer = L.esri.featureLayer({
-  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer",
-}).addTo(map);
+
 
 
 
@@ -411,6 +409,11 @@ var popup = L.popup() //this is the popup window that appears when you load the 
     .setContent("Gulf of Mexico as a Coupled System.")
     .openOn(map);
 
+
+
+    var featureLayer = L.esri.featureLayer({
+  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCities/FeatureServer",
+}).addTo(map);
 
 
 
