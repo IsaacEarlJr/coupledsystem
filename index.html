@@ -364,32 +364,32 @@
   
 
 
-var polygonLayer0 = L.esri.featureLayer({
-        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer",
-        style: function() {
-            return { color: "#ffff00" }; // Yellow
-        }
-    });
-// var ArcGIS_FeatureLayer = L.esri.featureLayer({
-//     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer',
-//     style: function (feature) {
-//         // You can customize the style of the features here
-//         return {
-//             color: 'blue',
-//             weight: 2,
-//             fillOpacity: 0.5
-//         };
-//     }
-// });
+// var polygonLayer0 = L.esri.featureLayer({
+//         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer",
+//         style: function() {
+//             return { color: "#ffff00" }; // Yellow
+//         }
+//     });
+var ArcGIS_FeatureLayer = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/LargestGulfCitiesGeoJason/FeatureServer',
+    style: function (feature) {
+        // You can customize the style of the features here
+        return {
+            color: 'blue',
+            weight: 2,
+            fillOpacity: 0.5
+        };
+    }
+});
 
 // Add ArcGIS FeatureLayer to the map
-// ArcGIS_FeatureLayer.addTo(map);
-polygonLayer0.addTo(map);
+ArcGIS_FeatureLayer.addTo(map);
+// polygonLayer0.addTo(map);
 
 
 // Add the ArcGIS FeatureLayer to the overlay control
 var overlayMaps = {
-    "ArcGIS FeatureLayer": polygonLayer0
+    "ArcGIS FeatureLayer": ArcGIS_FeatureLayer
 };
 
 
