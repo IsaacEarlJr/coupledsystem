@@ -431,18 +431,8 @@ var featureLayer1 = L.esri.featureLayer({
     // Add the dataset div to the content panel
     contentPanel.appendChild(datasetDiv);
 
-                    // Add the relevant properties to the content panel
-                    // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2); // this jumbled up my data, so i had to change it so that each set started on a new line
-                    // Add the relevant properties to the content panel with each getting its own line in contents bar 
-        // for (var key in relevantProperties) {
-        // if (relevantProperties.hasOwnProperty(key)) {
-        //     contentPanel.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
-        }
-        }
-
-        // Automatically Show the content panel after click
-        var panel = document.getElementById('content-panel');  
-        panel.style.display = 'block';
+    // Automatically Show the content panel after click
+    contentPanel.style.display = 'block';
        
 
        
