@@ -267,6 +267,58 @@
 <body>
     <div id="map" style="height: 100vh;"></div>
 
+
+    <button id="collapse-button">►</button>
+
+    <!-- Content panel -->
+    <div id="content-panel">
+     <!-- content panel contel to follow -->
+  
+     <button id="clear-data-button">Clear Data</button>
+     <div id="data-display"></div>
+ 
+ </div>
+ 
+ 
+ 
+ 
+         <!--adding a button to "add data"-->
+         <div id="search-bar">
+             <a id="uf-hull" href="http://www.globalhumanwildlifelab.com/">HULL LAB</a>
+             <input type="text" id="search-input" placeholder="Enter Location...">
+            
+             <button id="add-data-button" title="Add Data">
+                 <i class="fas fa-plus"></i>
+             </button>
+ 
+             <button id="info-button" title="About">
+             <i class="fas fa-info-circle"></i>
+             </button>
+ 
+ 
+ 
+ 
+ 
+             <div id="settings-container" style="position: relative;">
+                 <button id="settings-button" title="Settings">
+                     <i class="fas fa-cog"></i> <!-- common icon for settings, can replace -->
+                 </button>
+             <!-- Dropdown content -->
+                 <div id="dropdown" style="display: none; position: absolute; top: 150%; left: -96px;">
+                     <button id="exit-button" style="position: absolute; right: -24px;">X</button>
+                     <select id="settings-options">
+                         <option value="option1">Option 1</option>
+                         <option value="option2">Option 2</option>
+                         <!-- Add more options as needed -->
+                     </select>
+                 </div>
+         
+         
+         
+             </div>
+
+
+
     <!-- Include Leaflet JavaScript library -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
