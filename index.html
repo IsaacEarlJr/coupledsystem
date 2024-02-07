@@ -401,11 +401,13 @@ var featureLayer1 = L.esri.featureLayer({
              var panel = document.getElementById('content-panel');  
             panel.style.display = 'block';
        
+            
+            //listener event but must be tied to OG variable
             document.getElementById('clear-data-button').addEventListener('click', function() {
              var dataDisplay = document.getElementById('content-panel');
             dataDisplay.innerHTML = ''; // This clears the data in the content-panel
     
-             dataDisplay.style.display = 'none'; // This hides the content-panel
+             dataDisplay.style.display = 'new data'; // This hides the content-panel (if says "none")
 });
 
 
@@ -429,7 +431,12 @@ var featureLayer2 = L.esri.featureLayer({
             var panel = document.getElementById('content-panel');  
             panel.style.display = 'block';
        
-
+            //listener event but must be tied to OG variable
+            document.getElementById('clear-data-button').addEventListener('click', function() {
+             var dataDisplay = document.getElementById('content-panel');
+            dataDisplay.innerHTML = ''; // This clears the data in the content-panel
+    
+             dataDisplay.style.display = 'new data'; // This hides the content-panel (if says "none")
 
 
         });
