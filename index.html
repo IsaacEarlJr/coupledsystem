@@ -377,7 +377,7 @@
 // Create multiple feature layers                       // Also, note that I added /0 at the end of the URL. This is to specify the layer ID, which is often required when accessing ArcGIS FeatureServer services. You may need to adjust this ID depending on the structure of your FeatureServer.
 
 var featureLayer1 = L.esri.featureLayer({
-    url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0'
+    url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0',
     style: function() {
         return { color: 'red', fillColor: 'yellow' };
     }
