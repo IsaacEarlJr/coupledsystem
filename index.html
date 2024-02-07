@@ -273,9 +273,7 @@
 
 
     <script>
-        // Initialize the map
-        var map = L.map('map').setView([28.5000, -90.6000], 6.5);
-
+       
         // Add OpenStreetMap as base layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -299,6 +297,20 @@
     });
 
     
+    // Initialize the map with OpenStreetMap as the base map
+    var map = L.map('map', {
+        center: [28.5000, -90.6000],
+        zoom: 6.5,
+        zoomControl: false, 
+        layers: [OpenStreetMap]
+    });
+
+    // Add a layer switcher control
+    var baseMaps = {
+        "OpenStreetMap": OpenStreetMap,
+        "Esri WorldImagery": Esri_WorldImagery,
+    };
+
     L.control.zoom({
      position: 'bottomleft'
     }).addTo(map);
