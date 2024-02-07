@@ -374,7 +374,16 @@
 
 
 
-
+    document.getElementById('collapse-button').addEventListener('click', function() {
+    var contentPanel = document.getElementById('content-panel');
+    if (contentPanel.style.display === 'none') {
+        contentPanel.style.display = 'block';
+        this.textContent = '►';
+    } else {
+        contentPanel.style.display = 'none';
+        this.textContent = '◄';
+    }
+});
 
 
 
