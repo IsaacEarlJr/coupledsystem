@@ -372,13 +372,16 @@
 //     });
 
 
-// Create multiple feature layers
+
+
+// Create multiple feature layers                       // Also, note that I added /0 at the end of the URL. This is to specify the layer ID, which is often required when accessing ArcGIS FeatureServer services. You may need to adjust this ID depending on the structure of your FeatureServer.
+
 var featureLayer1 = L.esri.featureLayer({
     url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0'
 });
 
 var featureLayer2 = L.esri.featureLayer({
-    url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/arcgis/rest/services/Wind_Planning_Area_Boundaries__BOEM_/FeatureServer/0'
+    url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/arcgis/rest/services/Wind_Planning_Area_Boundaries__BOEM_/FeatureServer/0'  //i tried changing the 0 to 1 and 2, but it did not work. see line 377
 });
 
 // Add the layers to the map
@@ -397,7 +400,7 @@ var overlays = {
         "Esri WorldImagery": Esri_WorldImagery,
     };
 
-    L.control.layers(baseMaps, null, {position: 'topleft', collapsed: true}).addTo(map);  //I could possibly add a more layers here depending on the data I want to show
+    L.control.layers(baseMaps, overlays, {position: 'topleft', collapsed: true}).addTo(map);  //I could possibly add a more layers here depending on the data I want to show
 
 
 
