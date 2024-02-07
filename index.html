@@ -373,6 +373,12 @@
     L.control.layers(baseMaps, null, {position: 'topleft', collapsed: true}).addTo(map);  //I could possibly add a more layers here depending on the data I want to show
 
 
+
+
+
+////////////////////////////////////////////event listener section
+
+
 //this toggles my content panel
     document.getElementById('collapse-button').addEventListener('click', function() {
     var contentPanel = document.getElementById('content-panel');
@@ -398,9 +404,21 @@ document.getElementById('info-button').addEventListener('click', function() {
 });
 
 
+document.getElementById('settings-button').addEventListener('click', function() {
+    var dropdown = document.getElementById('dropdown');
+    if (dropdown.style.display === 'none') { // dropdown info
+        dropdown.style.display = 'block';
+    } else {
+        dropdown.style.display = 'none';
+    }
+});
+   
 
+document.getElementById('exit-button').addEventListener('click', function() {
+    document.getElementById('dropdown').style.display = 'none';  // Hide the dropdown button
+});
 
-
+/////////////////////////////////////////////////////////////////////
 
 
 
