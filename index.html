@@ -368,13 +368,15 @@
         layers: [OpenStreetMap]
     });
 
+    L.control.layers(baseMaps).addTo(map);  //I could possibly add a more layers here depending on the data I want to show
+
+
     // Add a layer switcher control
     var baseMaps = {
         "OpenStreetMap": OpenStreetMap,
         "Esri WorldImagery": Esri_WorldImagery,
     };
 
-    L.control.layers(baseMaps).addTo(map);  //I could possibly add a more layers here depending on the data I want to show
 
 
 
