@@ -506,8 +506,12 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 document.getElementById('clear-data-button').addEventListener('click', function() {
     var dataDisplay = document.getElementById('data-display');
+    var contentsPanel = document.getElementById('contents-panel'); // Get the contents-panel element
+
     dataDisplay.innerHTML = '';
-    dataDisplay.style.display = 'new data';
+    contentsPanel.innerHTML = ''; // Clear the contents-panel
+
+    dataDisplay.style.display = 'none'; // Hide the data-display
 });
 
 
