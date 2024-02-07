@@ -429,12 +429,7 @@ var overlays = {
 
 
 ////////////////////////////////////////////event listener section
-//clear data button code
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('clear-data-button').addEventListener('click', function() {
-        document.getElementById('data-display').innerHTML = '';
-    });
-});
+
 
 //this toggles my content panel
     document.getElementById('collapse-button').addEventListener('click', function() {
@@ -475,7 +470,10 @@ document.getElementById('exit-button').addEventListener('click', function() {
 });
 
 
-
+//clear data button code
+document.getElementById('clear-data-button').addEventListener('click', function() {
+    document.getElementById('data-display').innerHTML = '';
+});
 /////////////////////////////////////////////////////////////////////
 
 
