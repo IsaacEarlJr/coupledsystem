@@ -463,48 +463,22 @@ myPositionMarker.on("click", function() {
     fx.run(myPositionMarker._icon, pos, 0.3);
 });
 
-var polygonLayer0 = L.esri.featureLayer({
-        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/0",
-        style: function() {
-            return { color: "#ffff00" }; // Yellow
-        }
-    });
+var polygonLayers = [
+    { url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/0", color: "#ffff00" }, // Yellow
+    { url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/1", color: "#000000" }, // Black
+    { url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/2", color: "#ff0000" }, // Red
+    { url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/3", color: "#0000FF" }, // Blue
+    { url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/4", color: "#ff00ff" }  // Magenta
+];
 
-
-    var polygonLayer1 = L.esri.featureLayer({
-        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/1",
+polygonLayers.forEach(function(layer) {
+    L.esri.featureLayer({
+        url: layer.url,
         style: function() {
-            return { color: "#000000" }; // Black
+            return { color: layer.color };
         }
-    });
-    var polygonLayer2 = L.esri.featureLayer({
-        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/2",
-        style: function() {
-            return { color: "#ff0000" }; // Red
-        }
-    });
-    var polygonLayer3 = L.esri.featureLayer({
-        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/3",
-        style: function() {
-            return { color: "#0000FF" }; // Blue
-        }
-    });
-    var polygonLayer4 = L.esri.featureLayer({
-        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/4",
-        style: function() {
-            return { color: "#ff00ff" }; // Magenta
-        }
-    });
-
-    // Add the layers to the map
-    polygonLayer0.addTo(map);
-    polygonLayer1.addTo(map);
-    polygonLayer2.addTo(map);
-    
-    polygonLayer4.addTo(map);
-    // Add the layer to the map
-    
-
+    }).addTo(map);
+});
 
 //    L.control.layers(null, overlayMaps, { position: 'bottomleft', collapsed: true }).addTo(map);
 
