@@ -25,6 +25,7 @@
  <!-- Add font library to html... -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
@@ -41,6 +42,9 @@
 <style>
 
 
+
+
+
 #map { height: 100vh; }
 
 /*this above is the height of the map*/
@@ -51,6 +55,10 @@
 }
 
 /*this above is the media query for the map*/
+
+
+
+
 /*adding style to a search bar*/
 #search-bar {
     position: fixed;
@@ -251,12 +259,75 @@
 </style>         <!--this action closes the stylesheet editior options-->
 
 
+</head>
+
+
+
+
+<body>
+
+    <div id="map"></div> <!--div means "this is where the map is supposed to go"-->
+    
+
+  
+
+
+</div>
+
+
+ <!--adding conents panel-->
+   <!-- Collapse button -->
+   
+   <button id="collapse-button">►</button>
+
+   <!-- Content panel -->
+   <div id="content-panel">
+    <!-- content panel contel to follow -->
+    <button id="clear-data-button">Clear Data</button>
+    <div id="data-display"></div>
+
+</div>
+
+
+
+
+        <!--adding a button to "add data"-->
+        <div id="search-bar">
+            <a id="uf-hull" href="http://www.globalhumanwildlifelab.com/">HULL LAB</a>
+            <input type="text" id="search-input" placeholder="Enter Location...">
+           
+            <button id="add-data-button" title="Add Data">
+                <i class="fas fa-plus"></i>
+            </button>
+
+            <button id="info-button" title="About">
+            <i class="fas fa-info-circle"></i>
+            </button>
 
 
 
 
 
+            <div id="settings-container" style="position: relative;">
+                <button id="settings-button" title="Settings">
+                    <i class="fas fa-cog"></i> <!-- common icon for settings, can replace -->
+                </button>
+            <!-- Dropdown content -->
+                <div id="dropdown" style="display: none; position: absolute; top: 150%; left: -96px;">
+                    <button id="exit-button" style="position: absolute; right: -24px;">X</button>
+                    <select id="settings-options">
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+        
+        
+        
+            </div>
 
+
+    
 
 
     <script>
@@ -606,76 +677,7 @@ window.onload = function() {
     // Other code...
 }
 
-</script>
-
-
-<body>
-
-
-
-
-
-<div id="map"></div> <!--div means "this is where the map is supposed to go"-->
-    
-
-  
-
-
-</div>
-
-
- <!--adding conents panel-->
-   <!-- Collapse button -->
-   
-   <button id="collapse-button">►</button>
-
-   <!-- Content panel -->
-   <div id="content-panel">
-    <!-- content panel contel to follow -->
-    <button id="clear-data-button">Clear Data</button>
-    <div id="data-display"></div>
-
-</div>
-
-
-
-
-        <!--adding a button to "add data"-->
-        <div id="search-bar">
-            <a id="uf-hull" href="http://www.globalhumanwildlifelab.com/">HULL LAB</a>
-            <input type="text" id="search-input" placeholder="Enter Location...">
-           
-            <button id="add-data-button" title="Add Data">
-                <i class="fas fa-plus"></i>
-            </button>
-
-            <button id="info-button" title="About">
-            <i class="fas fa-info-circle"></i>
-            </button>
-
-
-
-
-
-            <div id="settings-container" style="position: relative;">
-                <button id="settings-button" title="Settings">
-                    <i class="fas fa-cog"></i> <!-- common icon for settings, can replace -->
-                </button>
-            <!-- Dropdown content -->
-                <div id="dropdown" style="display: none; position: absolute; top: 150%; left: -96px;">
-                    <button id="exit-button" style="position: absolute; right: -24px;">X</button>
-                    <select id="settings-options">
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                </div>
-        
-        
-        
-            </div>
-
-
+   </script>
 
     </body>
 
