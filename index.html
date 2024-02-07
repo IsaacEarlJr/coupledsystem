@@ -394,7 +394,7 @@ var featureLayer1 = L.esri.featureLayer({
 var featureLayer2 = L.esri.featureLayer({
     url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/arcgis/rest/services/Wind_Planning_Area_Boundaries__BOEM_/FeatureServer/0', //i tried changing the 0 to 1 and 2, but it did not work. see line 377
     style: function() {
-        return { color: 'RoyalBlue', fillColor: 'lightblue' }; // Change the colors as needed
+        return { color: 'RoyalBlue', fillColor: 'lightgrey' }; // Change the colors as needed
     },
     onEachFeature: function(feature, layer) {
         layer.on('click', function() {
