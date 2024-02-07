@@ -429,12 +429,7 @@ var featureLayer2 = L.esri.featureLayer({
             var panel = document.getElementById('content-panel');  
             panel.style.display = 'block';
        
-            //listen event but must be tied
-            document.getElementById('clear-data-button').addEventListener('click', function() {
-             var dataDisplay = document.getElementById('content-panel');
-            dataDisplay.innerHTML = ''; // This clears the data in the content-panel
-    
-             dataDisplay.style.display = 'new data'; // This hides the content-panel (if says "none")
+
 
 
         });
