@@ -476,8 +476,13 @@ var polygonLayers = [
     // ...
 ];
 
+var contentsPanel = document.getElementById('contents-panel');
+
 polygonLayers.forEach(function(layer, index) {
-    document.getElementById('layer' + index).addEventListener('click', function() {
+    var button = document.createElement('button');
+    button.id = 'layer' + index;
+    button.textContent = layer.color + ' Layer';
+    button.addEventListener('click', function() {
         L.esri.featureLayer({
             url: layer.url,
             style: function() {
@@ -485,7 +490,10 @@ polygonLayers.forEach(function(layer, index) {
             }
         }).addTo(map);
     });
+    contentsPanel.appendChild(button);
 });
+
+
 //    L.control.layers(null, overlayMaps, { position: 'bottomleft', collapsed: true }).addTo(map);
 
 
