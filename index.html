@@ -4,22 +4,20 @@
 
 
 <head>
+   
+   
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gulf of Mexico Coupled</title>
        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
-   
-        <!--this above "set" is the external leaflet stylesheet-->
-   
-   
+    <!--this above "set" is the external leaflet stylesheet-->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mwasil/Leaflet.Rainviewer/leaflet.rainviewer.css"/>
    <!--this is leafletweather from mwasil-->
     <!-- Add font library to html... -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-   
-   
    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
@@ -31,6 +29,8 @@
    
    <!-- above; i had to add this library in order to add a satelittle layer-->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!--this is the sweetalert2 library/ for my popup to say we have moved-->
+
+
 
 
 <style>
@@ -285,6 +285,50 @@
         // Add a marker to the map
         L.marker([29.6516, -82.3248]).addTo(map)
             .bindPopup("<b>Hello User!</b><br>I am here.. Currently here collecting data.").openPopup();
+
+
+    // Define OpenStreetMap base map
+    var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    // Define Esri WorldImagery base map
+    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    L.control.zoom({
+     position: 'bottomleft'
+    }).addTo(map);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
