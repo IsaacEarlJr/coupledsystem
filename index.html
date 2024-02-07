@@ -505,9 +505,9 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 document.getElementById('clear-data-button').addEventListener('click', function() {
     var dataDisplay = document.getElementById('content-panel');
-    dataDisplay.innerHTML = '';
+    dataDisplay.innerHTML = ''; // This clears the data in the content-panel
     
-    dataDisplay.style.display = 'none';
+    dataDisplay.style.display = 'none'; // This hides the content-panel
 });
 
 
