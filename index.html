@@ -415,8 +415,28 @@ var featureLayer1 = L.esri.featureLayer({
 
 
 
-    // Create a new div element for this dataset
-    var datasetDiv = document.createElement('div');
+    // // Create a new div element for this dataset
+    // var datasetDiv = document.createElement('div');
+    // datasetDiv.style.border = '1px solid #ccc';
+    // datasetDiv.style.padding = '10px';
+    // datasetDiv.style.marginBottom = '10px';
+        
+
+    
+    //                 // Add the relevant properties to the content panel
+    //                 // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2); // this jumbled up my data, so i had to change it so that each set started on a new line
+    //                 // Add the relevant properties to the content panel with each getting its own line in contents bar 
+    //     for (var key in relevantProperties) {
+    //     if (relevantProperties.hasOwnProperty(key)) {
+    //         contentPanel.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
+    //     }
+    //     }
+
+    //     // Automatically Show the content panel after click
+    //     var panel = document.getElementById('content-panel');  
+    //     panel.style.display = 'block';
+       
+        var datasetDiv = document.createElement('div');
     datasetDiv.style.border = '1px solid #ccc';
     datasetDiv.style.padding = '10px';
     datasetDiv.style.marginBottom = '10px';
@@ -432,9 +452,8 @@ var featureLayer1 = L.esri.featureLayer({
     contentPanel.appendChild(datasetDiv);
 
     // Automatically Show the content panel after click
-    contentPanel.style.display = 'block';
-       
-
+    var panel = document.getElementById('content-panel');
+    panel.style.display = 'block';
        
         });    //JSON.stringify(feature.properties, null, 2) is used to convert the feature's properties to a nicely formatted string. The second argument (null) is a replacer function that alters the behavior of the stringification process (not used in this case), and the third argument (2) specifies the number of spaces to use for indentation.
     }           //Please note that this will replace the current content of the 'data-display' each time a feature is clicked. If you want to append the data instead of replacing the current content, you can use += instead of = when setting innerHTML.
