@@ -379,14 +379,20 @@
 
 var featureLayer1 = L.esri.featureLayer({
     url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0',
-    
-    onEachFeature: function(feature, layer) {
-        layer.on('click', function() {
-            var contentPanel = document.getElementById('content-panel');
-            contentPanel.innerHTML = JSON.stringify(feature.properties, null, 2);
-        });
-    }
+    style: function() {
+        return { color: 'hotpink', fillColor: 'gold' };
+    },
+    onEachFeature: function(feature, layer) {       //In this code, onEachFeature is set to a function that takes two arguments: feature and layer. feature is the GeoJSON representation of the feature, and layer is the Leaflet layer for the feature.
+        layer.on('click', function() {             //Inside the function, layer.on('click', function() {...}) is used to add a click event listener to the layer. When the layer is clicked, the function is called.
+            var contentPanel = document.getElementById('content-panel');               
+            contentPanel.innerHTML = JSON.stringify(feature.properties, null, 2);     //Inside the click event listener, document.getElementById('content-panel') is used to get the 'content-panel' element, and innerHTML is used to set the content of the 'content-panel' to a string representation of the feature's properties.
+        });    //JSON.stringify(feature.properties, null, 2) is used to convert the feature's properties to a nicely formatted string. The second argument (null) is a replacer function that alters the behavior of the stringification process (not used in this case), and the third argument (2) specifies the number of spaces to use for indentation.
+    }           //Please note that this will replace the current content of the 'content-panel' each time a feature is clicked. If you want to append the data instead of replacing the current content, you can use += instead of = when setting innerHTML.
 });
+
+
+
+
 
 // var featureLayer1 = L.esri.featureLayer({
 //     url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0',
