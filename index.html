@@ -412,6 +412,13 @@ var featureLayer1 = L.esri.featureLayer({
                      // Add more properties as needed
         };
 
+  // Create a new div element for this dataset
+  var datasetDiv = document.createElement('div');
+    datasetDiv.style.border = '1px solid #ccc';
+    datasetDiv.style.padding = '10px';
+    datasetDiv.style.marginBottom = '10px';
+
+
                     // Add the relevant properties to the content panel
                     // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2); // this jumbled up my data, so i had to change it so that each set started on a new line
                     // Add the relevant properties to the content panel with each getting its own line in contents bar 
