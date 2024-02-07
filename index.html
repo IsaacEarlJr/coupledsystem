@@ -495,21 +495,22 @@ document.getElementById('exit-button').addEventListener('click', function() {
 });
 
 
-//clear data button code
+
+
+
 // document.getElementById('clear-data-button').addEventListener('click', function() {
-//     document.getElementById('content-panel').innerHTML = '';
-
-
+//     var dataDisplay = document.getElementById('content-panel');
+//     dataDisplay.innerHTML = ''; // This clears the data in the content-panel
+    
+//     dataDisplay.style.display = 'none'; // This hides the content-panel
 // });
 
 
 document.getElementById('clear-data-button').addEventListener('click', function() {
-    var dataDisplay = document.getElementById('content-panel');
-    dataDisplay.innerHTML = ''; // This clears the data in the content-panel
-    
-    dataDisplay.style.display = 'none'; // This hides the content-panel
+    console.log('Button clicked'); // This should appear in your browser's console when the button is clicked
+    var contentPanel = document.getElementById('content-panel');
+    contentPanel.innerHTML = ''; // This clears the data in the content-panel
 });
-
 
 /////////////////////////////////////////////////////////////////////
 
