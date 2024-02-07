@@ -381,7 +381,7 @@ var featureLayer1 = L.esri.featureLayer({
     url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0',
     style: function() {
         return { color: 'hotpink', fillColor: 'gold' };
-    
+    }
     onEachFeature: function(feature, layer) {
         layer.on('click', function() {
             var contentPanel = document.getElementById('content-panel');
@@ -390,12 +390,12 @@ var featureLayer1 = L.esri.featureLayer({
     }
 });
 
-var featureLayer1 = L.esri.featureLayer({
-    url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0',
-    style: function() {
-        return { color: 'hotpink', fillColor: 'gold' };
-    }
-});
+// var featureLayer1 = L.esri.featureLayer({
+//     url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0',
+//     style: function() {
+//         return { color: 'hotpink', fillColor: 'gold' };
+//     }
+// });
 
 var featureLayer2 = L.esri.featureLayer({
     url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/arcgis/rest/services/Wind_Planning_Area_Boundaries__BOEM_/FeatureServer/0'  //i tried changing the 0 to 1 and 2, but it did not work. see line 377
