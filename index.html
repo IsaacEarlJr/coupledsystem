@@ -378,6 +378,9 @@
 
 var featureLayer1 = L.esri.featureLayer({
     url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0'
+    style: function() {
+        return { color: 'red', fillColor: 'pink' };
+    }
 });
 
 var featureLayer2 = L.esri.featureLayer({
