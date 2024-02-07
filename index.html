@@ -358,6 +358,70 @@
         layers: [OpenStreetMap]
     });
 
+    // Add a layer switcher control
+    var baseMaps = {
+        "OpenStreetMap": OpenStreetMap,
+        "Esri WorldImagery": Esri_WorldImagery,
+    };
+
+
+
+
+
+
+//i should be able to erase whats below this line to get back the map i had before
+
+//and anything above this line to get back what i had before
+
+
+  //  L.control.layers(baseMaps).addTo(map);
+//removed extra basemap control from above line of code
+    // Add a marker to the map
+
+
+
+    L.control.zoom({
+     position: 'bottomleft'
+}).addTo(map);
+   
+    // Create the feature layer
+   
+
+
+
+
+    var marker = L.marker([29.6516, -82.3248]).addTo(map);
+
+    // Add a circle marker to the map
+
+    var circle = L.circle([25.5, -93.3248], {
+    color: 'green',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 400000
+})
+//removed to add the circle from the map
+//removed.addTo(map) from end of }) may need to add back 
+
+
+
+//This code will add an oval to the map. The scale transformation scales the circle horizontally by 60% to create an oval-like shape. The coordinates and radius are arbitrary and you may need to adjust them to fit your specific needs. Note that this is a workaround and may not work perfectly in all situations.
+
+
+
+
+
+
+// Add a polygon to the map
+
+var polygon = L.polygon([
+    [28.3516, -93.1548],
+    [28.3516, -93.2548],
+    [28.4516, -93.2548],
+    [28.4516, -93.3548],
+    [28.5516, -93.3548],
+    [28.5516, -93.1548]
+]);
 
 //removed comment to add the polygon to the map. may need to ad back, but was interrupting my code
 
@@ -405,11 +469,12 @@ myPositionMarker.on("click", function() {
 });
 
 var polygonLayer0 = L.esri.featureLayer({
-    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/0",
-    style: function() {
-        return { color: "#ffff00" }; // Yellow
-    }
-}).addTo(map);
+        url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/0",
+        style: function() {
+            return { color: "#ffff00" }; // Yellow
+        }
+    });
+
 
     var polygonLayer1 = L.esri.featureLayer({
         url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/1",
