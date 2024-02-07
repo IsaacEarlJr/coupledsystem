@@ -283,6 +283,11 @@
    <!-- Content panel -->
    <div id="content-panel">
     <!-- content panel contel to follow -->
+    <button id="layer0">Yellow Layer</button>
+    <button id="layer1">Black Layer</button>
+    <button id="layer2">Red Layer</button>
+    <button id="layer3">Blue Layer</button>
+    <button id="layer4">Magenta Layer</button>
     <button id="clear-data-button">Clear Data</button>
     <div id="data-display"></div>
 
@@ -471,15 +476,20 @@ var polygonLayers = [
     { url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Gulf_Lease_Updated2/FeatureServer/4", color: "#ff00ff" }  // Magenta
 ];
 
-polygonLayers.forEach(function(layer) {
-    L.esri.featureLayer({
-        url: layer.url,
-        style: function() {
-            return { color: layer.color };
-        }
-    }).addTo(map);
-});
+var polygonLayers = [
+    // ...
+];
 
+polygonLayers.forEach(function(layer, index) {
+    document.getElementById('layer' + index).addEventListener('click', function() {
+        L.esri.featureLayer({
+            url: layer.url,
+            style: function() {
+                return { color: layer.color };
+            }
+        }).addTo(map);
+    });
+});
 //    L.control.layers(null, overlayMaps, { position: 'bottomleft', collapsed: true }).addTo(map);
 
 
