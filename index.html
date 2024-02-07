@@ -423,7 +423,7 @@ var featureLayer1 = L.esri.featureLayer({
                     // Add the relevant properties to the content panel with each getting its own line in contents bar 
     for (var key in relevantProperties) {
         if (relevantProperties.hasOwnProperty(key)) {
-            datasetDiv.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
+            datasetDiv.innerHTML += '<strong>' + key + '</strong>:' + relevantProperties[key] + '<br>';
         }
     }
 
