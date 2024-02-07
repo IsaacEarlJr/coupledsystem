@@ -257,11 +257,14 @@
         font-family: Arial, sans-serif;
         font-size: 12px;
         color: #ffffff;
-        padding: 1px;
-        border: 1px solid #ccc;
+        padding: 10px; /* Increase padding */
+        border: 2px solid #ccc; /* Increase border thickness */
+        border-radius: 5px; /* Add border radius for rounded corners */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15); /* Add box shadow for a 3D effect */
         background-color: #000000a1;
         overflow: auto;
         height: 675px;
+        margin: 10px; /* Add margin to separate the box from other elements */
     }
 
 
@@ -395,34 +398,32 @@ var featureLayer1 = L.esri.featureLayer({
     },
     onEachFeature: function(feature, layer) {       //In this code, onEachFeature is set to a function that takes two arguments: feature and layer. feature is the GeoJSON representation of the feature, and layer is the Leaflet layer for the feature.
         layer.on('click', function() {             //Inside the function, layer.on('click', function() {...}) is used to add a click event listener to the layer. When the layer is clicked, the function is called.
-            var contentPanel = document.getElementById('data-display');               
-          //(may not need this; see line 404-413)  contentPanel.innerHTML += JSON.stringify(feature.properties, null, 2);     //Inside the click event listener, document.getElementById('data-display') is used to get the 'data-display' element, and innerHTML is used to set the content of the 'data-display' to a string representation of the feature's properties.   //the way this is written, it will display all the properties of the feature when clicked.
+        var contentPanel = document.getElementById('data-display');               
+                //(may not need this; see line 404-413)  contentPanel.innerHTML += JSON.stringify(feature.properties, null, 2);     //Inside the click event listener, document.getElementById('data-display') is used to get the 'data-display' element, and innerHTML is used to set the content of the 'data-display' to a string representation of the feature's properties.   //the way this is written, it will display all the properties of the feature when clicked.
        
 
         
-        // Create a new object with only the properties you want to display.      
+                     // Create a new object with only the properties you want to display.      
          var relevantProperties = {
         'Lease Number': feature.properties.LEASE_NUMBER,                //Replace property1, property2, etc. with the actual property names you want to display.
         'Company Name': feature.properties.COMPANY,
         'Total Acres': feature.properties.ACRES,
         'Link to Project': feature.properties.LEASE_DOCUMENT2,
-        // Add more properties as needed
+                     // Add more properties as needed
         };
 
-
-        // // Add the relevant properties to the content panel
-        // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2);
-
+                    // Add the relevant properties to the content panel
+                    // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2); // this jumbled up my data, so i had to change it so that each set started on a new line
+                    // Add the relevant properties to the content panel with each getting its own line in contents bar 
         for (var key in relevantProperties) {
         if (relevantProperties.hasOwnProperty(key)) {
             contentPanel.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
         }
-    }
+        }
 
-
-             // Automatically Show the content panel after click
-             var panel = document.getElementById('content-panel');  
-            panel.style.display = 'block';
+        // Automatically Show the content panel after click
+        var panel = document.getElementById('content-panel');  
+        panel.style.display = 'block';
        
 
        
