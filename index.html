@@ -401,7 +401,15 @@ var featureLayer1 = L.esri.featureLayer({
              var panel = document.getElementById('content-panel');  
             panel.style.display = 'block';
        
-       
+            document.getElementById('clear-data-button').addEventListener('click', function() {
+             var dataDisplay = document.getElementById('content-panel');
+            dataDisplay.innerHTML = ''; // This clears the data in the content-panel
+    
+             dataDisplay.style.display = 'none'; // This hides the content-panel
+});
+
+
+
         });    //JSON.stringify(feature.properties, null, 2) is used to convert the feature's properties to a nicely formatted string. The second argument (null) is a replacer function that alters the behavior of the stringification process (not used in this case), and the third argument (2) specifies the number of spaces to use for indentation.
     }           //Please note that this will replace the current content of the 'content-panel' each time a feature is clicked. If you want to append the data instead of replacing the current content, you can use += instead of = when setting innerHTML.
 });
@@ -421,6 +429,7 @@ var featureLayer2 = L.esri.featureLayer({
             var panel = document.getElementById('content-panel');  
             panel.style.display = 'block';
        
+
 
 
         });
@@ -503,12 +512,7 @@ document.getElementById('exit-button').addEventListener('click', function() {
 // });
 
 
-document.getElementById('clear-data-button').addEventListener('click', function() {
-    var dataDisplay = document.getElementById('content-panel');
-    dataDisplay.innerHTML = ''; // This clears the data in the content-panel
-    
-    dataDisplay.style.display = 'none'; // This hides the content-panel
-});
+
 
 
 /////////////////////////////////////////////////////////////////////
