@@ -402,10 +402,10 @@ var featureLayer1 = L.esri.featureLayer({
         
         // Create a new object with only the properties you want to display.      
          var relevantProperties = {
-        'Lease Number: ': feature.properties.LEASE_NUMBER,                //Replace property1, property2, etc. with the actual property names you want to display.
-        COMPANY: feature.properties.COMPANY,
-        ACRES: feature.properties.ACRES,
-        LEASE_DOCUMENT2: feature.properties.LEASE_DOCUMENT2,
+        'Lease Number ': feature.properties.LEASE_NUMBER,                //Replace property1, property2, etc. with the actual property names you want to display.
+        'Company Name ': feature.properties.COMPANY,
+        'Total Acres': feature.properties.ACRES,
+        'Link to Ptoject': feature.properties.LEASE_DOCUMENT2,
         // Add more properties as needed
         };
 
