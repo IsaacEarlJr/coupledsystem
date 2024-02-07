@@ -360,15 +360,6 @@
 
 
     
-    // Initialize the map with OpenStreetMap as the base map
-    var map = L.map('map', {
-        center: [28.5000, -90.6000],
-        zoom: 6.5,
-        zoomControl: false, 
-        layers: [OpenStreetMap]
-    });
-
-    L.control.layers(baseMaps).addTo(map);  //I could possibly add a more layers here depending on the data I want to show
 
 
     // Add a layer switcher control
@@ -377,6 +368,7 @@
         "Esri WorldImagery": Esri_WorldImagery,
     };
 
+    L.control.layers(baseMaps).addTo(map);  //I could possibly add a more layers here depending on the data I want to show
 
 
 
