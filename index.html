@@ -395,7 +395,7 @@ var featureLayer1 = L.esri.featureLayer({
     },
     onEachFeature: function(feature, layer) {       //In this code, onEachFeature is set to a function that takes two arguments: feature and layer. feature is the GeoJSON representation of the feature, and layer is the Leaflet layer for the feature.
         layer.on('click', function() {             //Inside the function, layer.on('click', function() {...}) is used to add a click event listener to the layer. When the layer is clicked, the function is called.
-            var contentPanel = document.getElementById('data-display');               
+            var contentPanel = document.getElementById('content-panel');               
             contentPanel.innerHTML += JSON.stringify(feature.properties, null, 2);     //Inside the click event listener, document.getElementById('data-display') is used to get the 'data-display' element, and innerHTML is used to set the content of the 'data-display' to a string representation of the feature's properties.
        
              // Automatically Show the content panel after click
