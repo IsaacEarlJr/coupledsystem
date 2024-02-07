@@ -497,20 +497,18 @@ document.getElementById('exit-button').addEventListener('click', function() {
 
 
 //clear data button code
-document.getElementById('clear-data-button').addEventListener('click', function() {
-    document.getElementById('data-display').innerHTML = '';
-    dataDisplay.style.display = 'none';
-
-});
-
 // document.getElementById('clear-data-button').addEventListener('click', function() {
-//     document.getElementById('data-display').innerHTML = '';,
-//     var dataDisplay = document.getElementById('data-display');
-//     dataDisplay.innerHTML = '';
+//     document.getElementById('data-display').innerHTML = '';
 
-//     // Hide the data display
-//     dataDisplay.style.display = 'none';
+
 // });
+
+
+document.getElementById('clear-data-button').addEventListener('click', function() {
+    var dataDisplay = document.getElementById('data-display');
+    dataDisplay.innerHTML = '';
+    dataDisplay.style.display = 'none';
+});
 
 
 /////////////////////////////////////////////////////////////////////
