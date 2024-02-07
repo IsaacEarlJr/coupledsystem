@@ -328,6 +328,11 @@
         // Initialize the map
         var map = L.map('map').setView([28.5000, -90.6000], 6.5);
 
+        L.control.zoom({
+     position: 'bottomleft'
+    }).addTo(map);
+
+
         // Add OpenStreetMap as base layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -365,10 +370,7 @@
         "Esri WorldImagery": Esri_WorldImagery,
     };
 
-    L.control.zoom({
-     position: 'bottomleft'
-    }).addTo(map);
-
+  
 
 
 
