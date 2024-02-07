@@ -404,6 +404,13 @@ var featureLayer2 = L.esri.featureLayer({
         layer.on('click', function() {
             var contentPanel = document.getElementById('data-display');
             contentPanel.innerHTML += JSON.stringify(feature.properties, null, 2);
+
+            // Automatically Show the content panel after click
+            var panel = document.getElementById('content-panel');  
+            panel.style.display = 'block';
+       
+
+
         });
     }
 });
