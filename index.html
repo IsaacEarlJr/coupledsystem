@@ -371,11 +371,25 @@
 //         L.geoJSON(data).addTo(map);
 //     });
 
-var featureLayer = L.esri.featureLayer({
+
+// Create multiple feature layers
+var featureLayer1 = L.esri.featureLayer({
     url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer/0'
-}).addTo(map);
+});
 
+var featureLayer2 = L.esri.featureLayer({
+    url: 'https://services7.arcgis.com/G5Ma95RzqJRPKsWL/arcgis/rest/services/Wind_Planning_Area_Boundaries__BOEM_/FeatureServer/1'
+});
 
+// Add the layers to the map
+featureLayer1.addTo(map);
+featureLayer2.addTo(map);
+
+// Create an overlays object
+var overlays = {
+    "Wind Lease Boundaries": featureLayer1,
+    "Other Lease Boundaries": featureLayer2
+};
 
     // Add a layer switcher control
     var baseMaps = {
