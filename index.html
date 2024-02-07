@@ -362,13 +362,13 @@
 
 
 //     // Fetch GeoJSON data and add it as a layer
-// fetch('https://example.com/data.geojson')
-//     .then(function(response) {
-//         return response.json();
-//     })
-//     .then(function(data) {
-//         L.geoJSON(data).addTo(map);
-//     });
+fetch('https://services7.arcgis.com/G5Ma95RzqJRPKsWL/ArcGIS/rest/services/Wind_Lease_Boundaries__BOEM_/FeatureServer')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        L.geoJSON(data).addTo(map);
+    });
 
 
 
