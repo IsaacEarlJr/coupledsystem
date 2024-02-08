@@ -511,7 +511,7 @@ featureLayer2.addTo(map);
             var searchValue = searchInput.value;
 
             // Perform a search with the current value
-            fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(searchValue) + '.json?access_token=YOUR_MAPBOX_ACCESS_TOKEN')
+            fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(searchValue) + '.json?access_token=pk.eyJ1IjoiaXNhYWNlYXJsanIiLCJhIjoiY2xzZG9wYXgzMGRvcjJ2cTc1aW4zeGFscSJ9.puoOPI8D_KOash_LSVvk9w')
             .then(response => response.json())
             .then(data => {
                 // This is where you would add your own logic to handle the search results
