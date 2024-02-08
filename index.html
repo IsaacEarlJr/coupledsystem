@@ -490,6 +490,13 @@ var relevantProperties = {
 });
 //////////////////////////////////////////////////end of layer 2///////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+// Add the layers to the map
+featureLayer1.addTo(map);
+featureLayer2.addTo(map);
+
+
 var totalEnergyOutput = 0;
 
 var featureLayer1 = L.esri.featureLayer({
@@ -512,13 +519,6 @@ var featureLayer1 = L.esri.featureLayer({
         });
     }
 });
-
-// Add the layers to the map
-featureLayer1.addTo(map);
-featureLayer2.addTo(map);
-
-
-
 
 
 
