@@ -347,24 +347,7 @@
 
 
 
-        var searchInput = document.getElementById('search-input');
 
-// Add an event listener to the search input
-searchInput.addEventListener('keypress', function(event) {
-    // Check if the Enter key was pressed
-    if (event.key === 'Enter') {
-        // Get the current value of the search input
-        var searchValue = searchInput.value;
-
-        // Perform a search with the current value
-        fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(searchValue) + '.json?access_token=pk.eyJ1IjoiaXNhYWNlYXJsanIiLCJhIjoiY2xzZG9wYXgzMGRvcjJ2cTc1aW4zeGFscSJ9.puoOPI8D_KOash_LSVvk9w')
-        .then(response => response.json())
-        .then(data => {
-            // This is where you would add your own logic to handle the search results
-            console.log(data);
-        });
-    }
-});
         L.control.zoom({
      position: 'bottomleft'
     }).addTo(map);
@@ -426,6 +409,7 @@ var featureLayer1 = L.esri.featureLayer({
         'Company Name': feature.properties.COMPANY,
         'Total Acres': feature.properties.ACRES,
         'Link to Project': feature.properties.LEASE_DOCUMENT2,
+        'Enerygy Output': feature.properties.ACRES * 20, // Multiply ACRES by 20
                      // Add more properties as needed
         };
 
@@ -517,11 +501,37 @@ featureLayer2.addTo(map);
 
 
 
-    // Select the search input
+    // // Select the search input
+    // var searchInput = document.getElementById('search-input');
+
+    // // Add an event listener to the search input
+    // searchInput.addEventListener('keypress', function(event) {
+    //     // Check if the Enter key was pressed
+    //     if (event.key === 'Enter') {
+    //         // Get the current value of the search input
+    //         var searchValue = searchInput.value;
+
+    //         // Perform a search with the current value
+    //         fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(searchValue) + '.json?access_token=pk.eyJ1IjoiaXNhYWNlYXJsanIiLCJhIjoiY2xzZG9wYXgzMGRvcjJ2cTc1aW4zeGFscSJ9.puoOPI8D_KOash_LSVvk9w')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // This is where you would add your own logic to handle the search results
+    //             console.log(data);
+    //         });
+    //     }
+    // });
 
 
+//     .then(data => {
+//     // Check if any results were returned
+//     if (data.features.length > 0) {
+//         // Get the coordinates of the first result
+//         var coordinates = data.features[0].geometry.coordinates;
 
-
+//         // Set the view of the map to the coordinates
+//         map.setView([coordinates[1], coordinates[0]], 13);
+//     }
+// });
 
 
 
