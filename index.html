@@ -409,7 +409,7 @@ var featureLayer1 = L.esri.featureLayer({
         'Company Name': feature.properties.COMPANY,
         'Total Acres': feature.properties.ACRES,
         'Link to Project': feature.properties.LEASE_DOCUMENT2,
-        'Enerygy Output': feature.properties.ACRES * .00404686 * 3, // Multiply ACRES by 0.00404686 to convert to square kilometers, then multiply by 3 to get the energy output in terawatt-hours (TWh) per year (MWh per square kilometer per year, not TWh)
+        'Energy Output (MW)': (feature.properties.ACRES * .00404686 * 3).toFixed(2), // Multiply ACRES by 0.00404686 to convert to square kilometers, then multiply by 3 to get the energy output in terawatt-hours (TWh) per year (MWh per square kilometer per year, not TWh) tofixed(2) is used to round the result to two decimal places.
                      // Add more properties as needed
         };
 
