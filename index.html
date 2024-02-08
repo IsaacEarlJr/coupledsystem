@@ -291,6 +291,7 @@
         <!-- content panel content -->
         <button id="clear-data-button">Clear Data</button>
         <div id="data-display"></div>
+        <div id="total-energy-output"></div>  <!-- Add a new box for displaying the total energy output "making a "global variable"-->
     </div>
 
     <button id="collapse-button">►</button>
@@ -489,7 +490,28 @@ var relevantProperties = {
 });
 //////////////////////////////////////////////////end of layer 2///////////////////////////////////////////////////////////////////////////////////////////
 
+var totalEnergyOutput = 0;
 
+var featureLayer1 = L.esri.featureLayer({
+    // ...
+    onEachFeature: function(feature, layer) {
+        layer.on('click', function() {
+            var energyOutput = feature.properties.ACRES * .00404686 * 3;
+            var relevantProperties = {
+                'Energy Output (MW)': energyOutput.toFixed(2),
+                // ...
+            };
+
+            // Add the energy output of this layer to the total
+            totalEnergyOutput += parseFloat(energyOutput.toFixed(2));
+
+            // Display the total energy output in the new box
+            document.getElementById('total-energy-output').textContent = 'Total Energy Output (MW): ' + totalEnergyOutput.toFixed(2);
+
+            // Rest of your code...
+        });
+    }
+});
 
 // Add the layers to the map
 featureLayer1.addTo(map);
