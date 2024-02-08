@@ -486,12 +486,48 @@ var relevantProperties = {
         });
     }
 });
+//////////////////////////////////////////////////end of layer 2///////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 // Add the layers to the map
 featureLayer1.addTo(map);
 featureLayer2.addTo(map);
+
+
+
+
+
+
+
+    // Select the search input
+    var searchInput = document.getElementById('search-input');
+
+    // Add an event listener to the search input
+    searchInput.addEventListener('keypress', function(event) {
+        // Check if the Enter key was pressed
+        if (event.key === 'Enter') {
+            // Get the current value of the search input
+            var searchValue = searchInput.value;
+
+            // Perform a search with the current value
+            fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(searchValue) + '.json?access_token=YOUR_MAPBOX_ACCESS_TOKEN')
+            .then(response => response.json())
+            .then(data => {
+                // This is where you would add your own logic to handle the search results
+                console.log(data);
+            });
+        }
+    });
+
+
+
+
+
+
+
+
+
 
 // Create an overlays object
 var overlays = {
