@@ -269,6 +269,14 @@
 
 
 
+    .info-control-bottommiddle {
+    position: absolute;
+    z-index: 1000;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 </style>
 
 
@@ -525,7 +533,7 @@ var relevantProperties = {
 var infoControl = L.control({position: 'bottomleft'});
 
 infoControl.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info-control');
+    this._div = L.DomUtil.create('div', 'info-control info-control-bottommiddle');
     this.update();
     return this._div;
 };
