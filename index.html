@@ -608,7 +608,7 @@ document.getElementById('info-button').addEventListener('click', function() {
 // Get the pixel position of the center of the map
 var centerPixelPosition = map.project(map.getCenter(), map.getZoom());
 // Calculate the pixel position for the popup
-var popupPosition = [centerPixelPosition.x, centerPixelPosition.y + 60];
+var popupPosition = [centerPixelPosition.x, centerPixelPosition.y + 100];
 // Convert the pixel position to geographical coordinates
 var latLng = map.unproject(popupPosition, map.getZoom());
 
