@@ -507,10 +507,10 @@ var relevantProperties = {
 
 
     var featureLayer3 = L.esri.featureLayer({
-    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/BirdSightingsGulfMerge_Clipped/FeatureServer/0',
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/BirdSightingsGulfMerge_Clipped/FeatureServer/0', //we must click into actual layer to get the url (on arcgis online)
     pointToLayer: function (geojson, latlng) {
         return L.circleMarker(latlng, {
-            radius: 8,
+            radius: 7,
             fillColor: "#ff7800",
             color: "#000",
             weight: 1,
