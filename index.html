@@ -506,9 +506,61 @@ var relevantProperties = {
 
 
 
+
+
+var featureLayer3 = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/BirdSightingsGulfMerge_Clipped/FeatureServer', //i tried changing the 0 to 1 and 2, but it did not work. see line 377
+    style: function() {
+        return { color: 'RoyalBlue', fillColor: 'darkblue' }; // Change the colors as needed
+    },
+    onEachFeature: function(feature, layer) {
+        layer.on('click', function() {
+            var contentPanel = document.getElementById('data-display');
+            
+
+
+// Create a new object with only the properties you want to display.      
+// var relevantProperties = {
+//         'Project Number': feature.properties.PROTRACTION_NUMBER,                //Replace property1, property2, etc. with the actual property names you want to display.
+//         'Project Info': feature.properties.ADDITIONAL_INFORMATION,
+//         'Project Phase': feature.properties.AREA_STATUS,
+//         'Link to Project': feature.properties.URL2,
+//         // Add more properties as needed
+//         };
+       
+                    // Create a new div element for this dataset
+    // var datasetDiv = document.createElement('div');
+    // datasetDiv.style.border = '1px solid #ccc';
+    // datasetDiv.style.padding = '10px';
+    // datasetDiv.style.marginBottom = '10px';
+
+                    // Add the relevant properties to the content panel
+                    // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2); // this jumbled up my data, so i had to change it so that each set started on a new line
+                    // Add the relevant properties to the content panel with each getting its own line in contents bar 
+    // for (var key in relevantProperties) {
+    //     if (relevantProperties.hasOwnProperty(key)) {
+    //         datasetDiv.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
+    //     }
+    // }
+
+                    // Add the dataset div to the content panel
+    // contentPanel.appendChild(datasetDiv);
+
+                    // Automatically Show the content panel after click
+    // var panel = document.getElementById('content-panel');
+    // panel.style.display = 'block';
+       
+
+
+        });
+    }
+});
+
+
 // Add the layers to the map
 featureLayer1.addTo(map);
 featureLayer2.addTo(map);
+featureLayer3.addTo(map);
 
 
 
@@ -557,7 +609,8 @@ featureLayer2.addTo(map);
 // Create an overlays object
 var overlays = {
     "Offshore Wind Areas (Leased)": featureLayer1,
-    "Offshore Wind Areas (Planning)": featureLayer2
+    "Offshore Wind Areas (Planning)": featureLayer2,
+    "Bird Sightings": featureLayer3,
 };
 
 
