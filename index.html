@@ -505,7 +505,9 @@ var relevantProperties = {
 //////////////////////////////////////////////////end of layer 2///////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+var featureLayer3 = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/BirdSightingsGulfMerge_Clipped/FeatureServer'
+});
 
 
 
@@ -563,6 +565,7 @@ featureLayer2.addTo(map);
 var overlays = {
     "Offshore Wind Areas (Leased)": featureLayer1,
     "Offshore Wind Areas (Planning)": featureLayer2,
+    "Bird Sightings": featureLayer3,
 };
 
 
