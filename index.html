@@ -549,26 +549,30 @@ var featureLayer3 = L.esri.featureLayer({
         });
     },
     onEachFeature: function(feature, layer) {
-        layer.on('click', function() {
-            var contentsPanel = document.getElementById('data-display');
-            var relevantProperties = {
-                'Species': feature.properties.COMMON_NAME,
-                'Date Sighting': feature.properties.OBSERVATION_DATE,
-                // Add more properties as needed
-            };
+    layer.on('click', function() {
+        var contentsPanel = document.getElementById('data-display');
+        
+        var observationDate = new Date(feature.properties.OBSERVATION_DATE);
+        var formattedDate = (observationDate.getMonth() + 1) + '/' + observationDate.getDate() + '/' +  observationDate.getFullYear();
 
-            var datasetDiv = document.createElement('div');
-            datasetDiv.style.border = '1px solid #ccc';
-            datasetDiv.style.padding = '10px';
-            datasetDiv.style.marginBottom = '10px';
+        var relevantProperties = {
+            'Species': feature.properties.COMMON_NAME,
+            'Date Sighting': formattedDate,
+            // Add more properties as needed
+        };
 
-            for (var key in relevantProperties) {
-                if (relevantProperties.hasOwnProperty(key)) {
-                    datasetDiv.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
-                }
+        var datasetDiv = document.createElement('div');
+        datasetDiv.style.border = '1px solid #ccc';
+        datasetDiv.style.padding = '10px';
+        datasetDiv.style.marginBottom = '10px';
+
+        for (var key in relevantProperties) {
+            if (relevantProperties.hasOwnProperty(key)) {
+                datasetDiv.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
             }
+        }
 
-            contentsPanel.appendChild(datasetDiv);
+        contentsPanel.appendChild(datasetDiv);
         });
     }
 });
