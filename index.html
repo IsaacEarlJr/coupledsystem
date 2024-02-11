@@ -521,7 +521,7 @@ var relevantProperties = {
 
 
 
-// var featureLayer3 = L.esri.featureLayer({
+var featureLayer3 = L.esri.featureLayer({
     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/EBird_TX_LA_FL_Merge_Clip/FeatureServer/0',  //must add /0 at the end of the url
     pointToLayer: function (geojson, latlng) {
         return L.circleMarker(latlng, {
