@@ -535,86 +535,21 @@ var featureLayer3 = L.esri.featureLayer({
             fillOpacity: 0.8
         });
     },
-    // onEachFeature: function(feature, layer) {
-    // layer.on('click', function() {
-    //     var contentsPanel = document.getElementById('data-display');
-        
-    //     // Calculate the distance
-    //     var point = turf.point([feature.geometry.coordinates[0], feature.geometry.coordinates[1]]);
-    //     var polygons = []; // Array to store all polygons from featureLayer1 and featureLayer2
-
-    //     // Get all polygons from featureLayer1 and featureLayer2
-    //     featureLayer1.query().run(function(error, featureCollection) {
-    //         featureCollection.features.forEach(function(feature) {
-    //             polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
-    //         });
-    //     });
-    //     featureLayer2.query().run(function(error, featureCollection) {
-    //         featureCollection.features.forEach(function(feature) {
-    //             polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
-    //         });
-    //     });
-
-    //     // Calculate the distance to the closest polygon
-    //     var minDistance = Infinity;
-    //     polygons.forEach(function(polygon) {
-    //         var distance = turf.distance(point, turf.nearestPointOnLine(polygon, point), {units: 'miles'});
-    //         if (distance < minDistance) {
-    //             minDistance = distance;
-    //         }
-    //     });
-
     onEachFeature: function(feature, layer) {
-    layer.on('click', async function() { // Note the async keyword here
+    layer.on('click', function() {
+        ////////////////////////////////////////////////
+        
+        
+        //////////////////////////////////////////
+        
         var contentsPanel = document.getElementById('data-display');
         
-        // Calculate the distance
-        var point = turf.point([feature.geometry.coordinates[0], feature.geometry.coordinates[1]]);
-        var polygons = []; // Array to store all polygons from featureLayer1 and featureLayer2
-
-        // Get all polygons from featureLayer1 and featureLayer2
-        var featureCollections = await Promise.all([ // Note the await keyword here
-            featureLayer1.query().run(function(error, featureCollection) {
-                if (error) {
-                    console.error('Error retrieving polygons from featureLayer1:', error);
-                } else {
-                    return featureCollection;
-                }
-            }),
-            featureLayer2.query().run(function(error, featureCollection) {
-                if (error) {
-                    console.error('Error retrieving polygons from featureLayer2:', error);
-                } else {
-                    return featureCollection;
-                }
-            })
-        ]);
-
-        featureCollections.forEach(function(featureCollection) {
-            if (featureCollection) {
-                featureCollection.features.forEach(function(feature) {
-                    polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
-                });
-            }
-        });
-
-        // Calculate the distance to the closest polygon
-        var minDistance = Infinity;
-        polygons.forEach(function(polygon) {
-            var distance = turf.distance(point, turf.nearestPointOnLine(polygon, point), {units: 'miles'});
-            if (distance < minDistance) {
-                minDistance = distance;
-            }
-        });
-
-        // Add the distance to the relevantProperties
         var observationDate = new Date(feature.properties.OBSERVATION_DATE);
         var formattedDate = (observationDate.getMonth() + 1) + '/' + observationDate.getDate() + '/' +  observationDate.getFullYear();
 
         var relevantProperties = {
             'Species': feature.properties.COMMON_NAME,
             'Date Sighted': formattedDate,
-            'Distance to closest polygon (miles)': minDistance,
             // Add more properties as needed
         };
 
@@ -630,11 +565,13 @@ var featureLayer3 = L.esri.featureLayer({
         }
 
         contentsPanel.appendChild(datasetDiv);
-        // Automatically Show the content panel after click
+                  // Automatically Show the content panel after click
         var panel = document.getElementById('content-panel');
         panel.style.display = 'block';
-    });
-}
+
+        });
+
+    }
 });
 
 
