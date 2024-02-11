@@ -521,20 +521,7 @@ var relevantProperties = {
 
 
 
-// var featureLayer3 = L.esri.featureLayer({
-//     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/EBird_TX_LA_FL_Merge_Clip/FeatureServer/0',  //must add /0 at the end of the url
-//     pointToLayer: function (geojson, latlng) {
-//         return L.circleMarker(latlng, {
-//             radius: 8,
-//             fillColor: "#ff7800",
-//             color: "#000",
-//             weight: 1,
-//             opacity: 1,
-//             fillOpacity: 0.8
-//         });
-//     },
-
-// });
+// Create a feature layer for bird sightings
 
 var featureLayer3 = L.esri.featureLayer({
     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/EBird_TX_LA_FL_Merge_Clip/FeatureServer/0',
@@ -557,7 +544,7 @@ var featureLayer3 = L.esri.featureLayer({
 
         var relevantProperties = {
             'Species': feature.properties.COMMON_NAME,
-            'Date Sighting': formattedDate,
+            'Date Sighted': formattedDate,
             // Add more properties as needed
         };
 
@@ -573,14 +560,19 @@ var featureLayer3 = L.esri.featureLayer({
         }
 
         contentsPanel.appendChild(datasetDiv);
+                  // Automatically Show the content panel after click
+        var panel = document.getElementById('content-panel');
+        panel.style.display = 'block';
+
         });
+
     }
 });
 
 
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////end of layer 3/////////////////////////////////////////////////
 
 // Add the layers to the map
 featureLayer1.addTo(map);
