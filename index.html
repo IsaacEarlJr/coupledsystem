@@ -29,8 +29,8 @@
    
    <!-- above; i had to add this library in order to add a satelittle layer-->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!--this is the sweetalert2 library/ for my popup to say we have moved-->
-
-
+    <!-- library, which provides geospatial operations like distance away from-->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.6/turf.min.js"></script>
 
 
 <style>
@@ -539,12 +539,44 @@ var featureLayer3 = L.esri.featureLayer({
     layer.on('click', function() {
         var contentsPanel = document.getElementById('data-display');
         
+        // Calculate the distance
+        var point = turf.point([feature.geometry.coordinates[0], feature.geometry.coordinates[1]]);
+        var polygons = []; // Array to store all polygons from featureLayer1 and featureLayer2
+
+        // Get all polygons from featureLayer1 and featureLayer2
+        featureLayer1.query().run(function(error, featureCollection) {
+            featureCollection.features.forEach(function(feature) {
+                polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
+            });
+        });
+        featureLayer2.query().run(function(error, featureCollection) {
+            featureCollection.features.forEach(function(feature) {
+                polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
+            });
+        });
+
+        // Calculate the distance to the closest polygon
+        var minDistance = Infinity;
+        polygons.forEach(function(polygon) {
+            var distance = turf.distance(point, turf.nearestPointOnLine(polygon, point), {units: 'miles'});
+            if (distance < minDistance) {
+                minDistance = distance;
+            }
+        });
+
+       
+        
+                                ///////////////////////////////////////////////
+        
+        var contentsPanel = document.getElementById('data-display');
+        
         var observationDate = new Date(feature.properties.OBSERVATION_DATE);
         var formattedDate = (observationDate.getMonth() + 1) + '/' + observationDate.getDate() + '/' +  observationDate.getFullYear();
 
         var relevantProperties = {
             'Species': feature.properties.COMMON_NAME,
             'Date Sighted': formattedDate,
+            'Distance to closest polygon (miles)': minDistance,
             // Add more properties as needed
         };
 
