@@ -536,6 +536,32 @@ var relevantProperties = {
 // });
 
 
+var featureLayer3 = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/EBird_TX_LA_FL_Merge_Clip/FeatureServer/0',  //must add /0 at the end of the url
+    pointToLayer: function (geojson, latlng) {
+        return L.circleMarker(latlng, {
+            radius: 8,
+            fillColor: "#ff7800",
+            color: "#000",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8
+        });
+    },
+    // onEachFeature: function (feature, layer) {
+    //     layer.on({
+    //         mouseover: function(e) {
+    //             infoControl.update(e.target.feature.properties);
+    //         },
+    //         mouseout: function(e) {
+    //             infoControl.update();
+    //         }
+    //     });
+    // }
+});
+
+
+
 // Create a new control
 var infoControl = L.control({position: 'bottomleft'});
 
@@ -576,29 +602,7 @@ document.getElementById('time-slider').addEventListener('input', function(e) {
 });
 
 
-var featureLayer3 = L.esri.featureLayer({
-    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/EBird_TX_LA_FL_Merge_Clip/FeatureServer/0',  //must add /0 at the end of the url
-    pointToLayer: function (geojson, latlng) {
-        return L.circleMarker(latlng, {
-            radius: 8,
-            fillColor: "#ff7800",
-            color: "#000",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.8
-        });
-    },
-    // onEachFeature: function (feature, layer) {
-    //     layer.on({
-    //         mouseover: function(e) {
-    //             infoControl.update(e.target.feature.properties);
-    //         },
-    //         mouseout: function(e) {
-    //             infoControl.update();
-    //         }
-    //     });
-    // }
-});
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
