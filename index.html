@@ -539,17 +539,17 @@ var relevantProperties = {
 // Create a new control
 var infoControl = L.control({position: 'bottomleft'});
 
-infoControl.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info-control info-control-bottommiddle');
-    // this._div.innerHTML = '<input type="range" id="time-slider" min="0" max="100" value="50">';
-    this.update();
-    return this._div;
-};
+// infoControl.onAdd = function (map) {
+//     this._div = L.DomUtil.create('div', 'info-control info-control-bottommiddle');
+//     // this._div.innerHTML = '<input type="range" id="time-slider" min="0" max="100" value="50">';
+//     this.update();
+//     return this._div;
+// };
 
-infoControl.update = function (props) {
-    // this._div.innerHTML = '<input type="range" id="time-slider" min="0" max="100" value="50">';
-    this._div.innerHTML = props ? '<h2>' + props.name + '</h2>' : 'Hover over a point';
-};
+// infoControl.update = function (props) {
+//     // this._div.innerHTML = '<input type="range" id="time-slider" min="0" max="100" value="50">';
+//     this._div.innerHTML = props ? '<h2>' + props.name + '</h2>' : 'Hover over a point';
+// };
 
 // Add the control to the map
 infoControl.addTo(map);
