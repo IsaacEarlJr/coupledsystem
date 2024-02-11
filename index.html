@@ -557,23 +557,23 @@ infoControl.addTo(map);
 // Initialize min and max dates
 var minDate, maxDate;
 
-// Query the feature layer to get the min and max dates
-featureLayer3.query().where('1=1').run(function(error, featureCollection){
-    minDate = new Date(Math.min.apply(null, featureCollection.features.map(function(e) {
-        return new Date(e.properties['OBSERVATION DATE']);
-    })));
-    maxDate = new Date(Math.max.apply(null, featureCollection.features.map(function(e) {
-        return new Date(e.properties['OBSERVATION DATE']);
-    })));
+// // Query the feature layer to get the min and max dates
+// featureLayer3.query().where('1=1').run(function(error, featureCollection){
+//     minDate = new Date(Math.min.apply(null, featureCollection.features.map(function(e) {
+//         return new Date(e.properties['OBSERVATION DATE']);
+//     })));
+//     maxDate = new Date(Math.max.apply(null, featureCollection.features.map(function(e) {
+//         return new Date(e.properties['OBSERVATION DATE']);
+//     })));
 
-    // Add the slider to the infoControl
-    infoControl.getContainer().innerHTML += '<input type="range" id="time-slider" min="' + minDate.getTime() + '" max="' + maxDate.getTime() + '" value="' + minDate.getTime() + '">';
-});
-// Add an event listener to the slider
-document.getElementById('time-slider').addEventListener('input', function(e) {
-    var selectedDate = new Date(parseInt(e.target.value));
-    // Update the map based on the selected date
-});
+//     // Add the slider to the infoControl
+//     infoControl.getContainer().innerHTML += '<input type="range" id="time-slider" min="' + minDate.getTime() + '" max="' + maxDate.getTime() + '" value="' + minDate.getTime() + '">';
+// });
+// // Add an event listener to the slider
+// document.getElementById('time-slider').addEventListener('input', function(e) {
+//     var selectedDate = new Date(parseInt(e.target.value));
+//     // Update the map based on the selected date
+// });
 
 
 var featureLayer3 = L.esri.featureLayer({
