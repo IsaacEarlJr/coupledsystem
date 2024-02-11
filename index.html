@@ -538,8 +538,15 @@ var relevantProperties = {
 
 var featureLayer3 = L.esri.featureLayer({
     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/EBird_TX_LA_FL_Merge_Clip/FeatureServer/0',
-    style: function() {
-        return { color: 'blue', fillColor: 'green' };
+    pointToLayer: function (geojson, latlng) {
+        return L.circleMarker(latlng, {
+            radius: 8,
+            fillColor: "#ff7800",
+            color: "#000",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8
+        });
     },
     onEachFeature: function(feature, layer) {
         layer.on('click', function() {
