@@ -535,7 +535,36 @@ var featureLayer3 = L.esri.featureLayer({
             fillOpacity: 0.8
         });
     },
-    onEachFeature: function(feature, layer) {
+    // onEachFeature: function(feature, layer) {
+    // layer.on('click', function() {
+    //     var contentsPanel = document.getElementById('data-display');
+        
+    //     // Calculate the distance
+    //     var point = turf.point([feature.geometry.coordinates[0], feature.geometry.coordinates[1]]);
+    //     var polygons = []; // Array to store all polygons from featureLayer1 and featureLayer2
+
+    //     // Get all polygons from featureLayer1 and featureLayer2
+    //     featureLayer1.query().run(function(error, featureCollection) {
+    //         featureCollection.features.forEach(function(feature) {
+    //             polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
+    //         });
+    //     });
+    //     featureLayer2.query().run(function(error, featureCollection) {
+    //         featureCollection.features.forEach(function(feature) {
+    //             polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
+    //         });
+    //     });
+
+    //     // Calculate the distance to the closest polygon
+    //     var minDistance = Infinity;
+    //     polygons.forEach(function(polygon) {
+    //         var distance = turf.distance(point, turf.nearestPointOnLine(polygon, point), {units: 'miles'});
+    //         if (distance < minDistance) {
+    //             minDistance = distance;
+    //         }
+    //     });
+
+        onEachFeature: function(feature, layer) {
     layer.on('click', async function() { // Note the async keyword here
         var contentsPanel = document.getElementById('data-display');
         
@@ -576,9 +605,7 @@ var featureLayer3 = L.esri.featureLayer({
             if (distance < minDistance) {
                 minDistance = distance;
             }
-        });
-
-       
+        });    
         
                                 ///////////////////////////////////////////////
         
