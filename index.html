@@ -536,43 +536,71 @@ var featureLayer3 = L.esri.featureLayer({
         });
     },
     onEachFeature: function(feature, layer) {
-    layer.on('click', function() {
-        ////////////////////////////////////////////////
-        
-        
-        //////////////////////////////////////////
-        
-        var contentsPanel = document.getElementById('data-display');
-        
-        var observationDate = new Date(feature.properties.OBSERVATION_DATE);
-        var formattedDate = (observationDate.getMonth() + 1) + '/' + observationDate.getDate() + '/' +  observationDate.getFullYear();
+        layer.on('click', function(e) {
+            var clickedPoint = turf.point([e.latlng.lng, e.latlng.lat]);
 
-        var relevantProperties = {
-            'Species': feature.properties.COMMON_NAME,
-            'Date Sighted': formattedDate,
-            // Add more properties as needed
-        };
+            // Query the features in featureLayer1 and featureLayer2
+            var query1 = L.esri.query({url: featureLayer1.options.url});
+            var query2 = L.esri.query({url: featureLayer2.options.url});
 
-        var datasetDiv = document.createElement('div');
-        datasetDiv.style.border = '1px solid #ccc';
-        datasetDiv.style.padding = '10px';
-        datasetDiv.style.marginBottom = '10px';
+            // Execute the queries
+            query1.run(function(error, featureCollection1) {
+                if (error) {
+                    console.error('Error querying featureLayer1:', error);
+                    return;
+                }
 
-        for (var key in relevantProperties) {
-            if (relevantProperties.hasOwnProperty(key)) {
-                datasetDiv.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
-            }
-        }
+                query2.run(function(error, featureCollection2) {
+                    if (error) {
+                        console.error('Error querying featureLayer2:', error);
+                        return;
+                    }
 
-        contentsPanel.appendChild(datasetDiv);
-                  // Automatically Show the content panel after click
-        var panel = document.getElementById('content-panel');
-        panel.style.display = 'block';
+                    // Find the nearest centroid in both collections
+                    var nearest;
+                    var minDistance = Infinity;
+                    var allFeatures = featureCollection1.features.concat(featureCollection2.features);
+                    allFeatures.forEach(function(feature) {
+                        var centroid = turf.centroid(feature);
+                        var distance = turf.distance(clickedPoint, centroid, {units: 'miles'});
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            nearest = centroid;
+                        }
+                    });
 
-        });
+                    var contentsPanel = document.getElementById('data-display');
+                    
+                    var observationDate = new Date(feature.properties.OBSERVATION_DATE);
+                    var formattedDate = (observationDate.getMonth() + 1) + '/' + observationDate.getDate() + '/' +  observationDate.getFullYear();
 
-    }
-});
+                    var relevantProperties = {
+                        'Species': feature.properties.COMMON_NAME,
+                        'Date Sighted': formattedDate,
+                        'Distance from Wind Energy site': minDistance.toFixed(1) + ' miles'
+                        // Add more properties as needed
+                    };
+
+                    var datasetDiv = document.createElement('div');
+                    datasetDiv.style.border = '1px solid #ccc';
+                    datasetDiv.style.padding = '10px';
+                    datasetDiv.style.marginBottom = '10px';
+
+                    for (var key in relevantProperties) {
+                        if (relevantProperties.hasOwnProperty(key)) {
+                            datasetDiv.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
+                        }
+                    }
+
+                    contentsPanel.appendChild(datasetDiv);
+                    // Automatically Show the content panel after click
+                    var panel = document.getElementById('content-panel');
+                    panel.style.display = 'block';
+                }); // closing for query2.run
+            }); // closing for query1.run
+        }); // closing for layer.on
+    } // closing for onEachFeature
+}); // closing for featureLayer3
 
 
 
