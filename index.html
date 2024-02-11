@@ -533,22 +533,22 @@ var featureLayer3 = L.esri.featureLayer({
             fillOpacity: 0.8
         });
     },
-    onEachFeature: function (feature, layer) {
-        layer.on({
-            mouseover: function(e) {
-                infoControl.update(e.target.feature.properties);
-            },
-            mouseout: function(e) {
-                infoControl.update();
-            }
-        });
-    }
+    // onEachFeature: function (feature, layer) {
+    //     layer.on({
+    //         mouseover: function(e) {
+    //             infoControl.update(e.target.feature.properties);
+    //         },
+    //         mouseout: function(e) {
+    //             infoControl.update();
+    //         }
+    //     });
+    // }
 });
 
 
 
 // Create a new control
-var infoControl = L.control({position: 'bottomleft'});
+var infoControl = L.control({position: 'bottomright'});
 
 // infoControl.onAdd = function (map) {
 //     this._div = L.DomUtil.create('div', 'info-control info-control-bottommiddle');
