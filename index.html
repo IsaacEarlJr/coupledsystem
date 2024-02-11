@@ -533,34 +533,8 @@ var featureLayer3 = L.esri.featureLayer({
             fillOpacity: 0.8
         });
     },
-    // onEachFeature: function (feature, layer) {
-    //     layer.on({
-    //         mouseover: function(e) {
-    //             infoControl.update(e.target.feature.properties);
-    //         },
-    //         mouseout: function(e) {
-    //             infoControl.update();
-    //         }
-    //     });
-    // }
+
 });
-
-
-
-// Create a new control
-var infoControl = L.control({position: 'bottomright'});
-
-// infoControl.onAdd = function (map) {
-//     this._div = L.DomUtil.create('div', 'info-control info-control-bottommiddle');
-//     // this._div.innerHTML = '<input type="range" id="time-slider" min="0" max="100" value="50">';
-//     this.update();
-//     return this._div;
-// };
-
-// infoControl.update = function (props) {
-//     // this._div.innerHTML = '<input type="range" id="time-slider" min="0" max="100" value="50">';
-//     this._div.innerHTML = props ? '<h2>' + props.name + '</h2>' : 'Hover over a point';
-// };
 
 
 
@@ -573,48 +547,6 @@ var infoControl = L.control({position: 'bottomright'});
 featureLayer1.addTo(map);
 featureLayer2.addTo(map);
 featureLayer3.addTo(map);
-
-
-
-
-
-
-
-
-    // // Select the search input
-    // var searchInput = document.getElementById('search-input');
-
-    // // Add an event listener to the search input
-    // searchInput.addEventListener('keypress', function(event) {
-    //     // Check if the Enter key was pressed
-    //     if (event.key === 'Enter') {
-    //         // Get the current value of the search input
-    //         var searchValue = searchInput.value;
-
-    //         // Perform a search with the current value
-    //         fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(searchValue) + '.json?access_token=pk.eyJ1IjoiaXNhYWNlYXJsanIiLCJhIjoiY2xzZG9wYXgzMGRvcjJ2cTc1aW4zeGFscSJ9.puoOPI8D_KOash_LSVvk9w')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             // This is where you would add your own logic to handle the search results
-    //             console.log(data);
-    //         });
-    //     }
-    // });
-
-
-//     .then(data => {
-//     // Check if any results were returned
-//     if (data.features.length > 0) {
-//         // Get the coordinates of the first result
-//         var coordinates = data.features[0].geometry.coordinates;
-
-//         // Set the view of the map to the coordinates
-//         map.setView([coordinates[1], coordinates[0]], 13);
-//     }
-// });
-
-
-
 
 
 
@@ -757,8 +689,6 @@ document.getElementById('clear-data-button').addEventListener('click', function(
 }
 
 
-
-infoControl.addTo(map);
 
 </script>
 
