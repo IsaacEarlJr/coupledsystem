@@ -535,7 +535,7 @@ var featureLayer3 = L.esri.featureLayer({
             fillOpacity: 0.8
         });
     },
-    onEachFeature: function(feature, layer) {
+onEachFeature: function(feature, layer) {
     layer.on('click', function() {
         var contentsPanel = document.getElementById('data-display');
         
@@ -544,25 +544,42 @@ var featureLayer3 = L.esri.featureLayer({
         var polygons = []; // Array to store all polygons from featureLayer1 and featureLayer2
 
         // Get all polygons from featureLayer1 and featureLayer2
-        featureLayer1.query().run(function(error, featureCollection) {
-            featureCollection.features.forEach(function(feature) {
-                polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
-            });
-        });
-        featureLayer2.query().run(function(error, featureCollection) {
-            featureCollection.features.forEach(function(feature) {
-                polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
-            });
-        });
+        var promises = [
+            new Promise(function(resolve, reject) {
+                featureLayer1.query().run(function(error, featureCollection) {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        featureCollection.features.forEach(function(feature) {
+                            polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
+                        });
+                        resolve();
+                    }
+                });
+            }),
+            new Promise(function(resolve, reject) {
+                featureLayer2.query().run(function(error, featureCollection) {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        featureCollection.features.forEach(function(feature) {
+                            polygons.push(turf.polygon([feature.geometry.coordinates[0]]));
+                        });
+                        resolve();
+                    }
+                });
+            })
+        ];
 
-        // Calculate the distance to the closest polygon
-        var minDistance = Infinity;
-        polygons.forEach(function(polygon) {
-            var distance = turf.distance(point, turf.nearestPointOnLine(polygon, point), {units: 'miles'});
-            if (distance < minDistance) {
-                minDistance = distance;
-            }
-        });
+        Promise.all(promises).then(function() {
+            // Calculate the distance to the closest polygon
+            var minDistance = Infinity;
+            polygons.forEach(function(polygon) {
+                var distance = turf.distance(point, turf.nearestPointOnLine(polygon, point), {units: 'miles'});
+                if (distance < minDistance) {
+                    minDistance = distance;
+                }
+            });
 
        
         
