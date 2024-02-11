@@ -551,6 +551,16 @@ var featureLayer3 = L.esri.featureLayer({
     onEachFeature: function(feature, layer) {
         layer.on('click', function() {
             var contentsPanel = document.getElementById('data-display');
+            var observationDate = new Date(feature.properties['OBSERVATION_DATE']);
+             var formattedDate = (observationDate.getMonth() + 1) + '/' + observationDate.getDate() + '/' +  observationDate.getFullYear();
+
+             var relevantProperties = {
+            'Observation Date': formattedDate,
+            // Add more properties as needed
+        };
+
+        // Rest of your code...
+    });
             var relevantProperties = {
                 'Species': feature.properties.COMMON_NAME,
                 'Date Sighting': feature.properties.OBSERVATION_DATE,
