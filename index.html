@@ -31,6 +31,10 @@
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!--this is the sweetalert2 library/ for my popup to say we have moved-->
     <!-- library, which provides geospatial operations like distance away from-->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/5.1.6/turf.min.js"></script>
+    <!--JQuery libraries-->   
+   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 <style>
@@ -284,6 +288,39 @@
     
 }
 
+#slider-container {
+    position: fixed;
+    bottom: 2%;
+    left: 10%;
+    display: flex;
+    flex-direction: row;
+    font-family: Arial, sans-serif;
+
+    background-color: white;
+    padding: 0px 10px 5px 10px; /* top, right, bottom, left */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+}
+
+
+#slider-container > div:first-child {
+    margin-right: 150px;
+}
+
+#year-slider {
+    width: 250%;
+    background-color: #333;
+    color: white;
+}
+
+#month-slider {
+    width: 80%;
+    background-color: #333;
+    color: white;
+}
+
+#clear-button {
+    margin: 7px 20px; /* Adds some space around the button */
+}
 </style>
 
 
@@ -299,6 +336,7 @@
 
 <body>
     
+ 
     
     <div id="map" style="height: 100vh;"></div>
 
@@ -350,12 +388,28 @@
              </div>
 
 
+             <div id="slider-container" style="display: flex; justify-content: space-between;">
+                <div>
+                    <p>Year: <span id="selected-year"></span></p>
+                    <div id="year-slider"></div>
+                </div>
+            
+                <div>
+                    <p>Month: <span id="selected-month"></span></p>
+                    <div id="month-slider"></div>
+                    <button id="clear-button">Clear</button>
+                </div>
+                
+            </div>
+
 
     <!-- Include Leaflet JavaScript library -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Include Esri Leaflet JavaScript library -->
     <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
 
+
+   
 
     <script>
         // Initialize the map
@@ -754,7 +808,91 @@ document.getElementById('clear-data-button').addEventListener('click', function(
 
 
 
+
+
+          //  var minDate = new Date('1910-02-22'); // Replace with your actual min date
+           // var maxDate = new Date('2023-09-29'); // Replace with your actual max date
+
+           $('#month').change(function() {
+            var month = $('#month').val();
+
+        // Filter the points in featureLayer3
+        featureLayer3.setWhere("EXTRACT(YEAR FROM OBSERVATION_DATE) = " + year + " AND EXTRACT(MONTH FROM OBSERVATION_DATE) = " + month);
+    });      
+
+
+    //slider code
+    $( function() {
+    var monthNames = ["All", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var yearNames = ["All"].concat(Array.from({length: 115}, (_, i) => i + 1910));
+
+
+
+
+
+    $( "#year-slider" ).slider({
+        min: 0,
+        max: 2024 - 1910 + 1,
+        value: 2000 - 1910 + 1,
+        create: function() {
+            $('#selected-year').text( yearNames[$(this).slider("value")] );
+        },
+        change: function( event, ui ) {
+            var year = ui.value;
+            $('#selected-year').text(yearNames[year]);
+            updateFilter();
+        }
+    });
+
+    $( "#month-slider" ).slider({
+        min: 0,
+        max: 12,
+        value: 0,
+        create: function() {
+            $('#selected-month').text( monthNames[$(this).slider("value")] );
+        },
+        change: function( event, ui ) {
+            var month = ui.value;
+            $('#selected-month').text(monthNames[month]);
+            updateFilter();
+        }
+    });
+
+    function updateFilter() {
+        var year = $( "#year-slider" ).slider("value");
+        var month = $( "#month-slider" ).slider("value");
+
+        if (year === 0) {
+            // If "All Years" is selected, do not filter by year
+            featureLayer3.setWhere("1=1");
+        } else if (month === 0) {
+            // If "All Months" is selected, filter by year only
+            var startOfYear = new Date(year + 1910 - 1, 0, 1);
+            var endOfYear = new Date(year + 1910 - 1, 11, 31);
+            featureLayer3.setWhere("OBSERVATION_DATE >= DATE '" + startOfYear.toISOString().split('T')[0] + "' AND OBSERVATION_DATE <= DATE '" + endOfYear.toISOString().split('T')[0] + "'");
+        } else {
+            // If a specific month is selected, filter by year and month
+            var startOfMonth = new Date(year + 1910 - 1, month - 1, 1);
+            var endOfMonth = new Date(year + 1910 - 1, month, 0);
+            featureLayer3.setWhere("OBSERVATION_DATE >= DATE '" + startOfMonth.toISOString().split('T')[0] + "' AND OBSERVATION_DATE <= DATE '" + endOfMonth.toISOString().split('T')[0] + "'");
+        }
+    }
+
+        // Add click event listener to the clear button
+        $('#clear-button').click(function() {
+        $("#year-slider").slider("value", 0);
+        $("#month-slider").slider("value", 0);
+        $('#selected-year').text(yearNames[0]);
+        $('#selected-month').text(monthNames[0]);
+        updateFilter();
+    });
+
+});
+
 </script>
+
+
+
 
 
 </body>
