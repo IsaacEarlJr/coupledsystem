@@ -4,7 +4,7 @@
 
 
 <head>
-   <!-- testing push -->
+   
    
    
     <meta charset="UTF-8">
@@ -661,7 +661,17 @@ var featureLayer3 = L.esri.featureLayer({
 
 ///////////////////////////////////////////////////end of layer 3/////////////////////////////////////////////////
 
+var featureLayer4 = L.esri.featureLayer({
+    url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/NOAA_MPA_Clip/FeatureServer/0",
+    useCors: false,
+    style: function() {
+        return { color: "#ff0000", weight: 2 };  // Red color, 2 pixels wide
+    }
+});
+
+//////////////////////////////////////////////end of layer 4////////MPAS//////////////////////////////////////
 // Add the layers to the map
+featureLayer4.addTo(map);
 featureLayer1.addTo(map);
 featureLayer2.addTo(map);
 featureLayer3.addTo(map);
@@ -673,7 +683,8 @@ featureLayer3.addTo(map);
 var overlays = {
     "Offshore Wind Areas (Leased)": featureLayer1,
     "Offshore Wind Areas (Planning)": featureLayer2,
-    "Bird Sightings": featureLayer3
+    "Bird Sightings": featureLayer3,
+    "NOAA Marine Protected Areas": featureLayer4
     
 };
 
