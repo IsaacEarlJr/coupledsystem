@@ -663,15 +663,20 @@ var featureLayer3 = L.esri.featureLayer({
 
 var featureLayer4 = L.esri.featureLayer({
     url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/NOAA_MPA_Clip/FeatureServer/0",
-    useCors: false,
-    style: function() {
-        return { color: "#ff0000", weight: 2 };  // Red color, 2 pixels wide
+    style: function(feature) {
+        switch (feature.properties.class) {  // Replace 'class' with the name of your class attribute
+            case 'IV - Conserve habitat of significant species': return {color: "#ff0000", weight: 2};
+            case 'Ia - Preserve Species, habitats and ecosystem for science': return {color: "#00ff00", weight: 2};
+            case 'V - Maintain harmonious interaction of nature and culture': return {color: "#0000ff", weight: 2};
+            case 'VI - Sustainable use of natural resources management/biodiversity': return {color: "#ffff00", weight: 2};
+            default: return {color: "#ff0000", weight: 2};  // Default style
+        }
     }
 });
 
 //////////////////////////////////////////////end of layer 4////////MPAS//////////////////////////////////////
+
 // Add the layers to the map
-featureLayer4.addTo(map);
 featureLayer1.addTo(map);
 featureLayer2.addTo(map);
 featureLayer3.addTo(map);
@@ -687,6 +692,7 @@ var overlays = {
     "NOAA Marine Protected Areas": featureLayer4
     
 };
+
 
 // // Add the new layer to the overlays object
 // overlays["Bird Sightings"] = featureLayer3;
@@ -899,6 +905,8 @@ document.getElementById('clear-data-button').addEventListener('click', function(
     });
 
 });
+
+
 
 </script>
 
