@@ -498,18 +498,18 @@ var featureLayer1 = L.esri.featureLayer({
                     // Add the relevant properties to the content panel
                     // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2); // this jumbled up my data, so i had to change it so that each set started on a new line
                     // Add the relevant properties to the content panel with each getting its own line in contents bar 
-    for (var key in relevantProperties) {
-        if (relevantProperties.hasOwnProperty(key)) {
-            datasetDiv.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
-        }
+                    for (var key in relevantProperties) {
+    if (relevantProperties.hasOwnProperty(key)) {
+        datasetDiv.innerHTML += '<p style="margin: 0;"><strong>' + key + ':</strong> <span style="color:yellow;">' + relevantProperties[key] + '</span></p>';
     }
+}
 
-                    // Add the dataset div to the content panel
-    contentPanel.appendChild(datasetDiv);
+// Add the dataset div to the content panel
+contentPanel.appendChild(datasetDiv);
 
-                    // Automatically Show the content panel after click
-    var panel = document.getElementById('content-panel');
-    panel.style.display = 'block';
+// Automatically Show the content panel after click
+var panel = document.getElementById('content-panel');
+panel.style.display = 'block';
        
 
  // Add the energy output of this layer to the total
@@ -553,18 +553,18 @@ var relevantProperties = {
                     // Add the relevant properties to the content panel
                     // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2); // this jumbled up my data, so i had to change it so that each set started on a new line
                     // Add the relevant properties to the content panel with each getting its own line in contents bar 
-    for (var key in relevantProperties) {
-        if (relevantProperties.hasOwnProperty(key)) {
-            datasetDiv.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
-        }
+                    for (var key in relevantProperties) {
+    if (relevantProperties.hasOwnProperty(key)) {
+        datasetDiv.innerHTML += '<p style="margin: 0;"><strong>' + key + ':</strong> <span style="color:yellow;">' + relevantProperties[key] + '</span></p>';
     }
+}
 
-                    // Add the dataset div to the content panel
-    contentPanel.appendChild(datasetDiv);
+// Add the dataset div to the content panel
+contentPanel.appendChild(datasetDiv);
 
-                    // Automatically Show the content panel after click
-    var panel = document.getElementById('content-panel');
-    panel.style.display = 'block';
+// Automatically Show the content panel after click
+var panel = document.getElementById('content-panel');
+panel.style.display = 'block';
        
 
 
@@ -641,15 +641,15 @@ var featureLayer3 = L.esri.featureLayer({
                     datasetDiv.style.marginBottom = '10px';
 
                     for (var key in relevantProperties) {
-                        if (relevantProperties.hasOwnProperty(key)) {
-                            datasetDiv.innerHTML += key + ': ' + relevantProperties[key] + '<br>';
-                        }
-                    }
+    if (relevantProperties.hasOwnProperty(key)) {
+        datasetDiv.innerHTML += '<p style="margin: 0;"><strong>' + key + ':</strong> <span style="color:yellow;">' + relevantProperties[key] + '</span></p>';
+    }
+}
 
-                    contentsPanel.appendChild(datasetDiv);
-                    // Automatically Show the content panel after click
-                    var panel = document.getElementById('content-panel');
-                    panel.style.display = 'block';
+contentsPanel.appendChild(datasetDiv);
+// Automatically Show the content panel after click
+var panel = document.getElementById('content-panel');
+panel.style.display = 'block';
                 }); // closing for query2.run
             }); // closing for query1.run
         }); // closing for layer.on
@@ -671,15 +671,72 @@ var featureLayer4 = L.esri.featureLayer({
             case 'VI - Sustainable use of natural resources management/biodiversity': return {color: "#ffff00", weight: 2};
             default: return {color: "#ff0000", weight: 2};  // Default style
         }
+    },
+    
+    onEachFeature: function(feature, layer) {
+    layer.on('click', function() {
+        var contentPanel = document.getElementById('data-display');
+
+        // Create a new object with only the properties you want to display.
+        var relevantProperties = {
+            'Site Name': feature.properties['Site_Name'],
+            'Year Established': feature.properties['Estab_Yr'],
+            'Area': (feature.properties['AreaKm'] * 247.105).toFixed(2) + ' acres',
+            'Designation': feature.properties['Design'],
+            'IUCN Category': feature.properties['IUCNcat'],
+            'URL': feature.properties['URL']
+        };
+
+
+        
+                      // Create a new div element for this dataset
+    var datasetDiv = document.createElement('div');
+    datasetDiv.style.border = '1px solid #ccc';
+    datasetDiv.style.padding = '10px';
+    datasetDiv.style.marginBottom = '10px';
+
+                    // Add the relevant properties to the content panel
+                    // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2); // this jumbled up my data, so i had to change it so that each set started on a new line
+                    // Add the relevant properties to the content panel with each getting its own line in contents bar 
+
+                    
+// Create an HTML string from the relevantProperties object (add to the content panel)
+var html = '<div class="feature-info">';
+for (var key in relevantProperties) {
+    if (relevantProperties.hasOwnProperty(key)) {
+        html += '<p style="margin: 0;"><strong>' + key + ':</strong> <span style="color:yellow;">' + relevantProperties[key] + '</span></p>';
     }
+}
+html += '</div>';
+
+
+// Append the HTML string to the existing content of the datasetDiv
+datasetDiv.innerHTML += html;
+
+                    // Add the dataset div to the content panel
+    contentPanel.appendChild(datasetDiv);
+
+                    // Automatically Show the content panel after click
+    var panel = document.getElementById('content-panel');
+    panel.style.display = 'block';
+       
+
+
+        });
+}
+
+
 });
 
-//////////////////////////////////////////////end of layer 4////////MPAS//////////////////////////////////////
+//////////////////////////////////////////////end of layer 4////////MPA'S//////////////////////////////////////
 
 // Add the layers to the map
+
 featureLayer1.addTo(map);
 featureLayer2.addTo(map);
 featureLayer3.addTo(map);
+
+
 
 
 
@@ -692,6 +749,7 @@ var overlays = {
     "NOAA Marine Protected Areas": featureLayer4
     
 };
+
 
 
 // // Add the new layer to the overlays object
@@ -905,6 +963,9 @@ document.getElementById('clear-data-button').addEventListener('click', function(
     });
 
 });
+
+
+
 
 
 
