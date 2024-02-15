@@ -2,7 +2,6 @@
 <html lang="en">
 
 
-
 <head>
    
    
@@ -35,21 +34,8 @@
    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-   <!-- Include Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-
-<!-- Include Leaflet JavaScript -->
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
-<!-- Include Leaflet Control Window CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet-control-window/dist/L.Control.Window.css" />
-
-<!-- Include Leaflet Control Window JavaScript -->
-<script src="https://unpkg.com/leaflet-control-window/L.Control.Window.js"></script>
-
 
 <style>
-
 
 
 
@@ -64,7 +50,6 @@
 }
 
 /*this above is the media query for the map*/
-
 
 
 
@@ -110,7 +95,6 @@
     text-decoration: none;
 }
 
-
 .box1 {
     background-color: red;  /* box colors for ranges of exchanges; these are boxes inside content panel*/
 }
@@ -151,7 +135,6 @@
     
 }
 
-
 /*adding style to the content panel*/
 
 #content-panel {
@@ -165,7 +148,6 @@
     z-index: 1002; /* Add this line */
     margin-top: 47px;
 }
-
 
 #collapse-button {
     position: absolute;
@@ -182,7 +164,6 @@
     width: 20px;
     overflow: hidden;
 }
-
 
 .custom-base-control {
     position: absolute;
@@ -201,7 +182,6 @@
     top: 170px; /* Adjust this value as needed */
     left: 0px; /* Adjust this value as needed */
 }
-
 
 .leaflet-control-layers-base label,
 .leaflet-control-layers-overlays label {
@@ -224,13 +204,11 @@
 }
 
 
-
 #content-panel {
     font-family: Arial, sans-serif; /*  */
     font-size: 10px; /* content panel font!!!!! */  
     color: #fff;
 }
-
 
 
 
@@ -283,7 +261,6 @@
     }
 
 
-
     .info-control-bottommiddle {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
@@ -312,7 +289,6 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
 }
 
-
 #slider-container > div:first-child {
     margin-right: 150px;
 }
@@ -338,9 +314,7 @@
 
 
 
-
 </head>
-
 
 
 
@@ -398,7 +372,6 @@
          
              </div>
 
-
              <div id="slider-container" style="display: flex; justify-content: space-between;">
                 <div>
                     <p>Year: <span id="selected-year"></span></p>
@@ -413,12 +386,10 @@
                 
             </div>
 
-
     <!-- Include Leaflet JavaScript library -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Include Esri Leaflet JavaScript library -->
     <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
-
 
    
 
@@ -428,11 +399,9 @@
 
 
 
-
         L.control.zoom({
      position: 'bottomleft'
     }).addTo(map);
-
 
         // Add OpenStreetMap as base layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -443,7 +412,6 @@
         // Add a marker to the map
         L.marker([29.6516, -82.3248]).addTo(map)
             .bindPopup("<b>Hello User!</b><br>I am here.. Currently here collecting data.").openPopup();
-
 
     // Define OpenStreetMap base map
     var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -456,7 +424,6 @@
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
 
-
 //     // Fetch GeoJSON data and add it as a layer
 // fetch('https://example.com/data.geojson')
 //     .then(function(response) {
@@ -465,7 +432,6 @@
 //     .then(function(data) {
 //         L.geoJSON(data).addTo(map);
 //     });
-
 
 
 
@@ -529,7 +495,6 @@ panel.style.display = 'block';
 // Display the total energy output in the new box
 document.getElementById('total-energy-output').textContent = 'Total Energy Output (MW): ' + totalEnergyOutput.toFixed(2);
 
-
         });    //JSON.stringify(feature.properties, null, 2) is used to convert the feature's properties to a nicely formatted string. The second argument (null) is a replacer function that alters the behavior of the stringification process (not used in this case), and the third argument (2) specifies the number of spaces to use for indentation.
     }           //Please note that this will replace the current content of the 'data-display' each time a feature is clicked. If you want to append the data instead of replacing the current content, you can use += instead of = when setting innerHTML.
 });
@@ -544,7 +509,6 @@ var featureLayer2 = L.esri.featureLayer({
         layer.on('click', function() {
             var contentPanel = document.getElementById('data-display');
             
-
 
 // Create a new object with only the properties you want to display.      
 var relevantProperties = {
@@ -578,12 +542,10 @@ var panel = document.getElementById('content-panel');
 panel.style.display = 'block';
        
 
-
         });
     }
 });
 //////////////////////////////////////////////////end of layer 2///////////////////////////////////////////////////////////////////////////////////////////
-
 
 
 // Create a feature layer for bird sightings
@@ -669,7 +631,6 @@ panel.style.display = 'block';
 
 
 
-
 ///////////////////////////////////////////////////end of layer 3/////////////////////////////////////////////////
 
 var featureLayer4 = L.esri.featureLayer({
@@ -698,7 +659,6 @@ var featureLayer4 = L.esri.featureLayer({
             'URL': feature.properties['URL']
         };
 
-
         
                       // Create a new div element for this dataset
     var datasetDiv = document.createElement('div');
@@ -720,7 +680,6 @@ for (var key in relevantProperties) {
 }
 html += '</div>';
 
-
 // Append the HTML string to the existing content of the datasetDiv
 datasetDiv.innerHTML += html;
 
@@ -732,10 +691,8 @@ datasetDiv.innerHTML += html;
     panel.style.display = 'block';
        
 
-
         });
 }
-
 
 });
 
@@ -751,7 +708,6 @@ featureLayer3.addTo(map);
 
 
 
-
 // Create an overlays object
 var overlays = {
     "Offshore Wind Areas (Leased)": featureLayer1,
@@ -762,10 +718,8 @@ var overlays = {
 };
 
 
-
 // // Add the new layer to the overlays object
 // overlays["Bird Sightings"] = featureLayer3;
-
 
     // Add a layer switcher control
     var baseMaps = {
@@ -778,9 +732,7 @@ var overlays = {
 
 
 
-
 ////////////////////////////////////////////event listener section
-
 
 //this toggles my content panel
     document.getElementById('collapse-button').addEventListener('click', function() {
@@ -793,7 +745,6 @@ var overlays = {
         this.textContent = '►';
     }
 });
-
 
 
 // //popup window code, with text and formamting
@@ -823,7 +774,6 @@ var infoPopup = L.popup()
     .openOn(map); // Assuming 'map' is the variable containing your Leaflet map
 });
 
-
 //settings and dropdown button code
 document.getElementById('settings-button').addEventListener('click', function() {
     var dropdown = document.getElementById('dropdown');
@@ -838,11 +788,9 @@ document.getElementById('exit-button').addEventListener('click', function() {
     document.getElementById('dropdown').style.display = 'none';  // Hide the dropdown button
 });
 
-
 //clear data button code
 // document.getElementById('clear-data-button').addEventListener('click', function() {
 //     document.getElementById('data-display').innerHTML = '';
-
 
 // });
 
@@ -859,9 +807,7 @@ document.getElementById('clear-data-button').addEventListener('click', function(
 
 
 
-
 /////////////////////////////////////////////////////////////////////
-
 
 
 
@@ -895,7 +841,6 @@ document.getElementById('clear-data-button').addEventListener('click', function(
 
 
 
-
           //  var minDate = new Date('1910-02-22'); // Replace with your actual min date
            // var maxDate = new Date('2023-09-29'); // Replace with your actual max date
 
@@ -906,12 +851,10 @@ document.getElementById('clear-data-button').addEventListener('click', function(
         featureLayer3.setWhere("EXTRACT(YEAR FROM OBSERVATION_DATE) = " + year + " AND EXTRACT(MONTH FROM OBSERVATION_DATE) = " + month);
     });      
 
-
     //slider code
     $( function() {
     var monthNames = ["All", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     var yearNames = ["All"].concat(Array.from({length: 115}, (_, i) => i + 1910));
-
 
 
 
@@ -975,11 +918,31 @@ document.getElementById('clear-data-button').addEventListener('click', function(
 
 });
 
-</script>
+//pushing changes to main branch. save/commit updates the site but not the code in the main branch
 
+// Get the button element
+var button = document.getElementById('add-data-button');
+
+// Add an event listener for the click event
+button.addEventListener('click', function() {
+    Swal.fire({
+        title: '(Under Construction)',
+        text: 'We are currently working on this feature. Please check back later. In the meantime, please enter notes for us to review.',
+        input: 'text',
+        confirmButtonText: 'Submit'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = `mailto:icoleman@ufl.edu?subject=Notes Submission&body=${encodeURIComponent(result.value)}`;
+            Swal.fire('Submitted', 'Your note has been submitted.', 'success');
+        }
+    });
+});
+
+</script>
 
 
 
 
 </body>
 </html>
+
