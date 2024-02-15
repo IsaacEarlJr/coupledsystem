@@ -929,7 +929,9 @@ button.addEventListener('click', function() {
         title: '(Under Construction)',
         text: 'We are currently working on this feature. Please check back later. In the meantime, please enter notes for us to review.',
         input: 'text',
-        confirmButtonText: 'Submit'
+        confirmButtonText: 'Submit',
+        showCancelButton: true, // Show cancel button
+        cancelButtonText: 'Cancel' // Text for cancel button
     }).then((result) => {
         if (result.isConfirmed) {
             window.location.href = `mailto:icoleman@ufl.edu?subject=Notes Submission&body=${encodeURIComponent(result.value)}`;
