@@ -698,6 +698,47 @@ datasetDiv.innerHTML += html;
 
 //////////////////////////////////////////////end of layer 4////////MPA'S//////////////////////////////////////
 
+
+var featureLayer5 = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/Platforms/FeatureServer/0',
+    pointToLayer: function (geojson, latlng) {
+        var myIcon = L.icon({
+            iconUrl: 'http://isaacearljr.github.io/coupledsystem/offshore_platform_png.png', // replace with the path to your image
+            iconSize: [38, 95], // size of the icon, adjust as needed
+            iconAnchor: [22, 94], // point of the icon which will correspond to marker's location, adjust as needed
+            popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor, adjust as needed
+        });
+        return L.marker(latlng, {icon: myIcon});
+    },
+
+    onEachFeature: function(feature, layer) {
+        layer.on('click', function() {
+            var contentPanel = document.getElementById('data-display');
+            var relevantProperties = {
+                'Well Name': feature.properties.STRUCTURE_NAME,
+                'Install Date': feature.properties.INSTALL_DATE,
+                'Removal Date': feature.properties.REMOVAL_DATE
+                
+            };
+            var datasetDiv = document.createElement('div');
+            datasetDiv.style.border = '1px solid #ccc';
+            datasetDiv.style.padding = '10px';
+            datasetDiv.style.marginBottom = '10px';
+            for (var key in relevantProperties) {
+                if (relevantProperties.hasOwnProperty(key)) {
+                    datasetDiv.innerHTML += '<p style="margin: 0;"><strong>' + key + ':</strong> <span style="color:yellow;">' + relevantProperties[key] + '</span></p>';
+                }
+            }
+            contentPanel.appendChild(datasetDiv);
+            var panel = document.getElementById('content-panel');
+            panel.style.display = 'block';
+        });
+    }
+});
+
+///////////////////////////////////////END OF PLATFORM FEATURE LAYER////////////////////////////////////////////
+
+
 // Add the layers to the map
 
 featureLayer1.addTo(map);
@@ -708,12 +749,14 @@ featureLayer3.addTo(map);
 
 
 
+
 // Create an overlays object
 var overlays = {
     "Offshore Wind Areas (Leased)": featureLayer1,
     "Offshore Wind Areas (Planning)": featureLayer2,
     "Bird Sightings": featureLayer3,
-    "NOAA Marine Protected Areas": featureLayer4
+    "NOAA Marine Protected Areas": featureLayer4,
+    "Offshore Platforms": featureLayer5
     
 };
 
@@ -939,6 +982,8 @@ button.addEventListener('click', function() {
         }
     });
 });
+
+
 
 </script>
 
