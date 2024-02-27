@@ -35,6 +35,23 @@
    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
+ <!-- Add the Leaflet CSS file -->
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+ <!-- Add the Leaflet Marker Cluster CSS file -->
+ <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+ <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+
+ <!-- Add the Leaflet JavaScript file -->
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+ <!-- Add the Leaflet Marker Cluster JavaScript file -->
+ <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+<!-- Esri Leaflet Cluster JavaScript -->
+<script src="https://unpkg.com/esri-leaflet-cluster@2.1.1/dist/esri-leaflet-cluster.js"></script>
+
 <style>
 
 
@@ -742,9 +759,13 @@ datasetDiv.innerHTML += html;
 
 var featureLayer5 = L.esri.featureLayer({
     url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Drilling_Platforms_(HFS)/FeatureServer/0',
+   
+   
     pointToLayer: function (geojson, latlng) {
        
        
+
+
         var myIcon = L.icon({
             iconUrl: 'offshore platform png.png', // replace with the path to your image
             iconSize: [17,17], // size of the icon, adjust as needed
@@ -772,7 +793,10 @@ var featureLayer5 = L.esri.featureLayer({
 //     },
 
 
+
+
     onEachFeature: function(feature, layer) {
+     
         
 
  //label for leafleft. you can scroll over polygon to see the label
@@ -802,9 +826,15 @@ var featureLayer5 = L.esri.featureLayer({
             panel.style.display = 'block';
         });
     }
+
+    
 });
 
 ///////////////////////////////////////END OF PLATFORM FEATURE LAYER////////////////////////////////////////////
+
+
+
+
 
 
 // Add the layers to the map
