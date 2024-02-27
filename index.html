@@ -834,10 +834,10 @@ legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend');
     div.innerHTML +=
         '<h3 style="text-align: center;">LEGEND</h3>'  +
-              '<i style="background: gold"></i> Offshore Wind Areas (Leased)<br>' +
-        '<i style="background: darkblue"></i> Offshore Wind Areas (Planning)<br>' +
-        '<i style="background: #ff7800"></i> Bird Sightings<br>' +
-        '<i style="background: #ff0000"></i> NOAA Marine Protected Areas<br>' +
+            '<i style="background-image: url(\'gold.png\'); background-size: cover;"></i> Offshore Wind Areas (Leased)<br>'+
+        '<i style="background-image: url(\'blue.png\'); background-size: cover;"></i> Offshore Wind Areas (Planning)<br>' +
+        '<i style="background-image: url(\'orange.png\'); background-size: cover;"></i> Bird Sightings<br>' +
+        '<i style="background-image: url(\'red.png\'); background-size: cover;"></i> NOAA Marine Protected Areas<br>' +
         '<i style="background-image: url(\'offshore platform png.png\'); background-size: cover;"></i> Offshore Platforms<br>';
 //url() function is wrapped in escaped single quotes (\'). This is necessary because the entire string is wrapped in single quotes, so any single quotes insi
     return div;
