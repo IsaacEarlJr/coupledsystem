@@ -471,6 +471,13 @@ var featureLayer1 = L.esri.featureLayer({
         return { color: 'hotpink', fillColor: 'gold' };
     },
     onEachFeature: function(feature, layer) {       //In this code, onEachFeature is set to a function that takes two arguments: feature and layer. feature is the GeoJSON representation of the feature, and layer is the Leaflet layer for the feature.
+       
+
+//label for leafleft. you can scroll over polygon to see the label
+layer.bindTooltip(layer.feature.properties.COMPANY, { permanent: false, direction: 'auto' });
+
+
+
         layer.on('click', function() {             //Inside the function, layer.on('click', function() {...}) is used to add a click event listener to the layer. When the layer is clicked, the function is called.
         var contentPanel = document.getElementById('data-display');               
                 //but i think we do because this shoots it to my CP-->(may not need this; see line 404-413)  contentPanel.innerHTML += JSON.stringify(feature.properties, null, 2);     //Inside the click event listener, document.getElementById('data-display') is used to get the 'data-display' element, and innerHTML is used to set the content of the 'data-display' to a string representation of the feature's properties.   //the way this is written, it will display all the properties of the feature when clicked.
@@ -479,7 +486,7 @@ var featureLayer1 = L.esri.featureLayer({
                     'Energy Output (MW)': energyOutput.toFixed(2),
                     // ...
                 };
-
+                
         
                      // Create a new object with only the properties you want to display.      
          var relevantProperties = {
@@ -531,6 +538,10 @@ var featureLayer2 = L.esri.featureLayer({
         return { color: 'RoyalBlue', fillColor: 'darkblue' }; // Change the colors as needed
     },
     onEachFeature: function(feature, layer) {
+      
+     //label for leafleft. you can scroll over polygon to see the label
+     layer.bindTooltip(layer.feature.properties.PROTRACTION_NUMBER, { permanent: false, direction: 'auto' });
+        
         layer.on('click', function() {
             var contentPanel = document.getElementById('data-display');
             
@@ -588,6 +599,9 @@ var featureLayer3 = L.esri.featureLayer({
         });
     },
     onEachFeature: function(feature, layer) {
+      //label for leafleft. you can scroll over polygon to see the label
+     layer.bindTooltip(layer.feature.properties.COMMON_NAME, { permanent: false, direction: 'auto' });
+
         layer.on('click', function(e) {
             var clickedPoint = turf.point([e.latlng.lng, e.latlng.lat]);
 
@@ -671,7 +685,9 @@ var featureLayer4 = L.esri.featureLayer({
     },
     
     onEachFeature: function(feature, layer) {
-    layer.on('click', function() {
+   
+        
+        layer.on('click', function() {
         var contentPanel = document.getElementById('data-display');
 
         // Create a new object with only the properties you want to display.
@@ -757,6 +773,12 @@ var featureLayer5 = L.esri.featureLayer({
 
 
     onEachFeature: function(feature, layer) {
+        
+
+ //label for leafleft. you can scroll over polygon to see the label
+ layer.bindTooltip(layer.feature.properties.STRUCTURE_NAME, { permanent: false, direction: 'auto' });
+
+
         layer.on('click', function() {
             var contentPanel = document.getElementById('data-display');
             var relevantProperties = {
@@ -811,7 +833,8 @@ var legend = L.control({position: 'topleft'});
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend');
     div.innerHTML +=
-        '<i style="background: gold"></i> Offshore Wind Areas (Leased)<br>' +
+        '<h3 style="text-align: center;">LEGEND</h3>'  +
+              '<i style="background: gold"></i> Offshore Wind Areas (Leased)<br>' +
         '<i style="background: darkblue"></i> Offshore Wind Areas (Planning)<br>' +
         '<i style="background: #ff7800"></i> Bird Sightings<br>' +
         '<i style="background: #ff0000"></i> NOAA Marine Protected Areas<br>' +
@@ -1045,6 +1068,11 @@ button.addEventListener('click', function() {
     });
 });
 
+
+
+featureLayer1.eachFeature(function(layer) {
+    layer.bindTooltip(layer.feature.properties.COMPANY, { permanent: true, direction: 'auto' });
+});
 
 
 </script>
