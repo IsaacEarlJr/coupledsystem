@@ -142,7 +142,7 @@
     right: 0;
     top: 0;
     width: 250px; /* Adjust as needed */
-    height: 100%;
+    height: calc(100% - 50px); /* Adjust this value as needed so wont touch the bottom*/
     overflow: auto;
     background-color: #00000079; /* Adjust as needed */
     z-index: 1002; /* Add this line */
@@ -208,6 +208,7 @@
     font-family: Arial, sans-serif; /*  */
     font-size: 10px; /* content panel font!!!!! */  
     color: #fff;
+    
 }
 
 
@@ -289,9 +290,7 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
 }
 
-#slider-container > div:first-child {
-    margin-right: 150px;
-}
+
 
 #year-slider {
     width: 250%;
@@ -307,6 +306,28 @@
 
 #clear-button {
     margin: 7px 20px; /* Adds some space around the button */
+}
+
+#slider-container > div:first-child {
+    margin-right: 150px;
+}
+
+.legend {
+    position: fixed;
+    top: 250px;
+    left: 50;
+    margin-top: 0px; /* Adjust this value as needed */
+    padding: 6px;
+    background: white;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
 }
 </style>
 
@@ -396,6 +417,10 @@
     <script>
         // Initialize the map
         var map = L.map('map', {zoomControl: false}).setView([28.5000, -90.6000], 6.5);
+
+
+///lets see if I can Add a leaflet legend to the map
+
 
 
 
@@ -699,36 +724,36 @@ datasetDiv.innerHTML += html;
 //////////////////////////////////////////////end of layer 4////////MPA'S//////////////////////////////////////
 
 
-// var featureLayer5 = L.esri.featureLayer({
-//     url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Drilling_Platforms_(HFS)/FeatureServer/0',
-//     pointToLayer: function (geojson, latlng) {
-       
-       
-//         var myIcon = L.icon({
-//             iconUrl: 'offshore platform png.png', // replace with the path to your image
-//             iconSize: [17,17], // size of the icon, adjust as needed
-//             // iconAnchor: [22, 94], // point of the icon which will correspond to marker's location, adjust as needed
-//            // popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor, adjust as needed
-//         });
-//         return L.marker(latlng, {icon: myIcon});
-//     },
-
-    var greenIcon = L.icon({
-    iconUrl: 'offshore platform png.png', // replace with the path to your green image
-    // other icon options...
-});
-
-var redIcon = L.icon({
-    iconUrl: 'offshore platform png.png',
-    
-});
-
 var featureLayer5 = L.esri.featureLayer({
     url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Drilling_Platforms_(HFS)/FeatureServer/0',
     pointToLayer: function (geojson, latlng) {
-        var icon = (geojson.properties.Heliport_Flag === 'Y') ? greenIcon : redIcon;
-        return L.marker(latlng, {icon: icon});
+       
+       
+        var myIcon = L.icon({
+            iconUrl: 'offshore platform png.png', // replace with the path to your image
+            iconSize: [17,17], // size of the icon, adjust as needed
+            // iconAnchor: [22, 94], // point of the icon which will correspond to marker's location, adjust as needed
+           // popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor, adjust as needed
+        });
+        return L.marker(latlng, {icon: myIcon});
     },
+
+//     var greenIcon = L.icon({
+//     iconUrl: 'green offshore platform png.png', // replace with the path to your green image
+//     // other icon options...
+// });
+
+// var redIcon = L.icon({
+//     iconUrl: 'red offshore platform png.png',
+    
+// });
+
+// var featureLayer5 = L.esri.featureLayer({
+//     url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Drilling_Platforms_(HFS)/FeatureServer/0',
+//     pointToLayer: function (geojson, latlng) {
+//         var icon = (geojson.properties.Heliport_Flag === 'Y') ? greenIcon : redIcon;
+//         return L.marker(latlng, {icon: icon});
+//     },
 
 
     onEachFeature: function(feature, layer) {
@@ -781,6 +806,21 @@ var overlays = {
     
 };
 
+var legend = L.control({position: 'topleft'});
+
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.innerHTML +=
+        '<i style="background: gold"></i> Offshore Wind Areas (Leased)<br>' +
+        '<i style="background: darkblue"></i> Offshore Wind Areas (Planning)<br>' +
+        '<i style="background: #ff7800"></i> Bird Sightings<br>' +
+        '<i style="background: #ff0000"></i> NOAA Marine Protected Areas<br>' +
+        '<i style="background-image: url(\'offshore platform png.png\'); background-size: cover;"></i> Offshore Platforms<br>';
+//url() function is wrapped in escaped single quotes (\'). This is necessary because the entire string is wrapped in single quotes, so any single quotes insi
+    return div;
+};
+legend.addTo(map);
+//This legend will be added to the map, not the page. If you want to add the legend to the page outside of the map, you would need to use HTML and CSS, not Leaflet.
 
 // // Add the new layer to the overlays object
 // overlays["Bird Sightings"] = featureLayer3;
@@ -793,6 +833,7 @@ var overlays = {
 
     L.control.layers(baseMaps, overlays, {position: 'topleft', collapsed: false}).addTo(map);  //I could possibly add a more layers here depending on the data I want to show
 //note basemap, then overlay, then position
+
 
 
 
