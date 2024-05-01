@@ -52,6 +52,20 @@
 <!-- Esri Leaflet Cluster JavaScript -->
 <script src="https://unpkg.com/esri-leaflet-cluster@2.1.1/dist/esri-leaflet-cluster.js"></script>
 
+<!-- Esri Leaflet slidepanel-->
+<link rel="stylesheet" href="./dist/leaflet-sidepanel.css" />
+<script src="./dist/leaflet-sidepanel.min.js"></script>
+
+<!-- Esri Leaflet Geocoder for slidebarv2 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-sidebar-v2/0.4.0/leaflet-sidebar.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-sidebar-v2/0.4.0/leaflet-sidebar.min.js"></script>
+
+<!-- Google EE-->
+<script src="https://unpkg.com/@google/earthengine@0.1.252/build/earthengine.js"></script>
+
+<!--gee-layer-->
+<script src="https://cdn.jsdelivr.net/gh/gee-community/gee-layer/dist/gee-layer.js"></script>
+
 <style>
 
 
@@ -410,7 +424,7 @@
          
              </div>
 
-             <div id="slider-container" style="display: flex; justify-content: space-between;">
+             <!-- <div id="slider-container" style="display: flex; justify-content: space-between;">
                 <div>
                     <p>Year: <span id="selected-year"></span></p>
                     <div id="year-slider"></div>
@@ -420,8 +434,26 @@
                     <p>Month: <span id="selected-month"></span></p>
                     <div id="month-slider"></div>
                     <button id="clear-button">Clear</button>
-                </div>
+                </div> -->
                 
+            </div>
+
+
+            <div id="sidebar" class="sidebar collapsed">
+                <!-- Nav tabs -->
+                <div class="sidebar-tabs" role="tablist">
+                    <ul role="tablist">
+                        <li><a href="#home" role="tab"><i class="fa fa-home"></i></a></li>
+                    </ul>
+                </div>
+            
+                <!-- Tab panes -->
+                <div class="sidebar-content">
+                    <div class="sidebar-pane" id="home">
+                        <h1 class="sidebar-header">Home<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                        <p>Content 1.</p>
+                    </div>
+                </div>
             </div>
 
     <!-- Include Leaflet JavaScript library -->
@@ -430,8 +462,14 @@
     <script src="https://unpkg.com/esri-leaflet@2.4.0/dist/esri-leaflet.js"></script>
 
    
+   
+
 
     <script>
+        
+        
+
+
         // Initialize the map
         var map = L.map('map', {zoomControl: false}).setView([28.5000, -90.6000], 6.5);
 
@@ -465,6 +503,17 @@
     var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
+
+// Define OpenStreetMap Dark base map
+var OpenStreetMap_Dark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+});
+
+// Add OpenStreetMap Dark as base layer
+OpenStreetMap_Dark.addTo(map);
+
 
 //     // Fetch GeoJSON data and add it as a layer
 // fetch('https://example.com/data.geojson')
@@ -603,87 +652,87 @@ panel.style.display = 'block';
 
 // Create a feature layer for bird sightings
 
-var featureLayer3 = L.esri.featureLayer({
-    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/EBird_TX_LA_FL_Merge_Clip/FeatureServer/0',
-    pointToLayer: function (geojson, latlng) {
-        return L.circleMarker(latlng, {
-            radius: 8,
-            fillColor: "#ff7800",
-            color: "#000",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.8
-        });
-    },
-    onEachFeature: function(feature, layer) {
-      //label for leafleft. you can scroll over polygon to see the label
-     layer.bindTooltip(layer.feature.properties.COMMON_NAME, { permanent: false, direction: 'auto' });
+// var featureLayer3 = L.esri.featureLayer({
+//     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/EBird_TX_LA_FL_Merge_Clip/FeatureServer/0',
+//     pointToLayer: function (geojson, latlng) {
+//         return L.circleMarker(latlng, {
+//             radius: 8,
+//             fillColor: "#ff7800",
+//             color: "#000",
+//             weight: 1,
+//             opacity: 1,
+//             fillOpacity: 0.8
+//         });
+//     },
+//     onEachFeature: function(feature, layer) {
+//       //label for leafleft. you can scroll over polygon to see the label
+//      layer.bindTooltip(layer.feature.properties.COMMON_NAME, { permanent: false, direction: 'auto' });
 
-        layer.on('click', function(e) {
-            var clickedPoint = turf.point([e.latlng.lng, e.latlng.lat]);
+//         layer.on('click', function(e) {
+//             var clickedPoint = turf.point([e.latlng.lng, e.latlng.lat]);
 
-            // Query the features in featureLayer1 and featureLayer2
-            var query1 = L.esri.query({url: featureLayer1.options.url});
-            var query2 = L.esri.query({url: featureLayer2.options.url});
+//             // Query the features in featureLayer1 and featureLayer2
+//             var query1 = L.esri.query({url: featureLayer1.options.url});
+//             var query2 = L.esri.query({url: featureLayer2.options.url});
 
-            // Execute the queries
-            query1.run(function(error, featureCollection1) {
-                if (error) {
-                    console.error('Error querying featureLayer1:', error);
-                    return;
-                }
+//             // Execute the queries
+//             query1.run(function(error, featureCollection1) {
+//                 if (error) {
+//                     console.error('Error querying featureLayer1:', error);
+//                     return;
+//                 }
 
-                query2.run(function(error, featureCollection2) {
-                    if (error) {
-                        console.error('Error querying featureLayer2:', error);
-                        return;
-                    }
+//                 query2.run(function(error, featureCollection2) {
+//                     if (error) {
+//                         console.error('Error querying featureLayer2:', error);
+//                         return;
+//                     }
 
-                    // Find the nearest centroid in both collections
-                    var nearest;
-                    var minDistance = Infinity;
-                    var allFeatures = featureCollection1.features.concat(featureCollection2.features);
-                    allFeatures.forEach(function(feature) {
-                        var centroid = turf.centroid(feature);
-                        var distance = turf.distance(clickedPoint, centroid, {units: 'miles'});
-                        if (distance < minDistance) {
-                            minDistance = distance;
-                            nearest = centroid;
-                        }
-                    });
+//                     // Find the nearest centroid in both collections
+//                     var nearest;
+//                     var minDistance = Infinity;
+//                     var allFeatures = featureCollection1.features.concat(featureCollection2.features);
+//                     allFeatures.forEach(function(feature) {
+//                         var centroid = turf.centroid(feature);
+//                         var distance = turf.distance(clickedPoint, centroid, {units: 'miles'});
+//                         if (distance < minDistance) {
+//                             minDistance = distance;
+//                             nearest = centroid;
+//                         }
+//                     });
 
-                    var contentsPanel = document.getElementById('data-display');
+//                     var contentsPanel = document.getElementById('data-display');
                     
-                    var observationDate = new Date(feature.properties.OBSERVATION_DATE);
-                    var formattedDate = (observationDate.getMonth() + 1) + '/' + observationDate.getDate() + '/' +  observationDate.getFullYear();
+//                     var observationDate = new Date(feature.properties.OBSERVATION_DATE);
+//                     var formattedDate = (observationDate.getMonth() + 1) + '/' + observationDate.getDate() + '/' +  observationDate.getFullYear();
 
-                    var relevantProperties = {
-                        'Species': feature.properties.COMMON_NAME,
-                        'Date Sighted': formattedDate,
-                        'Distance from Wind Energy site': minDistance.toFixed(1) + ' miles'
-                        // Add more properties as needed
-                    };
+//                     var relevantProperties = {
+//                         'Species': feature.properties.COMMON_NAME,
+//                         'Date Sighted': formattedDate,
+//                         'Distance from Wind Energy site': minDistance.toFixed(1) + ' miles'
+//                         // Add more properties as needed
+//                     };
 
-                    var datasetDiv = document.createElement('div');
-                    datasetDiv.style.border = '1px solid #ccc';
-                    datasetDiv.style.padding = '10px';
-                    datasetDiv.style.marginBottom = '10px';
+//                     var datasetDiv = document.createElement('div');
+//                     datasetDiv.style.border = '1px solid #ccc';
+//                     datasetDiv.style.padding = '10px';
+//                     datasetDiv.style.marginBottom = '10px';
 
-                    for (var key in relevantProperties) {
-    if (relevantProperties.hasOwnProperty(key)) {
-        datasetDiv.innerHTML += '<p style="margin: 0;"><strong>' + key + ':</strong> <span style="color:yellow;">' + relevantProperties[key] + '</span></p>';
-    }
-}
+//                     for (var key in relevantProperties) {
+//     if (relevantProperties.hasOwnProperty(key)) {
+//         datasetDiv.innerHTML += '<p style="margin: 0;"><strong>' + key + ':</strong> <span style="color:yellow;">' + relevantProperties[key] + '</span></p>';
+//     }
+// }
 
-contentsPanel.appendChild(datasetDiv);
-// Automatically Show the content panel after click
-var panel = document.getElementById('content-panel');
-panel.style.display = 'block';
-                }); // closing for query2.run
-            }); // closing for query1.run
-        }); // closing for layer.on
-    } // closing for onEachFeature
-}); // closing for featureLayer3
+// contentsPanel.appendChild(datasetDiv);
+// // Automatically Show the content panel after click
+// var panel = document.getElementById('content-panel');
+// panel.style.display = 'block';
+//                 }); // closing for query2.run
+//             }); // closing for query1.run
+//         }); // closing for layer.on
+//     } // closing for onEachFeature
+// }); // closing for featureLayer3
 
 
 
@@ -754,83 +803,24 @@ datasetDiv.innerHTML += html;
 
 });
 
-//////////////////////////////////////////////end of layer 4////////MPA'S//////////////////////////////////////
+//////////////////////////////////////////////end of layer 4////////changed to hurricane harvey from GEE//////////////////////////////////////
 
 
 var featureLayer5 = L.esri.featureLayer({
-    url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Drilling_Platforms_(HFS)/FeatureServer/0',
-   
-   
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/HurricaneHarveyTrack/FeatureServer/0',
     pointToLayer: function (geojson, latlng) {
-       
-       
-
-
-        var myIcon = L.icon({
-            iconUrl: 'offshore platform png.png', // replace with the path to your image
-            iconSize: [17,17], // size of the icon, adjust as needed
-            // iconAnchor: [22, 94], // point of the icon which will correspond to marker's location, adjust as needed
-           // popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor, adjust as needed
-        });
-        return L.marker(latlng, {icon: myIcon});
-    },
-
-//     var greenIcon = L.icon({
-//     iconUrl: 'green offshore platform png.png', // replace with the path to your green image
-//     // other icon options...
-// });
-
-// var redIcon = L.icon({
-//     iconUrl: 'red offshore platform png.png',
-    
-// });
-
-// var featureLayer5 = L.esri.featureLayer({
-//     url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_Drilling_Platforms_(HFS)/FeatureServer/0',
-//     pointToLayer: function (geojson, latlng) {
-//         var icon = (geojson.properties.Heliport_Flag === 'Y') ? greenIcon : redIcon;
-//         return L.marker(latlng, {icon: icon});
-//     },
-
-
-
-
-    onEachFeature: function(feature, layer) {
-     
-        
-
- //label for leafleft. you can scroll over polygon to see the label
- layer.bindTooltip(layer.feature.properties.STRUCTURE_NAME, { permanent: false, direction: 'auto' });
-
-
-        layer.on('click', function() {
-            var contentPanel = document.getElementById('data-display');
-            var relevantProperties = {
-                'Structure Name': feature.properties.STRUCTURE_NAME,
-                'Install Date': feature.properties.Install_Date,
-                'Last Revision Date': feature.properties.Last_Revision_Date,
-                'Heliport': feature.properties.Heliport_Flag
-                
-            };
-            var datasetDiv = document.createElement('div');
-            datasetDiv.style.border = '1px solid #ccc';
-            datasetDiv.style.padding = '10px';
-            datasetDiv.style.marginBottom = '10px';
-            for (var key in relevantProperties) {
-                if (relevantProperties.hasOwnProperty(key)) {
-                    datasetDiv.innerHTML += '<p style="margin: 0;"><strong>' + key + ':</strong> <span style="color:yellow;">' + relevantProperties[key] + '</span></p>';
-                }
-            }
-            contentPanel.appendChild(datasetDiv);
-            var panel = document.getElementById('content-panel');
-            panel.style.display = 'block';
-        });
-    }
-
-    
+        return L.circleMarker(latlng, {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 5
 });
 
-///////////////////////////////////////END OF PLATFORM FEATURE LAYER////////////////////////////////////////////
+    }
+
+
+});
+///////////////////////////////////////END OF hurricane FEATURE LAYER////////////////////////////////////////////
 
 
 
@@ -841,7 +831,8 @@ var featureLayer5 = L.esri.featureLayer({
 
 featureLayer1.addTo(map);
 featureLayer2.addTo(map);
-featureLayer3.addTo(map);
+featureLayer5.addTo(map);
+// featureLayer3.addTo(map);
 
 
 
@@ -852,27 +843,29 @@ featureLayer3.addTo(map);
 var overlays = {
     "Offshore Wind Areas (Leased)": featureLayer1,
     "Offshore Wind Areas (Planning)": featureLayer2,
-    "Bird Sightings": featureLayer3,
+    // "Bird Sightings": featureLayer3,
     "NOAA Marine Protected Areas": featureLayer4,
-    "Offshore Platforms": featureLayer5
+    // "Offshore Platforms": featureLayer5
     
 };
 
-var legend = L.control({position: 'topleft'});
 
-legend.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'info legend');
-    div.innerHTML +=
-        '<h3 style="text-align: center;">LEGEND</h3>'  +
-            '<i style="background-image: url(\'gold.png\'); background-size: cover;"></i> Offshore Wind Areas (Leased)<br>'+
-        '<i style="background-image: url(\'blue.png\'); background-size: cover;"></i> Offshore Wind Areas (Planning)<br>' +
-        '<i style="background-image: url(\'orange.png\'); background-size: cover;"></i> Bird Sightings<br>' +
-        '<i style="background-image: url(\'red.png\'); background-size: cover;"></i> NOAA Marine Protected Areas<br>' +
-        '<i style="background-image: url(\'offshore platform png.png\'); background-size: cover;"></i> Offshore Platforms<br>';
-//url() function is wrapped in escaped single quotes (\'). This is necessary because the entire string is wrapped in single quotes, so any single quotes insi
-    return div;
-};
-legend.addTo(map);
+
+// var legend = L.control({position: 'topleft'});
+
+// legend.onAdd = function (map) {
+//     var div = L.DomUtil.create('div', 'info legend');
+//     div.innerHTML +=
+//         '<h3 style="text-align: center;">LEGEND</h3>'  +
+//             '<i style="background-image: url(\'gold.png\'); background-size: cover;"></i> Offshore Wind Areas (Leased)<br>'+
+//         '<i style="background-image: url(\'blue.png\'); background-size: cover;"></i> Offshore Wind Areas (Planning)<br>' +
+//         '<i style="background-image: url(\'orange.png\'); background-size: cover;"></i> Bird Sightings<br>' +
+//         '<i style="background-image: url(\'red.png\'); background-size: cover;"></i> NOAA Marine Protected Areas<br>' +
+//         '<i style="background-image: url(\'offshore platform png.png\'); background-size: cover;"></i> Offshore Platforms<br>';
+// //url() function is wrapped in escaped single quotes (\'). This is necessary because the entire string is wrapped in single quotes, so any single quotes insi
+//     return div;
+// };
+// legend.addTo(map);
 //This legend will be added to the map, not the page. If you want to add the legend to the page outside of the map, you would need to use HTML and CSS, not Leaflet.
 
 // // Add the new layer to the overlays object
@@ -882,6 +875,7 @@ legend.addTo(map);
     var baseMaps = {
         "OpenStreetMap": OpenStreetMap,
         "Esri WorldImagery": Esri_WorldImagery,
+
     };
 
     L.control.layers(baseMaps, overlays, {position: 'topleft', collapsed: false}).addTo(map);  //I could possibly add a more layers here depending on the data I want to show
@@ -1009,72 +1003,7 @@ document.getElementById('clear-data-button').addEventListener('click', function(
         featureLayer3.setWhere("EXTRACT(YEAR FROM OBSERVATION_DATE) = " + year + " AND EXTRACT(MONTH FROM OBSERVATION_DATE) = " + month);
     });      
 
-    //slider code
-    $( function() {
-    var monthNames = ["All", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var yearNames = ["All"].concat(Array.from({length: 115}, (_, i) => i + 1910));
-
-
-
-
-    $( "#year-slider" ).slider({
-        min: 0,
-        max: 2024 - 1910 + 1,
-        value: 2000 - 1910 + 1,
-        create: function() {
-            $('#selected-year').text( yearNames[$(this).slider("value")] );
-        },
-        change: function( event, ui ) {
-            var year = ui.value;
-            $('#selected-year').text(yearNames[year]);
-            updateFilter();
-        }
-    });
-
-    $( "#month-slider" ).slider({
-        min: 0,
-        max: 12,
-        value: 0,
-        create: function() {
-            $('#selected-month').text( monthNames[$(this).slider("value")] );
-        },
-        change: function( event, ui ) {
-            var month = ui.value;
-            $('#selected-month').text(monthNames[month]);
-            updateFilter();
-        }
-    });
-
-    function updateFilter() {
-        var year = $( "#year-slider" ).slider("value");
-        var month = $( "#month-slider" ).slider("value");
-
-        if (year === 0) {
-            // If "All Years" is selected, do not filter by year
-            featureLayer3.setWhere("1=1");
-        } else if (month === 0) {
-            // If "All Months" is selected, filter by year only
-            var startOfYear = new Date(year + 1910 - 1, 0, 1);
-            var endOfYear = new Date(year + 1910 - 1, 11, 31);
-            featureLayer3.setWhere("OBSERVATION_DATE >= DATE '" + startOfYear.toISOString().split('T')[0] + "' AND OBSERVATION_DATE <= DATE '" + endOfYear.toISOString().split('T')[0] + "'");
-        } else {
-            // If a specific month is selected, filter by year and month
-            var startOfMonth = new Date(year + 1910 - 1, month - 1, 1);
-            var endOfMonth = new Date(year + 1910 - 1, month, 0);
-            featureLayer3.setWhere("OBSERVATION_DATE >= DATE '" + startOfMonth.toISOString().split('T')[0] + "' AND OBSERVATION_DATE <= DATE '" + endOfMonth.toISOString().split('T')[0] + "'");
-        }
-    }
-
-        // Add click event listener to the clear button
-        $('#clear-button').click(function() {
-        $("#year-slider").slider("value", 0);
-        $("#month-slider").slider("value", 0);
-        $('#selected-year').text(yearNames[0]);
-        $('#selected-month').text(monthNames[0]);
-        updateFilter();
-    });
-
-});
+   
 
 //pushing changes to main branch. save/commit updates the site but not the code in the main branch
 
@@ -1103,6 +1032,7 @@ button.addEventListener('click', function() {
 featureLayer1.eachFeature(function(layer) {
     layer.bindTooltip(layer.feature.properties.COMPANY, { permanent: true, direction: 'auto' });
 });
+
 
 
 </script>
