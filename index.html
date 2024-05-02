@@ -742,11 +742,11 @@ var featureLayer4 = L.esri.featureLayer({
     url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/NOAA_MPA_Clip/FeatureServer/0",
     style: function(feature) {
         switch (feature.properties.class) {  // Replace 'class' with the name of your class attribute
-            case 'IV - Conserve habitat of significant species': return {color: "#ff0000", weight: 2};
-            case 'Ia - Preserve Species, habitats and ecosystem for science': return {color: "#00ff00", weight: 2};
-            case 'V - Maintain harmonious interaction of nature and culture': return {color: "#0000ff", weight: 2};
-            case 'VI - Sustainable use of natural resources management/biodiversity': return {color: "#ffff00", weight: 2};
-            default: return {color: "#ff0000", weight: 2};  // Default style
+            case 'IV - Conserve habitat of significant species': return {color: "#FFFF00.", weight: 2};
+            case 'Ia - Preserve Species, habitats and ecosystem for science': return {color: "##FFFF00.", weight: 2};
+            case 'V - Maintain harmonious interaction of nature and culture': return {color: "#FFFF00.", weight: 2};
+            case 'VI - Sustainable use of natural resources management/biodiversity': return {color: "#FFFF00.", weight: 2};
+            default: return {color: "#ffff00", weight: 2};  // Default style
         }
     },
     
@@ -806,20 +806,80 @@ datasetDiv.innerHTML += html;
 //////////////////////////////////////////////end of layer 4////////changed to hurricane harvey from GEE//////////////////////////////////////
 
 
+// var featureLayer5 = L.esri.featureLayer({
+//     url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/2017_Hurricane_Season/FeatureServer/0',
+//     pointToLayer: function (geojson, latlng) {
+//         return L.circleMarker(latlng, {
+//     color: 'red',
+//     fillColor: '#f03',
+//     fillOpacity: 0.5,
+//     radius: 5
+// });
+
+//     }
+
+
+// });
+
 var featureLayer5 = L.esri.featureLayer({
-    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/HurricaneHarveyTrack/FeatureServer/0',
+    url: 'https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/2017_Hurricane_Season/FeatureServer/0',
     pointToLayer: function (geojson, latlng) {
         return L.circleMarker(latlng, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 5
-});
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 5
+        });
+    },
+    onEachFeature: function(feature, layer) {
+      
+      //label for leafleft. you can scroll over polygon to see the label
+    layer.bindTooltip(function(layer) {
+        return layer.feature.properties.name + ' ' + layer.feature.properties['datetime'];
+    }, { permanent: false, direction: 'auto' });
 
-    }
+         layer.on('click', function() {
+             var contentPanel = document.getElementById('data-display');
+             
+ 
+ // Create a new object with only the properties you want to display.      
+ var relevantProperties = {
+         'Storm Name': feature.properties.name,                //Replace property1, property2, etc. with the actual property names you want to display.
+         'Date/Time': feature.properties.datetime,
+         'Storm Status': feature.properties.status,
+         'Maxium Sustained Wind Speeds (MPH)': feature.properties.max_wind_k,
+         // Add more properties as needed
+         };
+        
+                     // Create a new div element for this dataset
+     var datasetDiv = document.createElement('div');
+     datasetDiv.style.border = '1px solid #ccc';
+     datasetDiv.style.padding = '10px';
+     datasetDiv.style.marginBottom = '10px';
+ 
+                     // Add the relevant properties to the content panel
+                     // contentPanel.innerHTML += JSON.stringify(relevantProperties, null, 2); // this jumbled up my data, so i had to change it so that each set started on a new line
+                     // Add the relevant properties to the content panel with each getting its own line in contents bar 
+                     for (var key in relevantProperties) {
+     if (relevantProperties.hasOwnProperty(key)) {
+         datasetDiv.innerHTML += '<p style="margin: 0;"><strong>' + key + ':</strong> <span style="color:yellow;">' + relevantProperties[key] + '</span></p>';
+     }
+ }
+ 
+ // Add the dataset div to the content panel
+ contentPanel.appendChild(datasetDiv);
+ 
+ // Automatically Show the content panel after click
+ var panel = document.getElementById('content-panel');
+ panel.style.display = 'block';
+        
+ 
+         });
+     }
+ });
 
 
-});
+
 ///////////////////////////////////////END OF hurricane FEATURE LAYER////////////////////////////////////////////
 
 
